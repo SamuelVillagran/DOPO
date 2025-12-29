@@ -1,7 +1,12 @@
-<div alingn="center">
-  <h1>☕ Desarrollo Orientado por Objetos (DOPO/POOB)</h1> 
+<div align="center">
+  <h1>☕ Desarrollo Orientado por Objetos (DOPO/POOB)</h1>
+  
+  ![Java](https://img.shields.io/badge/Language-Java-orange) 
+  ![Status](https://img.shields.io/badge/Status-Educational-blue) 
+  ![Paradigm](https://img.shields.io/badge/Paradigm-OOP-green)
+
+  <p><strong>Guía completa desde fundamentos hasta patrones de diseño</strong></p>
 </div>
-![Java](https://img.shields.io/badge/Language-Java-orange) ![Status](https://img.shields.io/badge/Status-Educational-blue) ![Paradigm](https://img.shields.io/badge/Paradigm-OOP-green)
 
 Bienvenido al repositorio de **DOPO/POOB**. Esta guía condensa todo el recorrido desde los fundamentos de la programación orientada a objetos hasta patrones de diseño avanzados, estructurado sesión por sesión.
 
