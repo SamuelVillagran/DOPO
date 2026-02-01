@@ -188,6 +188,49 @@ public class Rectangle{
         }
     }
 
+    /**
+     * Move the rectangle to the left or right
+     * @param times Number steps that the rectangle will move
+     * A positive value indicates the movemente to the right
+     * A positive value indicates the movemente to the left
+     */
+    public void walk(int times){
+        int steps = times < 0 ? -1 * times : times;
+        for(int i = 0; i < steps; i++){
+            if(times < 0){
+                xPosition --;
+                makeInvisible();
+                makeVisible();
+            }else{
+                xPosition ++;
+                makeInvisible();
+                makeVisible();
+            }
+        }
+    }
+    
+    /**
+     * Constructor class, create a Rectangle given its perimeter
+     * @param perimeter the rectangle's perimeter
+     */
+    public Rectangle(int perimeter){
+        int size = perimeter / 4;
+        height = size;
+        width = size;
+        xPosition = 70;
+        yPosition = 15;
+        color = "magenta";
+        isVisible = false;
+    }
+    
+    /**
+     * Calculates the diagonal of the Rectangle.
+     * @return rectangles diagonal number
+     */
+    public double diagonal(){
+        return Math.sqrt(Math.pow(height, 2) + Math.pow(width, 2));
+    }
+    
     /*
      * Draw the rectangle with current specifications on screen.
      */
