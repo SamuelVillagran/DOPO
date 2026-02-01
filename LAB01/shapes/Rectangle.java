@@ -158,6 +158,35 @@ public class Rectangle{
         color = newColor;
         draw();
     }
+    
+    /**
+     * Give rectangle's perimeter
+     * @return The perimeter of rectangle
+     */
+    public int perimeter() {
+        return 2*(width+height);
+    }
+    
+    /**
+     * Make rectangle more big, simulating you are doing zoom at the screen
+     * @param z It's a char '+' or '-' to make decrement(-)/increment(+) zoom
+     */
+    public void zoom(char z) {
+        switch (z) {
+            case '+':
+                height = height <= 300 ? height << 1 : height;
+                width = width <= 300 ? width << 1 : width;
+                makeInvisible();
+                makeVisible();
+                break;
+            case '-':
+                height = height >= 1 ? height >> 1 : height;
+                width = width >= 1 ? width >> 1 : width;
+                makeInvisible();
+                makeVisible();
+                break;
+        }
+    }
 
     /*
      * Draw the rectangle with current specifications on screen.
