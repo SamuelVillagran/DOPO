@@ -122,4 +122,49 @@ public class Snake
             default: return false;
         }
     }
+    
+    /**
+     * Move the snale in the given direction
+     * @param direcion could take values like nort, west, south, east
+     */
+    public void grow(String direction){
+        if(!canMove(direction)){
+            return;
+        }
+        this.direction = direction;
+        
+        // Change the head position
+        int[] headPos = positionsElements.get(0);
+        int ro = headPos[0];
+        int co = headPos[1];
+        
+        int[] newHead;
+        switch(direction){
+            case "north":
+                newHead = new int[]{ro - 1,co};
+                break;
+            case "east":
+                newHead = new int[]{ro, co + 1};
+                break;
+            case "west":
+                newHead = new int[]{ro, co - 1};
+                break;
+            case "south":
+                newHead = new int[]{ro + 1, co};
+                break;
+            default: return;
+        }
+        
+        positionsElements.add(0, newHead);
+        Rectangle newRectHead = new Rectangle(squareSize);
+        body.add(0, newRectHead);
+        
+        // Actualizar posiciones del cuerpo
+        for(int i = 0; i < body.size(); i++){
+            int[] pos = positionsElements.get(i);
+            int newX = pos[1] * squareSize;
+            int newY = pos[0] * squareSize;
+            body.get(i).setPosition(newX, newY);
+        }
+    }
 }
