@@ -231,6 +231,25 @@ public class Rectangle{
         return Math.sqrt(Math.pow(height, 2) + Math.pow(width, 2));
     }
     
+    /**
+     * Set the the position
+     * @param xPosition the horizontal value wished
+     * @param yPosition the vertical value wished
+     */
+    public void setPosition(int xPosition, int yPosition){
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        draw();
+    }
+    
+    public int getXPosition(){
+        return this.xPosition;
+    }
+    
+    public int getYPosition(){
+        return this.xPosition;
+    }
+    
     /*
      * Draw the rectangle with current specifications on screen.
      */

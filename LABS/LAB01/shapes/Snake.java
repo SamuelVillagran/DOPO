@@ -1,0 +1,125 @@
+import java.util.ArrayList;
+
+/**
+ * Write a description of class Snake here.
+ *
+ * @author Sanchez-Villagran
+ * @version
+ */
+public class Snake
+{
+    private static final int squareSize = 20;
+    private int row;
+    private int col;
+    private Rectangle head;
+    private ArrayList<Rectangle> body;
+    private ArrayList<int[]> positionsElements;
+    private String color;
+    private String direction;
+
+    /**
+     * Constructor for objects of class Snake
+     */
+    public Snake(int row, int col)
+    {
+        this.head = new Rectangle();
+        this.body = new ArrayList<>();
+        this.positionsElements = new ArrayList<>();
+        this.color = "green";
+        this.direction = "east";
+        
+        // preparin elements
+        this.head = new Rectangle(20);
+        this.body.add(this.head);
+        this.head.setPosition(row * squareSize, col * squareSize);
+        this.positionsElements.add(new int[]{row, col});
+    }
+    
+    /**
+     * Get the head position
+     * return an array with[row, col]
+     */
+    public int[] head(){
+        return positionsElements.get(0);
+    }
+    
+    /**
+     * Get the tail position
+     * return an array with[row, col]
+     */
+    public int[] tail(){
+        return positionsElements.get(positionsElements.size() - 1);
+    }
+    
+    /**
+     * Make visisble the snake
+     */
+    public void makeVisible(){
+        for (Rectangle element : body){
+            element.makeVisible();
+        }
+    }
+    
+    /**
+     * Move the snake to a specific direction
+     * @param  direction indicates north, west, south or west direction
+     */
+    public void move(String direction){
+        if(!canMove(direction)){
+            return;
+        }
+        this.direction = direction;
+        
+        // Change the head position
+        int[] headPos = positionsElements.get(0);
+        int ro = headPos[0];
+        int co = headPos[1];
+        
+        int[] newHead;
+        switch(direction){
+            case "north":
+                newHead = new int[]{ro - 1,co};
+                break;
+            case "east":
+                newHead = new int[]{ro, co + 1};
+                break;
+            case "west":
+                newHead = new int[]{ro, co - 1};
+                break;
+            case "south":
+                newHead = new int[]{ro + 1, co};
+                break;
+            default: return;
+        }
+        
+        positionsElements.add(0, newHead);
+        positionsElements.remove(positionsElements.size() - 1);
+        
+        // Actualizar posiciones del cuerpo
+        for(int i = 0; i < body.size(); i++){
+            int[] pos = positionsElements.get(i);
+            int newX = pos[1] * squareSize;
+            int newY = pos[0] * squareSize;
+            body.get(i).setPosition(newX, newY);
+        }
+    }
+    
+    /**
+     * Checks if the snake can move, it can't move to the opossite direction
+     * that actualliy it is
+     * returns true or false
+     */
+    private boolean canMove(String direction){
+        switch(direction){
+            case "east":
+                return !this.direction.equals("west");
+            case "west":
+                return !this.direction.equals("east");
+            case "north":
+                return !this.direction.equals("south");
+            case "south":
+                return !this.direction.equals("north");
+            default: return false;
+        }
+    }
+}
