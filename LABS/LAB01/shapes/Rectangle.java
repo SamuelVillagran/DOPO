@@ -242,10 +242,16 @@ public class Rectangle{
         draw();
     }
     
+    /**
+     * Get the xPosition value
+     */
     public int getXPosition(){
         return this.xPosition;
     }
     
+    /**
+     * Get the yPosition value
+     */
     public int getYPosition(){
         return this.xPosition;
     }

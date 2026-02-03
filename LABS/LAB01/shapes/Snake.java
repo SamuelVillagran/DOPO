@@ -16,6 +16,9 @@ public class Snake
     private ArrayList<int[]> positionsElements;
     private String color;
     private String direction;
+    private boolean lastOk;
+    private boolean isVisible;
+    
 
     /**
      * Constructor for objects of class Snake
@@ -27,9 +30,11 @@ public class Snake
         this.positionsElements = new ArrayList<>();
         this.color = "green";
         this.direction = "east";
+        this.lastOk = true;
         
         // preparin elements
-        this.head = new Rectangle(20);
+        this.head = new Rectangle(80);
+        this.head.changeColor("green");
         this.body.add(this.head);
         this.head.setPosition(row * squareSize, col * squareSize);
         this.positionsElements.add(new int[]{row, col});
@@ -58,6 +63,7 @@ public class Snake
         for (Rectangle element : body){
             element.makeVisible();
         }
+        isVisible = true;
     }
     
     /**
@@ -65,6 +71,7 @@ public class Snake
      * @param  direction indicates north, west, south or west direction
      */
     public void move(String direction){
+        lastOk = false;
         if(!canMove(direction)){
             return;
         }
@@ -102,6 +109,7 @@ public class Snake
             int newY = pos[0] * squareSize;
             body.get(i).setPosition(newX, newY);
         }
+        lastOk = true;
     }
     
     /**
@@ -129,6 +137,7 @@ public class Snake
      */
     public void grow(String direction){
         if(!canMove(direction)){
+            lastOk = false;
             return;
         }
         this.direction = direction;
@@ -156,7 +165,8 @@ public class Snake
         }
         
         positionsElements.add(0, newHead);
-        Rectangle newRectHead = new Rectangle(squareSize);
+        Rectangle newRectHead = new Rectangle(80);
+        newRectHead.changeColor("green");
         body.add(0, newRectHead);
         
         // Actualizar posiciones del cuerpo
@@ -166,5 +176,34 @@ public class Snake
             int newY = pos[0] * squareSize;
             body.get(i).setPosition(newX, newY);
         }
+        lastOk = true;
+        if(isVisible){
+            makeVisible();
+        }
+    }
+    
+    /**
+     * Return if the last movement was valid
+     */
+    public boolean isOk(){
+        return lastOk;
+    }
+    
+    /**
+     * Return the length of the snake
+     */
+    public int length(){
+        return positionsElements.size();
+    }
+    
+    /**
+     * Make visible the snake
+     */
+    public void makeInvisible(){
+        head.makeInvisible();
+        for(Rectangle segment : body){
+            segment.makeInvisible();
+        }
+        isVisible = false;;
     }
 }
