@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Snake
 {
-    private static final int squareSize = 20;
+    private static final int squareSize = 10;
     private int row;
     private int col;
     private Rectangle head;
@@ -33,11 +33,12 @@ public class Snake
         this.lastOk = true;
         
         // preparin elements
-        this.head = new Rectangle(80);
+        this.head = new Rectangle(30);
         this.head.changeColor("green");
         this.body.add(this.head);
-        this.head.setPosition(row * squareSize, col * squareSize);
+        this.head.setPosition(col * squareSize, row * squareSize);
         this.positionsElements.add(new int[]{row, col});
+        makeVisible();
     }
     
     /**
@@ -68,7 +69,7 @@ public class Snake
     
     /**
      * Move the snake to a specific direction
-     * @param  direction indicates north, west, south or west direction
+     * @param  direction indicates north, west, south or east direction
      */
     public void move(String direction){
         lastOk = false;
@@ -185,7 +186,8 @@ public class Snake
     /**
      * Return if the last movement was valid
      */
-    public boolean isOk(){
+    public boolean isOk(){ 
+        // Se verifica cuando se haga el tablero
         return lastOk;
     }
     
