@@ -1,12 +1,15 @@
 #BlueJ class context
 comment0.target=Snake
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Snake\ here.\r\n\r\n\ @author\ Sanchez-Villagran\r\n\ @version\r\n
+comment0.text=\r\n\ This\ will\ be\ the\ player\ snake\ who\ going\ to\ move\ around\ board\r\n\r\n\ @author\ Sanchez-Villagran\r\n\ @version\ 1.0\r\n
 comment1.params=row\ col
 comment1.target=Snake(int,\ int)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Snake\r\n
 comment10.params=
 comment10.target=void\ makeInvisible()
 comment10.text=\r\n\ Make\ visible\ the\ snake\r\n
+comment11.params=
+comment11.target=int\ getSize()
+comment11.text=\r\n\ Give\ snake's\ length\r\n
 comment2.params=
 comment2.target=int[]\ head()
 comment2.text=\r\n\ Get\ the\ head\ position\r\n\ return\ an\ array\ with[row,\ col]\r\n
@@ -31,4 +34,4 @@ comment8.text=\r\n\ Return\ if\ the\ last\ movement\ was\ valid\r\n
 comment9.params=
 comment9.target=int\ length()
 comment9.text=\r\n\ Return\ the\ length\ of\ the\ snake\r\n
-numComments=11
+numComments=12

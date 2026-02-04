@@ -1,14 +1,12 @@
 import java.util.ArrayList;
 
 /**
- * Write a description of class Snake here.
+ * This will be the player snake who going to move around board
  *
  * @author Sanchez-Villagran
- * @version
+ * @version 1.0
  */
-public class Snake
-{
-    private static final int squareSize = 10;
+public class Snake {
     private int row;
     private int col;
     private Rectangle head;
@@ -36,7 +34,7 @@ public class Snake
         this.head = new Rectangle(30);
         this.head.changeColor("blue");
         this.body.add(this.head);
-        this.head.setPosition(col * squareSize, row * squareSize);
+        this.head.setPosition(col * HungrySnakeGame.squareSize, row * HungrySnakeGame.squareSize);
         this.positionsElements.add(new int[]{row, col});
         makeVisible();
     }
@@ -106,8 +104,8 @@ public class Snake
         // Actualizar posiciones del cuerpo
         for(int i = 0; i < body.size(); i++){
             int[] pos = positionsElements.get(i);
-            int newX = pos[1] * squareSize;
-            int newY = pos[0] * squareSize;
+            int newX = pos[1] * HungrySnakeGame.squareSize;
+            int newY = pos[0] * HungrySnakeGame.squareSize;
             body.get(i).setPosition(newX, newY);
         }
         lastOk = true;
@@ -173,8 +171,8 @@ public class Snake
         // Actualizar posiciones del cuerpo
         for(int i = 0; i < body.size(); i++){
             int[] pos = positionsElements.get(i);
-            int newX = pos[1] * squareSize;
-            int newY = pos[0] * squareSize;
+            int newX = pos[1] * HungrySnakeGame.squareSize;
+            int newY = pos[0] * HungrySnakeGame.squareSize;
             body.get(i).setPosition(newX, newY);
         }
         lastOk = true;
@@ -207,5 +205,12 @@ public class Snake
             segment.makeInvisible();
         }
         isVisible = false;;
+    }
+    
+    /**
+     * Give snake's length
+     */
+    public int getSize() {
+        return body.size();
     }
 }

@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=HungrySnakeGame
+comment0.text=\r\n\ This\ is\ the\ board\ where\ going\ to\ set\ objects\ of\ game\r\n\ \r\n\ @author\ Sanchez-Villagran\ \r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=HungrySnakeGame()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ HungrySnakeGame\r\n
+comment2.params=
+comment2.target=void\ putRandomObstacles()
+comment2.text=\r\n\ This\ method\ put\ 3\ new\ obstacles\ at\ the\ board\ in\ random\ positions\r\n\ \r\n
+comment3.params=
+comment3.target=void\ putRandomApple()
+comment3.text=\r\n\ This\ method\ put\ the\ fruit\ at\ the\ board\ in\ random\ positions\r\n
+comment4.params=
+comment4.target=void\ quitApple()
+numComments=5

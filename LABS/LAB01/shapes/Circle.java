@@ -165,6 +165,13 @@ public class Circle{
         draw();
     }
 
+    /**
+     * Define a new position of the circle
+     */
+    public void setPosition(int newXPos, int newYPos) {
+        xPosition = newXPos;
+        yPosition = newYPos;
+    }
 
 
 }
