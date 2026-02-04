@@ -28,13 +28,13 @@ public class Snake
         this.head = new Rectangle();
         this.body = new ArrayList<>();
         this.positionsElements = new ArrayList<>();
-        this.color = "green";
+        this.color = "blue";
         this.direction = "east";
         this.lastOk = true;
         
         // preparin elements
         this.head = new Rectangle(30);
-        this.head.changeColor("green");
+        this.head.changeColor("blue");
         this.body.add(this.head);
         this.head.setPosition(col * squareSize, row * squareSize);
         this.positionsElements.add(new int[]{row, col});
@@ -166,8 +166,8 @@ public class Snake
         }
         
         positionsElements.add(0, newHead);
-        Rectangle newRectHead = new Rectangle(80);
-        newRectHead.changeColor("green");
+        Rectangle newRectHead = new Rectangle(30);
+        newRectHead.changeColor("blue");
         body.add(0, newRectHead);
         
         // Actualizar posiciones del cuerpo
