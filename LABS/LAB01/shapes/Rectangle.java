@@ -232,7 +232,7 @@ public class Rectangle{
     }
     
     /**
-     * Set the the position
+     * Set at the specific rectangle position on the canvas
      * @param xPosition the horizontal value wished
      * @param yPosition the vertical value wished
      */

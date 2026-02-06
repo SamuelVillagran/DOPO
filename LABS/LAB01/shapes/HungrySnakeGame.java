@@ -40,17 +40,17 @@ public class HungrySnakeGame {
         for (int i = 0; i < obstacles.length ; i++) {
             int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
             boolean exists = false;            
-            for (int[] position : postionObstacles) {
-                if (position[0] == newPos[0] && position[1] == newPos[1]) {
-                    exists = !exists;
-                    break;
-                }
-            }
+            for (int[] position : postionObstacles) { //
+                if (position[0] == newPos[0] && position[1] == newPos[1]) { // código ayudado a hacer por IA
+                    exists = !exists; //
+                    break; //
+                } //
+            } //
             
-            if (exists) {
-                i--;
-                continue;
-            }
+            if (exists) { //
+                i--; // 
+                continue; //
+            } //
             
             postionObstacles.add(newPos);
             obstacles[i] = new Rectangle();
@@ -70,7 +70,21 @@ public class HungrySnakeGame {
     private void putRandomApple() {
         apple = new Circle();
         apple.changeSize(10);
-        apple.setPosition(rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize);
+        byte i = 0;
+        while (i < 1) {
+            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
+            boolean exists = false;
+            for (int[] pos : postionObstacles) {
+                if (pos[0] == newPos[0] && pos[1] == newPos[1]) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                apple.setPosition(newPos[0], newPos[1]);
+                i++;
+            }
+        }
         apple.changeColor("red");
         apple.makeVisible();
     }

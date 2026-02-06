@@ -166,7 +166,7 @@ public class Circle{
     }
 
     /**
-     * Define a new position of the circle
+     * Define a new position of the circle on the canvas
      */
     public void setPosition(int newXPos, int newYPos) {
         xPosition = newXPos;
