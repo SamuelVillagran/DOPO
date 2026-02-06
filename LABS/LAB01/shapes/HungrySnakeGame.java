@@ -89,8 +89,10 @@ public class HungrySnakeGame {
         apple.makeVisible();
     }
     
-    private void quitApple() {
+    public void quitApple() {
         apple = null;
         putRandomApple();
     }
+    
+    
 }
