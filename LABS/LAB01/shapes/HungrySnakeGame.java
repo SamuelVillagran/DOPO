@@ -38,14 +38,24 @@ public class HungrySnakeGame {
         postionObstacles = new ArrayList<>(); //Crea la lista de las posiciones random de los obstaculos
         
         for (int i = 0; i < obstacles.length ; i++) {
-            postionObstacles.add(i, new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize});
-            if (postionObstacles.contains(postionObstacles.get(i))) {
-                postionObstacles.remove(i);
-                i--; // Si llega a repetirse la posición se repite esa iteración
+            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
+            boolean exists = false;            
+            for (int[] position : postionObstacles) {
+                if (position[0] == newPos[0] && position[1] == newPos[1]) {
+                    exists = !exists;
+                    break;
+                }
+            }
+            
+            if (exists) {
+                i--;
                 continue;
             }
+            
+            postionObstacles.add(newPos);
             obstacles[i] = new Rectangle();
-            obstacles[i].setPosition(postionObstacles.get(i)[0], postionObstacles.get(i)[1]);
+            obstacles[i].changeSize(10, 10);
+            obstacles[i].setPosition(newPos[1], newPos[0]);
             obstacles[i].changeColor("black");
             obstacles[i].makeVisible();
         }
@@ -62,6 +72,7 @@ public class HungrySnakeGame {
         apple.changeSize(10);
         apple.setPosition(rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize);
         apple.changeColor("red");
+        apple.makeVisible();
     }
     
     private void quitApple() {
