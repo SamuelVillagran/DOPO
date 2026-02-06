@@ -13,7 +13,7 @@ public class Snake {
     private ArrayList<Rectangle> body;
     private ArrayList<int[]> positionsElements;
     private String color;
-    private String direction;
+    private char direction;
     private boolean lastOk;
     private boolean isVisible;
     
@@ -27,7 +27,7 @@ public class Snake {
         this.body = new ArrayList<>();
         this.positionsElements = new ArrayList<>();
         this.color = "blue";
-        this.direction = "east";
+        this.direction = 'e';
         this.lastOk = true;
         
         // preparin elements
@@ -69,7 +69,7 @@ public class Snake {
      * Move the snake to a specific direction
      * @param  direction indicates north, west, south or east direction
      */
-    public void move(String direction){
+    public void move(char direction){
         lastOk = false;
         if(!canMove(direction)){
             return;
@@ -83,16 +83,16 @@ public class Snake {
         
         int[] newHead;
         switch(direction){
-            case "north":
+            case 'n':
                 newHead = new int[]{ro - 1,co};
                 break;
-            case "east":
+            case 'e':
                 newHead = new int[]{ro, co + 1};
                 break;
-            case "west":
+            case 'w':
                 newHead = new int[]{ro, co - 1};
                 break;
-            case "south":
+            case 's':
                 newHead = new int[]{ro + 1, co};
                 break;
             default: return;
@@ -116,16 +116,16 @@ public class Snake {
      * that actualliy it is
      * returns true or false
      */
-    private boolean canMove(String direction){
+    private boolean canMove(char direction){
         switch(direction){
-            case "east":
-                return !this.direction.equals("west");
-            case "west":
-                return !this.direction.equals("east");
-            case "north":
-                return !this.direction.equals("south");
-            case "south":
-                return !this.direction.equals("north");
+            case 'e':
+                return !(this.direction == 'w');
+            case 'w':
+                return !(this.direction == 'e');
+            case 'n':
+                return !(this.direction == 's');
+            case 's':
+                return !(this.direction == 'n');
             default: return false;
         }
     }
@@ -134,7 +134,7 @@ public class Snake {
      * Move the snale in the given direction
      * @param direcion could take values like nort, west, south, east
      */
-    public void grow(String direction){
+    public void grow(char direction){
         if(!canMove(direction)){
             lastOk = false;
             return;
@@ -148,16 +148,16 @@ public class Snake {
         
         int[] newHead;
         switch(direction){
-            case "north":
+            case 'n':
                 newHead = new int[]{ro - 1,co};
                 break;
-            case "east":
+            case 'e':
                 newHead = new int[]{ro, co + 1};
                 break;
-            case "west":
+            case 'w':
                 newHead = new int[]{ro, co - 1};
                 break;
-            case "south":
+            case 's':
                 newHead = new int[]{ro + 1, co};
                 break;
             default: return;
