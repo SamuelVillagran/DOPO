@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  * This will be the player snake who going to move around board
@@ -78,37 +79,35 @@ public class Snake {
         
         // Change the head position
         int[] headPos = positionsElements.get(0);
-        int ro = headPos[0];
-        int co = headPos[1];
+        int[] newHead = getNewPositionHead(headPos, direction);
         
-        int[] newHead;
-        switch(direction){
-            case 'n':
-                newHead = new int[]{ro - 1,co};
-                break;
-            case 'e':
-                newHead = new int[]{ro, co + 1};
-                break;
-            case 'w':
-                newHead = new int[]{ro, co - 1};
-                break;
-            case 's':
-                newHead = new int[]{ro + 1, co};
-                break;
-            default: return;
+        if(colidesWithItself(newHead)){
+            lastOk = false;
+            JOptionPane.showMessageDialog(null, "Snake ha muerto :(");
+            return;
         }
-        
         positionsElements.add(0, newHead);
         positionsElements.remove(positionsElements.size() - 1);
         
-        // Actualizar posiciones del cuerpo
-        for(int i = 0; i < body.size(); i++){
-            int[] pos = positionsElements.get(i);
-            int newX = pos[1] * HungrySnakeGame.squareSize;
-            int newY = pos[0] * HungrySnakeGame.squareSize;
-            body.get(i).setPosition(newX, newY);
-        }
+        updatePositions();
         lastOk = true;
+    }
+    
+    /**
+     * Get the new position depending of the movement.
+     * @return Array with [row, col].
+     */
+    private int[] getNewPositionHead(int[] headpos, char direction){
+        int row = headpos[0];
+        int col = headpos[1];
+        
+        switch(direction) {
+            case 'n': row--; break;
+            case 'w': col--; break;
+            case 's': row++; break;
+            case 'e': col++; break;
+        }
+        return new int[]{row, col};
     }
     
     /**
@@ -143,25 +142,7 @@ public class Snake {
         
         // Change the head position
         int[] headPos = positionsElements.get(0);
-        int ro = headPos[0];
-        int co = headPos[1];
-        
-        int[] newHead;
-        switch(direction){
-            case 'n':
-                newHead = new int[]{ro - 1,co};
-                break;
-            case 'e':
-                newHead = new int[]{ro, co + 1};
-                break;
-            case 'w':
-                newHead = new int[]{ro, co - 1};
-                break;
-            case 's':
-                newHead = new int[]{ro + 1, co};
-                break;
-            default: return;
-        }
+        int[] newHead = getNewPositionHead(headPos, direction);
         
         positionsElements.add(0, newHead);
         Rectangle newRectHead = new Rectangle();
@@ -169,17 +150,35 @@ public class Snake {
         newRectHead.changeColor("blue");
         body.add(0, newRectHead);
         
-        // Actualizar posiciones del cuerpo
+        updatePositions();
+        lastOk = true;
+    }
+    
+    /**
+     * Update the body's snake positions
+     */
+    private void updatePositions(){
         for(int i = 0; i < body.size(); i++){
             int[] pos = positionsElements.get(i);
             int newX = pos[1] * HungrySnakeGame.squareSize;
             int newY = pos[0] * HungrySnakeGame.squareSize;
             body.get(i).setPosition(newX, newY);
         }
-        lastOk = true;
-        if(isVisible){
+         if(isVisible){
             makeVisible();
         }
+    }
+    
+    /**
+     * Check the contact with itself
+     */
+    public boolean colidesWithItself(int[] pos){
+        for(int[] positions: positionsElements){
+            if( pos[0] == positions[0] && pos[1] == positions[1]){
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
