@@ -19,6 +19,7 @@ public class HungrySnakeGame {
     private ArrayList<int[]> postionObstacles;
     private int maxRow = 30;
     private int maxCol = 30;
+    private boolean lastOk;
 
     /**
      * Constructor for objects of class HungrySnakeGame
@@ -58,7 +59,14 @@ public class HungrySnakeGame {
             putRandomApple();
             return;
         }
-        snake.move(direction, maxRow, maxCol);
+        
+        if(!isInBounds(newHeadPos, maxRow, maxCol)){
+            lastOk = false;
+            JOptionPane.showMessageDialog(null, "Snake fuera del tablero :(");
+            return;
+        }
+        
+        snake.move(direction);
     }
 
     /**
@@ -146,6 +154,19 @@ public class HungrySnakeGame {
     private void createNewObstacle(int xPos, int yPos, int indexObstacle) {
         obstacles[indexObstacle] = new Obstacle();
         obstacles[indexObstacle].setPosition(xPos, yPos);
+    }
+    
+    /**
+     * Check if the snake is in bounds limit.
+     */
+    private boolean isInBounds(int[] pos, int maxRow, int maxCol){
+        int row = pos[0];
+        int col = pos[1];
+        if(row >= 0 && col >=0 && row < maxRow && col < maxCol){
+            return true;
+        } else{
+            return false;
+        }
     }
     
     /*

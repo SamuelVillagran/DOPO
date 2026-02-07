@@ -70,7 +70,7 @@ public class Snake {
      * Move the snake to a specific direction
      * @param  direction indicates north, west, south or east direction
      */
-    public void move(char direction, int maxRow, int maxCol){
+    public void move(char direction){
         lastOk = false;
         if(!canMove(direction)){
             return;
@@ -84,12 +84,6 @@ public class Snake {
         if(colidesWithItself(newHead)){
             lastOk = false;
             JOptionPane.showMessageDialog(null, "Snake ha muerto :(");
-            return;
-        }
-        
-        if(!isInBounds(newHead, maxRow, maxCol)){
-            lastOk = false;
-            JOptionPane.showMessageDialog(null, "Snake fuera del tablero :(");
             return;
         }
         
@@ -173,19 +167,6 @@ public class Snake {
         }
          if(isVisible){
             makeVisible();
-        }
-    }
-    
-    /**
-     * Check if the snake is in bounds limit.
-     */
-    private boolean isInBounds(int[] pos, int maxRow, int maxCol){
-        int row = pos[0];
-        int col = pos[1];
-        if(row >= 0 && col >=0 && row < maxRow && col < maxCol){
-            return true;
-        } else{
-            return false;
         }
     }
     
