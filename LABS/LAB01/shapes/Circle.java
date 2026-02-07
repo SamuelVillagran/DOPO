@@ -27,13 +27,10 @@ public class Circle{
         isVisible = false;
     }
 
-
-       
     public void makeVisible(){
         isVisible = true;
         draw();
     }
-    
 
     public void makeInvisible(){
         erase();

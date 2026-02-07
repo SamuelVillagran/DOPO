@@ -12,8 +12,8 @@ public class HungrySnakeGame {
     public static Random rn;
     private int gameState;
     private Snake snake;
-    private Circle apple;
-    private Rectangle[] obstacles;
+    private Fruit fruit;
+    private Obstacle[] obstacles;
     private ArrayList<int[]> postionObstacles;
 
     /**
@@ -21,7 +21,7 @@ public class HungrySnakeGame {
      */
     public HungrySnakeGame() {
         Canvas.getCanvas().changeColorBackground("green");
-        
+        fruit = new Fruit();
         rn = new Random();
         this.snake = new Snake(rn.nextInt(30), rn.nextInt(30));
         putRandomObstacles();
@@ -34,7 +34,7 @@ public class HungrySnakeGame {
      * 
      */
     private void putRandomObstacles() {
-        obstacles = new Rectangle[3];
+        obstacles = new Obstacle[3];
         postionObstacles = new ArrayList<>(); //Crea la lista de las posiciones random de los obstaculos
         
         for (int i = 0; i < obstacles.length ; i++) {
@@ -53,23 +53,17 @@ public class HungrySnakeGame {
             } //
             
             postionObstacles.add(newPos);
-            obstacles[i] = new Rectangle();
-            obstacles[i].changeSize(10, 10);
             obstacles[i].setPosition(newPos[1], newPos[0]);
-            obstacles[i].changeColor("black");
-            obstacles[i].makeVisible();
+            
         }
-        
+
     }
-    
-    
     
     /**
      * This method put the fruit at the board in random positions
      */
     private void putRandomApple() {
-        apple = new Circle();
-        apple.changeSize(10);
+        Fruit fruit = new Fruit();
         byte i = 0;
         while (i < 1) {
             int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
@@ -81,18 +75,26 @@ public class HungrySnakeGame {
                 }
             }
             if (!exists) {
-                apple.setPosition(newPos[0], newPos[1]);
+                fruit.setPosition(newPos[0], newPos[1]);
                 i++;
             }
         }
-        apple.changeColor("red");
-        apple.makeVisible();
     }
     
-    public void quitApple() {
-        apple = null;
+    /**
+     * Delete the fuits of the game
+     */
+    public void quitFruits() {
+        fruit = null;
         putRandomApple();
     }
     
-    
+    /**
+     * Move the snake to a determinated position
+     */
+    public void moveSnake(char direction){
+        if(snake != null){
+            snake.move(direction);
+        }
+    }
 }

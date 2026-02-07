@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Fruit
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Fruit\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Fruit()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Fruit\r\n
+comment2.params=
+comment2.target=void\ makeVisible()
+comment2.text=\r\n\ Make\ visible\ the\ fruit\r\n
+comment3.params=
+comment3.target=void\ makeInvisible()
+comment3.text=\r\n\ Make\ invisble\ the\ fruit\r\n
+comment4.params=xPos\ yPos
+comment4.target=void\ setPosition(int,\ int)
+numComments=5
