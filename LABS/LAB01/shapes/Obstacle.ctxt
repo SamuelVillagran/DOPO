@@ -6,4 +6,6 @@ comment1.target=Obstacle()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Obtacle\r\n
 comment2.params=xPos\ yPos
 comment2.target=void\ setPosition(int,\ int)
-numComments=3
+comment3.params=
+comment3.target=void\ makeInvisible()
+numComments=4

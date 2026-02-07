@@ -214,4 +214,11 @@ public class Snake {
     public int getSize() {
         return body.size();
     }
+    
+    /**
+     * This method give the snake's body
+     */
+    public ArrayList<Rectangle> getBody() {
+        return body;
+    }
 }

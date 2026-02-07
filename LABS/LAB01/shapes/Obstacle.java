@@ -25,4 +25,8 @@ public class Obstacle
         square.makeInvisible();
         square.makeVisible();
     }
+    
+    public void makeInvisible() {
+        square.makeInvisible();
+    }
 }
