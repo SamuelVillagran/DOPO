@@ -1,19 +1,31 @@
 #BlueJ package file
+<<<<<<< Updated upstream
 dependency1.from=Circle
 dependency1.to=Canvas
 dependency1.type=UsesDependency
 dependency2.from=Fruit
 dependency2.to=Circle
+=======
+dependency1.from=Rectangle
+dependency1.to=Canvas
+dependency1.type=UsesDependency
+dependency10.from=HungrySnakeGame
+dependency10.to=Canvas
+dependency10.type=UsesDependency
+dependency2.from=Obstacle
+dependency2.to=Rectangle
+>>>>>>> Stashed changes
 dependency2.type=UsesDependency
-dependency3.from=HungrySnakeGame
-dependency3.to=Snake
+dependency3.from=Fruit
+dependency3.to=Circle
 dependency3.type=UsesDependency
-dependency4.from=HungrySnakeGame
-dependency4.to=Fruit
+dependency4.from=Fruit
+dependency4.to=HungrySnakeGame
 dependency4.type=UsesDependency
-dependency5.from=HungrySnakeGame
-dependency5.to=Obstacle
+dependency5.from=Snake
+dependency5.to=Rectangle
 dependency5.type=UsesDependency
+<<<<<<< Updated upstream
 dependency6.from=HungrySnakeGame
 dependency6.to=Canvas
 dependency6.type=UsesDependency
@@ -38,6 +50,35 @@ package.editor.y=0
 package.frame.height=822
 package.frame.width=693
 package.numDependencies=8
+=======
+dependency6.from=Snake
+dependency6.to=HungrySnakeGame
+dependency6.type=UsesDependency
+dependency7.from=HungrySnakeGame
+dependency7.to=Snake
+dependency7.type=UsesDependency
+dependency8.from=HungrySnakeGame
+dependency8.to=Fruit
+dependency8.type=UsesDependency
+dependency9.from=HungrySnakeGame
+dependency9.to=Obstacle
+dependency9.type=UsesDependency
+editor.fx.0.height=737
+editor.fx.0.width=814
+editor.fx.0.x=3
+editor.fx.0.y=37
+objectbench.height=192
+objectbench.width=432
+package.divider.horizontal=0.5891327623126338
+package.divider.vertical=0.7228682170542636
+package.editor.height=516
+package.editor.width=655
+package.editor.x=761
+package.editor.y=0
+package.frame.height=822
+package.frame.width=780
+package.numDependencies=10
+>>>>>>> Stashed changes
 package.numTargets=7
 package.showExtends=true
 package.showUses=true
@@ -61,21 +102,21 @@ target2.showInterface=false
 target2.type=ClassTarget
 target2.width=120
 target2.x=90
-target2.y=420
+target2.y=410
 target3.height=70
 target3.name=Fruit
 target3.showInterface=false
 target3.type=ClassTarget
 target3.width=120
-target3.x=340
+target3.x=400
 target3.y=410
 target4.height=70
 target4.name=Snake
 target4.showInterface=false
 target4.type=ClassTarget
 target4.width=120
-target4.x=420
-target4.y=190
+target4.x=460
+target4.y=20
 target5.height=70
 target5.name=Canvas
 target5.showInterface=false
@@ -95,5 +136,10 @@ target7.name=HungrySnakeGame
 target7.showInterface=false
 target7.type=ClassTarget
 target7.width=150
+<<<<<<< Updated upstream
 target7.x=190
 target7.y=320
+=======
+target7.x=240
+target7.y=280
+>>>>>>> Stashed changes
