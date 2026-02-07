@@ -30,7 +30,7 @@ public class Snake {
         this.direction = 'e';
         this.lastOk = true;
         
-        // preparin elements
+        // preparing elements
         this.head = new Rectangle();
         head.changeSize(10, 10);
         this.head.changeColor("blue");

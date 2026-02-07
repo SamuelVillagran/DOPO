@@ -20,9 +20,26 @@ public class Obstacle
         
     }
 
+    /**
+     * Set the position to a specific coordinates
+     */
     public void setPosition(int xPos, int yPos) {
         square.setPosition(xPos, yPos);
         square.makeInvisible();
+        square.makeVisible();
+    }
+
+    /**
+     * Change the obstacle to invisible
+     */
+    public void makeInvisible(){
+        square.makeInvisible();
+    }
+    
+    /**
+     * Change the obstacle to visible
+     */
+    public void makeVisible(){
         square.makeVisible();
     }
 }

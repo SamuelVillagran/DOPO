@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  * This is the board where going to set objects of game
@@ -44,9 +45,66 @@ public class HungrySnakeGame {
      * Move the snake to a determinated position
      */
     public void moveSnake(char direction){
-        if(snake != null){
-            snake.move(direction, maxRow, maxCol);
+        int[] newHeadPos = getNewPositionHead(direction);
+        
+        if(collidesWithObstacle(newHeadPos)){
+            JOptionPane.showMessageDialog(null, "Haz chocado con un obstaculo :( Intenta De nuevo");
+            return;
         }
+        
+        if(collidesWithFruit(newHeadPos)){
+            snake.grow(direction);
+            fruit.makeInvisible();
+            putRandomApple();
+            return;
+        }
+        snake.move(direction, maxRow, maxCol);
+    }
+
+    /**
+     * Get the new position depending of the movement.
+     * @return Array with [row, col].
+     */
+    private int[] getNewPositionHead(char direction){
+        int[] headPos = snake.head();
+        int row = headPos[0];
+        int col = headPos[1];
+        switch(direction) {
+            case 'n': row--; break;
+            case 'w': col--; break;
+            case 's': row++; break;
+            case 'e': col++; break;
+        }
+        return new int[]{row, col};
+    }
+    
+    /**
+     * Check the collision with fruits
+     */
+    private boolean collidesWithFruit(int[] pos){
+        int[] fruitPos = fruit.getPosition();
+        if(pos[0] == fruitPos[0] && pos[1] == fruitPos[1]){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    
+    /**
+     * Check the collision with fruits
+     */
+    private boolean collidesWithObstacle(int[] pos){
+        int boardRow = pos[0];
+        int boardCol = pos[1];
+        
+        for(int[] obstaclePos : postionObstacles){
+            int obstacleRow = obstaclePos[0] / squareSize;
+            int obstacleCol = obstaclePos[1] / squareSize;
+            if(boardCol == obstacleCol && boardRow == obstacleRow){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -78,7 +136,6 @@ public class HungrySnakeGame {
         }
 
     }
-    
     
     /*
      * Create a new obstacle and this is added at the obstacles ArrayList
@@ -113,4 +170,35 @@ public class HungrySnakeGame {
             }
         }
     }
+    
+    /**
+     * Restart the game with a new snake
+     */
+    public void restart(){
+        int option = JOptionPane.showConfirmDialog(null, "¿Desea reiniciar el juego?", "Game Over",
+        JOptionPane.YES_NO_OPTION);
+        if(option != JOptionPane.YES_OPTION){
+            return;
+        }
+        
+        if(snake != null){
+            snake.makeInvisible();
+        }
+        
+        if(fruit != null){
+            fruit.makeInvisible();
+        }
+        
+        if(obstacles != null){
+            for(Obstacle obs : obstacles){
+                obs.makeInvisible();
+            }
+        }
+        
+        this.snake = new Snake(rn.nextInt(maxRow), rn.nextInt(maxCol));
+        putRandomObstacles();
+        putRandomApple();
+        gameState = snake.getSize();
+    }
+    
 }

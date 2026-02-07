@@ -7,7 +7,7 @@
  */
 public class Fruit
 {
-    private int xPsoition;
+    private int xPosition;
     private int yPosition;
     private Circle body;
 
@@ -34,7 +34,16 @@ public class Fruit
         body.makeInvisible();
     }
     
+    /**
+     * Get the position in coodinates of matrix[row, col]
+     */
+    public int[] getPosition(){
+        return new int[]{yPosition / HungrySnakeGame.squareSize, xPosition / HungrySnakeGame.squareSize};
+    }
+
     public void setPosition(int xPos, int yPos) {
+        this.xPosition = xPos;
+        this.yPosition = yPos;
         body.setPosition(xPos, yPos);
     }
 }
