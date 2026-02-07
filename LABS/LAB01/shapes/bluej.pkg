@@ -1,11 +1,4 @@
 #BlueJ package file
-<<<<<<< Updated upstream
-dependency1.from=Circle
-dependency1.to=Canvas
-dependency1.type=UsesDependency
-dependency2.from=Fruit
-dependency2.to=Circle
-=======
 dependency1.from=Rectangle
 dependency1.to=Canvas
 dependency1.type=UsesDependency
@@ -14,7 +7,6 @@ dependency10.to=Canvas
 dependency10.type=UsesDependency
 dependency2.from=Obstacle
 dependency2.to=Rectangle
->>>>>>> Stashed changes
 dependency2.type=UsesDependency
 dependency3.from=Fruit
 dependency3.to=Circle
@@ -25,32 +17,6 @@ dependency4.type=UsesDependency
 dependency5.from=Snake
 dependency5.to=Rectangle
 dependency5.type=UsesDependency
-<<<<<<< Updated upstream
-dependency6.from=HungrySnakeGame
-dependency6.to=Canvas
-dependency6.type=UsesDependency
-dependency7.from=Snake
-dependency7.to=Rectangle
-dependency7.type=UsesDependency
-dependency8.from=Snake
-dependency8.to=HungrySnakeGame
-dependency8.type=UsesDependency
-editor.fx.0.height=737
-editor.fx.0.width=814
-editor.fx.0.x=360
-editor.fx.0.y=26
-objectbench.height=189
-objectbench.width=389
-package.divider.horizontal=0.6003030303030303
-package.divider.vertical=0.7270210409745295
-package.editor.height=505
-package.editor.width=554
-package.editor.x=0
-package.editor.y=0
-package.frame.height=822
-package.frame.width=693
-package.numDependencies=8
-=======
 dependency6.from=Snake
 dependency6.to=HungrySnakeGame
 dependency6.type=UsesDependency
@@ -66,19 +32,18 @@ dependency9.type=UsesDependency
 editor.fx.0.height=737
 editor.fx.0.width=814
 editor.fx.0.x=3
-editor.fx.0.y=37
+editor.fx.0.y=36
 objectbench.height=192
-objectbench.width=432
-package.divider.horizontal=0.5891327623126338
+objectbench.width=439
+package.divider.horizontal=0.5997854077253219
 package.divider.vertical=0.7228682170542636
 package.editor.height=516
-package.editor.width=655
-package.editor.x=761
+package.editor.width=654
+package.editor.x=760
 package.editor.y=0
 package.frame.height=822
 package.frame.width=780
 package.numDependencies=10
->>>>>>> Stashed changes
 package.numTargets=7
 package.showExtends=true
 package.showUses=true
@@ -136,10 +101,5 @@ target7.name=HungrySnakeGame
 target7.showInterface=false
 target7.type=ClassTarget
 target7.width=150
-<<<<<<< Updated upstream
-target7.x=190
-target7.y=320
-=======
 target7.x=240
 target7.y=280
->>>>>>> Stashed changes
