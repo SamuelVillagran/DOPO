@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class HungrySnakeGame {
     public static final int squareSize = 10;
+    public static final int numObstacles = 3;
     public static Random rn;
     private int gameState;
     private Snake snake;
@@ -28,58 +29,6 @@ public class HungrySnakeGame {
         putRandomApple();
         gameState = snake.getSize();
     }
-
-    /**
-     * This method put 3 new obstacles at the board in random positions
-     * 
-     */
-    private void putRandomObstacles() {
-        obstacles = new Obstacle[3];
-        postionObstacles = new ArrayList<>(); //Crea la lista de las posiciones random de los obstaculos
-        
-        for (int i = 0; i < obstacles.length ; i++) {
-            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
-            boolean exists = false;            
-            for (int[] position : postionObstacles) { //
-                if (position[0] == newPos[0] && position[1] == newPos[1]) { // código ayudado a hacer por IA
-                    exists = !exists; //
-                    break; //
-                } //
-            } //
-            
-            if (exists) { //
-                i--; // 
-                continue; //
-            } //
-            
-            postionObstacles.add(newPos);
-            obstacles[i].setPosition(newPos[1], newPos[0]);
-            
-        }
-
-    }
-    
-    /**
-     * This method put the fruit at the board in random positions
-     */
-    private void putRandomApple() {
-        Fruit fruit = new Fruit();
-        byte i = 0;
-        while (i < 1) {
-            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
-            boolean exists = false;
-            for (int[] pos : postionObstacles) {
-                if (pos[0] == newPos[0] && pos[1] == newPos[1]) {
-                    exists = true;
-                    break;
-                }
-            }
-            if (!exists) {
-                fruit.setPosition(newPos[0], newPos[1]);
-                i++;
-            }
-        }
-    }
     
     /**
      * Delete the fuits of the game
@@ -95,6 +44,71 @@ public class HungrySnakeGame {
     public void moveSnake(char direction){
         if(snake != null){
             snake.move(direction);
+        }
+    }
+
+    /**
+     * This method put 3 new obstacles at the board in random positions
+     * 
+     */
+    private void putRandomObstacles() {
+        obstacles = new Obstacle[3];
+        postionObstacles = new ArrayList<>(); //Crea la lista de las posiciones random de los obstaculos
+        
+        for (int i = 0; i < numObstacles; i++) {
+            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
+            boolean exists = false;            
+            for (int[] position : postionObstacles) { //
+                if (position[0] == newPos[0] && position[1] == newPos[1]) { // código ayudado a hacer por IA
+                    exists = !exists; //
+                    break; //
+                } //
+            } //
+            
+            if (exists) { //
+                i--; // 
+                continue; //
+            } //
+            
+            postionObstacles.add(newPos);
+            createNewObstacle(newPos[1], newPos[0], i);
+            
+        }
+
+    }
+    
+    
+    /*
+     * Create a new obstacle and this is added at the obstacles ArrayList
+     * @param xPos xPos is the x's coordenade going to set the obstacle created
+     * @param yPos yPos is the y's coordenade going to set the obstacle created
+     * @param indexObstacle indexObstacle is the index specific of the object at the collection obstacles
+     */
+    private void createNewObstacle(int xPos, int yPos, int indexObstacle) {
+        obstacles[indexObstacle] = new Obstacle();
+        obstacles[indexObstacle].setPosition(xPos, yPos);
+    }
+    
+    /*
+     * This method put the fruit at the board in random positions
+     */
+    private void putRandomApple() {
+        fruit = new Fruit();
+        byte i = 0;
+        while (i < 1) {
+            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
+            boolean exists = false;
+            for (int[] pos : postionObstacles) {
+                if (pos[0] == newPos[0] && pos[1] == newPos[1]) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                fruit.setPosition(newPos[0], newPos[1]);
+                fruit.makeVisible();
+                i++;
+            }
         }
     }
 }

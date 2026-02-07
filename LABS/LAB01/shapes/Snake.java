@@ -21,8 +21,7 @@ public class Snake {
     /**
      * Constructor for objects of class Snake
      */
-    public Snake(int row, int col)
-    {
+    public Snake(int row, int col) {
         this.head = new Rectangle();
         this.body = new ArrayList<>();
         this.positionsElements = new ArrayList<>();
@@ -31,7 +30,8 @@ public class Snake {
         this.lastOk = true;
         
         // preparin elements
-        this.head = new Rectangle(30);
+        this.head = new Rectangle();
+        head.changeSize(10, 10);
         this.head.changeColor("blue");
         this.body.add(this.head);
         this.head.setPosition(col * HungrySnakeGame.squareSize, row * HungrySnakeGame.squareSize);
@@ -164,7 +164,8 @@ public class Snake {
         }
         
         positionsElements.add(0, newHead);
-        Rectangle newRectHead = new Rectangle(30);
+        Rectangle newRectHead = new Rectangle();
+        newRectHead.changeSize(10, 10);
         newRectHead.changeColor("blue");
         body.add(0, newRectHead);
         

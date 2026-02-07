@@ -17,10 +17,12 @@ public class Obstacle
         square = new Rectangle();
         square.changeSize(10, 10);
         square.changeColor("black");
-        square.makeVisible();
+        
     }
 
     public void setPosition(int xPos, int yPos) {
         square.setPosition(xPos, yPos);
+        square.makeInvisible();
+        square.makeVisible();
     }
 }

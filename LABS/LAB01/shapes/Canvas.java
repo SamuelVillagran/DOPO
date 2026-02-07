@@ -142,7 +142,13 @@ public class Canvas{
         try{
             Thread.sleep(milliseconds);
         } catch (Exception e){
-            // ignoring exception at the moment
+            
+        }
+    }
+    
+    public void changeColorBackground(String color) {
+        if (color.equals("green")) {
+            this.backgroundColour = new Color(70, 115, 70);
         }
     }
 
@@ -200,19 +206,5 @@ public class Canvas{
             graphic.fill(shape);
         }
     }
-    
-    
-    public void changeColorBackground(String color) {
-        switch (color) {
-            case "green":
-                backgroundColour = new Color(0, 160, 0);
-                break;
-            case "white":
-                backgroundColour = Color.white;
-                break;
-            default: 
-                backgroundColour = Color.white;
-                break;
-        }
-    }
+
 }
