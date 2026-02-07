@@ -16,6 +16,8 @@ public class HungrySnakeGame {
     private Fruit fruit;
     private Obstacle[] obstacles;
     private ArrayList<int[]> postionObstacles;
+    private int maxRow = 30;
+    private int maxCol = 30;
 
     /**
      * Constructor for objects of class HungrySnakeGame
@@ -24,7 +26,7 @@ public class HungrySnakeGame {
         Canvas.getCanvas().changeColorBackground("green");
         fruit = new Fruit();
         rn = new Random();
-        this.snake = new Snake(rn.nextInt(30), rn.nextInt(30));
+        this.snake = new Snake(rn.nextInt(maxRow), rn.nextInt(maxCol));
         putRandomObstacles();
         putRandomApple();
         gameState = snake.getSize();
@@ -43,7 +45,7 @@ public class HungrySnakeGame {
      */
     public void moveSnake(char direction){
         if(snake != null){
-            snake.move(direction);
+            snake.move(direction, maxRow, maxCol);
         }
     }
 
@@ -56,7 +58,7 @@ public class HungrySnakeGame {
         postionObstacles = new ArrayList<>(); //Crea la lista de las posiciones random de los obstaculos
         
         for (int i = 0; i < numObstacles; i++) {
-            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
+            int[] newPos = new int[] {rn.nextInt(maxRow)*squareSize, rn.nextInt(maxCol)*squareSize};
             boolean exists = false;            
             for (int[] position : postionObstacles) { //
                 if (position[0] == newPos[0] && position[1] == newPos[1]) { // código ayudado a hacer por IA
@@ -96,7 +98,7 @@ public class HungrySnakeGame {
         fruit = new Fruit();
         byte i = 0;
         while (i < 1) {
-            int[] newPos = new int[] {rn.nextInt(30)*squareSize, rn.nextInt(30)*squareSize};
+            int[] newPos = new int[] {rn.nextInt(maxRow)*squareSize, rn.nextInt(maxCol)*squareSize};
             boolean exists = false;
             for (int[] pos : postionObstacles) {
                 if (pos[0] == newPos[0] && pos[1] == newPos[1]) {
