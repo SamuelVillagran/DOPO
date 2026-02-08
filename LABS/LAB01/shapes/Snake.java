@@ -12,7 +12,7 @@ public class Snake {
     private int col;
     private Rectangle head;
     private ArrayList<Rectangle> body;
-    private ArrayList<int[]> positionsElements;
+    private ArrayList<int[]> positionsElements; // position of body's parts
     private String color;
     private char direction;
     private boolean lastOk;
@@ -94,7 +94,7 @@ public class Snake {
         lastOk = true;
     }
     
-    /**
+    /*
      * Get the new position depending of the movement.
      * @return Array with [row, col].
      */
@@ -111,7 +111,7 @@ public class Snake {
         return new int[]{row, col};
     }
     
-    /**
+    /*
      * Checks if the snake can move, it can't move to the opossite direction
      * that actualliy it is
      * returns true or false
@@ -155,7 +155,7 @@ public class Snake {
         lastOk = true;
     }
     
-    /**
+    /*
      * Update the body's snake positions
      */
     private void updatePositions(){
@@ -210,6 +210,7 @@ public class Snake {
     
     /**
      * Give snake's length
+     * @return Give length of snake
      */
     public int getSize() {
         return body.size();
@@ -217,8 +218,25 @@ public class Snake {
     
     /**
      * This method give the snake's body
+     * @return Give the snake's body on a rectangle's ArrayList
      */
     public ArrayList<Rectangle> getBody() {
         return body;
+    }
+    
+    /**
+     * Get the row where is the snake
+     * @return Return the row where is the snake
+     */
+    public int getRow() {
+        return row;
+    }
+    
+    /**
+     * Get the column where is the snake
+     * @return Return the column where is the snake
+     */
+    public int getCol() {
+        return col;
     }
 }

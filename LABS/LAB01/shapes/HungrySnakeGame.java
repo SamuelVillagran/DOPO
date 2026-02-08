@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.util.stream.IntStream;
 
 /**
  * This is the board where going to set objects of game
@@ -116,7 +117,21 @@ public class HungrySnakeGame {
     public int gameState() {
         return gameState;
     }
-
+    
+    /**
+     * Makes a good movement to go to the next fruit
+     */
+    public void goodMovIA() {
+        int snkCol = snake.getCol();
+        int snkRow = snake.getRow();
+        int frtCol = fruit.getPosition()[1];
+        int frtRow = fruit.getPosition()[0];
+        int max = (frtCol - snkCol) > (frtRow - snkRow) ? (frtCol - snkCol) : (frtRow - snkRow);
+        
+        if (max > 0) {
+            
+        }
+    }
     /*
      * Get the new position depending of the movement.
      * @return Array with [row, col].

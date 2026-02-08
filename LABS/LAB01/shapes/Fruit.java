@@ -41,9 +41,15 @@ public class Fruit
         return new int[]{yPosition / HungrySnakeGame.SQUARESIZE, xPosition / HungrySnakeGame.SQUARESIZE};
     }
 
+    /**
+     * Set the position of fruit
+     * @param xPos xPos is the new x coordenade to that going to change the fruit
+     * @param yPos yPos is the new y coordenade to that going to change the fruit
+     */
     public void setPosition(int xPos, int yPos) {
         this.xPosition = xPos;
         this.yPosition = yPos;
         body.setPosition(xPos, yPos);
     }
+    
 }
