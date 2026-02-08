@@ -19,7 +19,6 @@ public class HungrySnakeGame {
     private Fruit fruit;
     private Obstacle[] obstacles;
     private ArrayList<int[]> postionObstacles;
-    
     private boolean lastOk;
 
     /**
@@ -58,6 +57,7 @@ public class HungrySnakeGame {
             snake.grow(direction);
             fruit.makeInvisible();
             putRandomApple();
+            gameState = snake.getSize();
             return;
         }
         
@@ -68,6 +68,53 @@ public class HungrySnakeGame {
         }
         
         snake.move(direction, this);
+    }
+    
+    /**
+     * Show the message gameOver
+     */
+    public void gameOver() {
+        String[] options = {"Retry", "Exit"};
+        int answer = JOptionPane.showOptionDialog( // Ayudado por IA
+            null, 
+            "You lose!, but don't give up, the greatest humans are made from persistence", 
+            "Game Over", 
+            JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.INFORMATION_MESSAGE, 
+            null, 
+            options,
+            options[0]
+        );
+        
+        if (answer == JOptionPane.YES_OPTION) {
+            rebootGame();
+        }
+        
+        if (answer == JOptionPane.NO_OPTION) {
+            System.exit(0);
+        }
+    }
+    
+    /**
+     * Check the collision with fruits
+     */
+    public void rebootGame() {
+        eraseObjects();
+        
+        setUp();
+        putRandomObstacles();
+        putRandomApple();
+        gameState = snake.getSize();
+        Canvas.getCanvas().erase(Canvas.getCanvas());
+        postionObstacles.clear();
+        gameState = snake.getSize();
+    }
+    
+    /**
+     * Get the state of game
+     */
+    public int gameState() {
+        return gameState;
     }
 
     /*
@@ -202,30 +249,6 @@ public class HungrySnakeGame {
         this.snake = new Snake(rn.nextInt(30), rn.nextInt(30));
     }
     
-    /**
-     * Show the message gameOver
-     */
-    public void gameOver() {
-        String[] options = {"Retry", "Exit"};
-        int answer = JOptionPane.showOptionDialog( // Ayudado por IA
-            null, 
-            "You lose!, but don't give up, the greatest humans are made from persistence", 
-            "Game Over", 
-            JOptionPane.DEFAULT_OPTION, 
-            JOptionPane.INFORMATION_MESSAGE, 
-            null, 
-            options,
-            options[0]
-        );
-        
-        if (answer == JOptionPane.YES_OPTION) {
-            rebootGame();
-        }
-        
-        if (answer == JOptionPane.NO_OPTION) {
-            System.exit(0);
-        }
-    }
     
     /*
      * Quit objects of the screen from canvas
@@ -242,19 +265,5 @@ public class HungrySnakeGame {
         Canvas.getCanvas().erase(this);
     }
     
-    /**
-     * Check the collision with fruits
-     */
-    public void rebootGame() {
-        
-        eraseObjects();
-        
-        setUp();
-        putRandomObstacles();
-        putRandomApple();
-        gameState = snake.getSize();
-        Canvas.getCanvas().erase(Canvas.getCanvas());
-        postionObstacles.clear();
-        gameState = snake.getSize();
-    }
+    
 }
