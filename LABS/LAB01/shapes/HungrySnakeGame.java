@@ -62,7 +62,7 @@ public class HungrySnakeGame {
         
         if(!isInBounds(newHeadPos, maxRow, maxCol)){
             lastOk = false;
-            JOptionPane.showMessageDialog(null, "Snake fuera del tablero :(");
+            gameOver();
             return;
         }
         
@@ -192,34 +192,63 @@ public class HungrySnakeGame {
         }
     }
     
-    /**
-     * Restart the game with a new snake
+    /*
+     * Inicializate some variables 
      */
-    public void restart(){
-        int option = JOptionPane.showConfirmDialog(null, "¿Desea reiniciar el juego?", "Game Over",
-        JOptionPane.YES_NO_OPTION);
-        if(option != JOptionPane.YES_OPTION){
-            return;
+    private void setUp() {
+        fruit = new Fruit();
+        rn = new Random();
+        this.snake = new Snake(rn.nextInt(30), rn.nextInt(30));
+    }
+    
+    /**
+     * Show the message gameOver
+     */
+    private void gameOver() {
+        int answer = JOptionPane.showConfirmDialog( // Ayudado por IA
+            null, 
+            "You lose!, but don't give up, the greatest humans are made from persistence", 
+            "Game Over", 
+            JOptionPane.YES_NO_OPTION
+        );
+        
+        if (answer == JOptionPane.YES_OPTION) {
+            rebootGame();
         }
         
-        if(snake != null){
-            snake.makeInvisible();
+        if (answer == JOptionPane.NO_OPTION) {
+            System.exit(0);
         }
-        
-        if(fruit != null){
-            fruit.makeInvisible();
+    }
+    
+    /*
+     * Quit some objects of the screen from canvas
+     */
+    private void eraseObjects() {
+        for (Obstacle obs: obstacles) {
+            obs.makeInvisible();
+            Canvas.getCanvas().erase(obs);
         }
+        fruit.makeInvisible();
+        Canvas.getCanvas().erase(fruit);
+        snake.makeInvisible();
+        Canvas.getCanvas().erase(snake);
+        Canvas.getCanvas().erase(this);
+    }
+    
+    /*
+     * Check the collision with fruits
+     */
+    public void rebootGame() {
         
-        if(obstacles != null){
-            for(Obstacle obs : obstacles){
-                obs.makeInvisible();
-            }
-        }
+        eraseObjects();
         
-        this.snake = new Snake(rn.nextInt(maxRow), rn.nextInt(maxCol));
+        setUp();
         putRandomObstacles();
         putRandomApple();
         gameState = snake.getSize();
+        Canvas.getCanvas().erase(Canvas.getCanvas());
+        postionObstacles.clear();
+        gameState = snake.getSize();
     }
-    
 }
