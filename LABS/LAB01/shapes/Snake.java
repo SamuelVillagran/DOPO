@@ -17,6 +17,10 @@ public class Snake {
     private char direction;
     private boolean lastOk;
     private boolean isVisible;
+    private static final int CELL_SIZE = 10;
+    private Circle leftEye;
+    private Circle rightEye;
+    private Rectangle tongue;
     
 
     /**
@@ -32,12 +36,24 @@ public class Snake {
         
         // preparing elements
         this.head = new Rectangle();
-        head.changeSize(10, 10);
+        head.changeSize(CELL_SIZE, CELL_SIZE);
         this.head.changeColor("blue");
         this.body.add(this.head);
         this.head.setPosition(col * HungrySnakeGame.squareSize, row * HungrySnakeGame.squareSize);
         this.positionsElements.add(new int[]{row, col});
+        // setting eyes
+        leftEye = new Circle();
+        leftEye.changeSize(2);
+        leftEye.changeColor("white");
+        rightEye = new Circle();
+        rightEye.changeSize(2);
+        rightEye.changeColor("white");
+        tongue = new Rectangle();
+        tongue.changeSize(5, 2);
+        tongue.changeColor("red");
+        setupFace(direction);
         makeVisible();
+        
     }
     
     /**
@@ -63,6 +79,9 @@ public class Snake {
         for (Rectangle element : body){
             element.makeVisible();
         }
+        rightEye.makeVisible();
+        leftEye.makeVisible();
+        tongue.makeVisible();
         isVisible = true;
     }
     
@@ -73,6 +92,7 @@ public class Snake {
     public void move(char direction){
         lastOk = false;
         if(!canMove(direction)){
+            JOptionPane.showMessageDialog(null, "Incorrect movement, please try with other!");
             return;
         }
         this.direction = direction;
@@ -89,8 +109,8 @@ public class Snake {
         
         positionsElements.add(0, newHead);
         positionsElements.remove(positionsElements.size() - 1);
-        
         updatePositions();
+        setupFace(direction);
         lastOk = true;
     }
     
@@ -152,6 +172,7 @@ public class Snake {
         body.add(0, newRectHead);
         
         updatePositions();
+        setupFace(direction);
         lastOk = true;
     }
     
@@ -205,7 +226,10 @@ public class Snake {
         for(Rectangle segment : body){
             segment.makeInvisible();
         }
-        isVisible = false;;
+        leftEye.makeInvisible();
+        rightEye.makeInvisible();
+        tongue.makeInvisible();
+        isVisible = false;
     }
     
     /**
@@ -214,4 +238,54 @@ public class Snake {
     public int getSize() {
         return body.size();
     }
+<<<<<<< Updated upstream
+=======
+    
+    /**
+     * This method give the snake's body
+     */
+    public ArrayList<Rectangle> getBody() {
+        return body;
+    }
+    
+    private void setupFace(char direction){
+        int xPosHead = positionsElements.get(0)[1] * HungrySnakeGame.squareSize;
+        int yPosHead = positionsElements.get(0)[0] * HungrySnakeGame.squareSize;
+        int size = HungrySnakeGame.squareSize;  // mismo tamaño que la cabeza
+        int near = 2;   // margen al borde "cercano"
+        int far  = 6;   // margen al borde "lejano" (para el otro ojo)
+    
+        switch (direction) {
+            case 'e':
+                tongue.changeSize(2, 5);
+                leftEye.setPosition(xPosHead + far, yPosHead + near);
+                rightEye.setPosition(xPosHead + far, yPosHead + far);
+                tongue.setPosition(xPosHead + size, yPosHead + 4);
+                break;
+            case 'w':
+                tongue.changeSize(2, 5);
+                leftEye.setPosition(xPosHead + near, yPosHead + near);
+                rightEye.setPosition(xPosHead + near, yPosHead + far);
+                tongue.setPosition(xPosHead - 6, yPosHead + 4);
+                break;
+            case 'n':
+                tongue.changeSize(5,2);
+                leftEye.setPosition(xPosHead + near, yPosHead + near);
+                rightEye.setPosition(xPosHead + far,  yPosHead + near);
+                tongue.setPosition(xPosHead + 4, yPosHead - 6);
+                break;
+            case 's':
+                tongue.changeSize(5,2);
+                leftEye.setPosition(xPosHead + near, yPosHead + far);
+                rightEye.setPosition(xPosHead + far,  yPosHead + far);
+                tongue.setPosition(xPosHead + 4, yPosHead + size);
+                break;
+        }
+        if(isVisible){
+            leftEye.makeVisible();
+            rightEye.makeVisible();
+            tongue.makeVisible();
+        }
+    }
+>>>>>>> Stashed changes
 }
