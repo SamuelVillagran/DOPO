@@ -49,7 +49,7 @@ public class HungrySnakeGame {
         int[] newHeadPos = getNewPositionHead(direction);
         
         if(collidesWithObstacle(newHeadPos)){
-            JOptionPane.showMessageDialog(null, "Haz chocado con un obstaculo :( Intenta De nuevo");
+            gameOver();
             return;
         }
         
@@ -205,11 +205,16 @@ public class HungrySnakeGame {
      * Show the message gameOver
      */
     private void gameOver() {
-        int answer = JOptionPane.showConfirmDialog( // Ayudado por IA
+        String[] options = {"Retry", "Exit"};
+        int answer = JOptionPane.showOptionDialog( // Ayudado por IA
             null, 
             "You lose!, but don't give up, the greatest humans are made from persistence", 
             "Game Over", 
-            JOptionPane.YES_NO_OPTION
+            JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.INFORMATION_MESSAGE, 
+            null, 
+            options,
+            options[0]
         );
         
         if (answer == JOptionPane.YES_OPTION) {
