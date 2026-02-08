@@ -35,7 +35,7 @@ public class Snake {
         head.changeSize(10, 10);
         this.head.changeColor("blue");
         this.body.add(this.head);
-        this.head.setPosition(col * HungrySnakeGame.squareSize, row * HungrySnakeGame.squareSize);
+        this.head.setPosition(col * HungrySnakeGame.SQUARESIZE, row * HungrySnakeGame.SQUARESIZE);
         this.positionsElements.add(new int[]{row, col});
         makeVisible();
     }
@@ -161,8 +161,8 @@ public class Snake {
     private void updatePositions(){
         for(int i = 0; i < body.size(); i++){
             int[] pos = positionsElements.get(i);
-            int newX = pos[1] * HungrySnakeGame.squareSize;
-            int newY = pos[0] * HungrySnakeGame.squareSize;
+            int newX = pos[1] * HungrySnakeGame.SQUARESIZE;
+            int newY = pos[0] * HungrySnakeGame.SQUARESIZE;
             body.get(i).setPosition(newX, newY);
         }
          if(isVisible){

@@ -38,7 +38,7 @@ public class Fruit
      * Get the position in coodinates of matrix[row, col]
      */
     public int[] getPosition(){
-        return new int[]{yPosition / HungrySnakeGame.squareSize, xPosition / HungrySnakeGame.squareSize};
+        return new int[]{yPosition / HungrySnakeGame.SQUARESIZE, xPosition / HungrySnakeGame.SQUARESIZE};
     }
 
     public void setPosition(int xPos, int yPos) {

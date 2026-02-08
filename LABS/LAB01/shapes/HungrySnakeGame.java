@@ -9,16 +9,17 @@ import javax.swing.JOptionPane;
  * @version 1.0
  */
 public class HungrySnakeGame {
-    public static final int squareSize = 10;
-    public static final int numObstacles = 3;
+    public static final int SQUARESIZE = 10;
+    public static final int NUMOBSTACLES = 3;
+    public static final int MAXROW = 30;
+    public static final int MAXCOL = 30;
     public static Random rn;
     private int gameState;
     private Snake snake;
     private Fruit fruit;
     private Obstacle[] obstacles;
     private ArrayList<int[]> postionObstacles;
-    private int maxRow = 30;
-    private int maxCol = 30;
+    
     private boolean lastOk;
 
     /**
@@ -28,7 +29,7 @@ public class HungrySnakeGame {
         Canvas.getCanvas().changeColorBackground("green");
         fruit = new Fruit();
         rn = new Random();
-        this.snake = new Snake(rn.nextInt(maxRow), rn.nextInt(maxCol));
+        this.snake = new Snake(rn.nextInt(MAXROW), rn.nextInt(MAXCOL));
         putRandomObstacles();
         putRandomApple();
         gameState = snake.getSize();
@@ -60,7 +61,7 @@ public class HungrySnakeGame {
             return;
         }
         
-        if(!isInBounds(newHeadPos, maxRow, maxCol)){
+        if(!isInBounds(newHeadPos)){
             lastOk = false;
             gameOver();
             return;
@@ -69,7 +70,7 @@ public class HungrySnakeGame {
         snake.move(direction, this);
     }
 
-    /**
+    /*
      * Get the new position depending of the movement.
      * @return Array with [row, col].
      */
@@ -86,7 +87,7 @@ public class HungrySnakeGame {
         return new int[]{row, col};
     }
     
-    /**
+    /*
      * Check the collision with fruits
      */
     private boolean collidesWithFruit(int[] pos){
@@ -98,7 +99,7 @@ public class HungrySnakeGame {
         }
     }
     
-    /**
+    /*
      * Check the collision with fruits
      */
     private boolean collidesWithObstacle(int[] pos){
@@ -106,8 +107,8 @@ public class HungrySnakeGame {
         int boardCol = pos[1];
         
         for(int[] obstaclePos : postionObstacles){
-            int obstacleRow = obstaclePos[0] / squareSize;
-            int obstacleCol = obstaclePos[1] / squareSize;
+            int obstacleRow = obstaclePos[0] / SQUARESIZE;
+            int obstacleCol = obstaclePos[1] / SQUARESIZE;
             if(boardCol == obstacleCol && boardRow == obstacleRow){
                 return true;
             }
@@ -115,7 +116,7 @@ public class HungrySnakeGame {
         return false;
     }
 
-    /**
+    /*
      * This method put 3 new obstacles at the board in random positions
      * 
      */
@@ -123,8 +124,8 @@ public class HungrySnakeGame {
         obstacles = new Obstacle[3];
         postionObstacles = new ArrayList<>(); //Crea la lista de las posiciones random de los obstaculos
         
-        for (int i = 0; i < numObstacles; i++) {
-            int[] newPos = new int[] {rn.nextInt(maxRow)*squareSize, rn.nextInt(maxCol)*squareSize};
+        for (int i = 0; i < NUMOBSTACLES; i++) {
+            int[] newPos = new int[] {rn.nextInt(MAXROW)*SQUARESIZE, rn.nextInt(MAXCOL)*SQUARESIZE};
             boolean exists = false;            
             for (int[] position : postionObstacles) { //
                 if (position[0] == newPos[0] && position[1] == newPos[1]) { // código ayudado a hacer por IA
@@ -156,13 +157,13 @@ public class HungrySnakeGame {
         obstacles[indexObstacle].setPosition(xPos, yPos);
     }
     
-    /**
+    /*
      * Check if the snake is in bounds limit.
      */
-    private boolean isInBounds(int[] pos, int maxRow, int maxCol){
+    private boolean isInBounds(int[] pos){
         int row = pos[0];
         int col = pos[1];
-        if(row >= 0 && col >=0 && row < maxRow && col < maxCol){
+        if(row >= 0 && col >=0 && row < MAXROW && col < MAXCOL){
             return true;
         } else{
             return false;
@@ -176,7 +177,7 @@ public class HungrySnakeGame {
         fruit = new Fruit();
         byte i = 0;
         while (i < 1) {
-            int[] newPos = new int[] {rn.nextInt(maxRow)*squareSize, rn.nextInt(maxCol)*squareSize};
+            int[] newPos = new int[] {rn.nextInt(MAXROW)*SQUARESIZE, rn.nextInt(MAXCOL)*SQUARESIZE};
             boolean exists = false;
             for (int[] pos : postionObstacles) {
                 if (pos[0] == newPos[0] && pos[1] == newPos[1]) {
@@ -227,7 +228,7 @@ public class HungrySnakeGame {
     }
     
     /*
-     * Quit some objects of the screen from canvas
+     * Quit objects of the screen from canvas
      */
     private void eraseObjects() {
         for (Obstacle obs: obstacles) {
@@ -241,7 +242,7 @@ public class HungrySnakeGame {
         Canvas.getCanvas().erase(this);
     }
     
-    /*
+    /**
      * Check the collision with fruits
      */
     public void rebootGame() {
