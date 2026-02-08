@@ -70,7 +70,7 @@ public class Snake {
      * Move the snake to a specific direction
      * @param  direction indicates north, west, south or east direction
      */
-    public void move(char direction){
+    public void move(char direction, HungrySnakeGame game){
         lastOk = false;
         if(!canMove(direction)){
             return;
@@ -83,7 +83,7 @@ public class Snake {
         
         if(colidesWithItself(newHead)){
             lastOk = false;
-            JOptionPane.showMessageDialog(null, "Snake ha muerto :(");
+            game.gameOver();
             return;
         }
         

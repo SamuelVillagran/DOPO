@@ -66,7 +66,7 @@ public class HungrySnakeGame {
             return;
         }
         
-        snake.move(direction);
+        snake.move(direction, this);
     }
 
     /**
@@ -204,7 +204,7 @@ public class HungrySnakeGame {
     /**
      * Show the message gameOver
      */
-    private void gameOver() {
+    public void gameOver() {
         String[] options = {"Retry", "Exit"};
         int answer = JOptionPane.showOptionDialog( // Ayudado por IA
             null, 
