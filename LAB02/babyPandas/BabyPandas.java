@@ -7,18 +7,20 @@ import java.util.HashMap;
     
 public class BabyPandas{
     
-    private HashMap<String,DataFrame> variables;
+    private HashMap<String, DataFrame> variables;
     
     public BabyPandas(){
     }
 
     //Definea new variable
     public void define(String name){
+        
     }
      
     //Assign a DataFrame to an existing variable
     //a := DataFrame
     public void assign(String a, String [] [] dataFrame){
+        
     }    
     
     //Return DataFrame's shape
@@ -35,6 +37,7 @@ public class BabyPandas{
     //The parameters for '?' are [valueColumn1, valueColumn2, ...]
 
     public void assignUnary(String a, String b, char op, String [] parameters){
+        
     }
       
     
@@ -42,6 +45,7 @@ public class BabyPandas{
     // a = b op c
     //The operator characters are:  'r' concate by rows, 'c' concate by columns
     public void assignBinary(String a, String b, char op, String c){
+        
     }
   
     
@@ -56,7 +60,3 @@ public class BabyPandas{
         return false;
     }
 }
-    
-
-
-
