@@ -1,0 +1,7 @@
+# Ignorar los archivos y carpetas de compilación innecesarios
+*.ctxt
+*.class
+*.pkg
+/bin
+/out
+package.bluej
