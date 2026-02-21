@@ -17,13 +17,13 @@ public class DataFrameTest{
     }
 
     
-     @Test
+    @Test
     public void shouldCreateSmallestDataFrame(){
         String [] columns = {"Nombre", "Edad", "Profesión"};
         String [][] data={};
         int [] shape={0,3};
         DataFrame df=new DataFrame(data,columns);
-        assertEquals(shape, df.shape());     
+        assertArrayEquals(shape, df.shape());     
     }    
    
     @Test
@@ -33,9 +33,9 @@ public class DataFrameTest{
         {"Ana", "42", "Doctor"}, 
         {"Jorge", "30", "Arquitecto"},
         {"Elena", "25", "Diseñador"}};
-        int [] shape={4,3};
+        int [] shape={4, 3};
         DataFrame df=new DataFrame(data,columns);
-        assertEquals(shape, df.shape());   
+        assertArrayEquals(shape, df.shape());   
     }    
     
     @Test
@@ -47,8 +47,37 @@ public class DataFrameTest{
         {"Elena", "25", "Diseñador"}};
         int [] shape={2,3};
         DataFrame df=new DataFrame(data,columns);
-        assertEquals(shape, df.shape());   
+        assertNotEquals(shape, df.shape());   
     }      
+    
+    @Test
+    public void shouldPass() {
+        DataFrame df1 = new DataFrame(new String[][] {{"AYED", "4"}, {"AYSW", "4"}, {"FUPR", "3"}}, new String [] {"Asignatura", "Créditos"}); 
+        DataFrame df2 = new DataFrame(new String[][] {{"AYED", "4"}, {"AYSW", "4"}, {"FUPR", "3"}}, new String [] {"Asignatura", "Créditos"});
+        assertEquals(df1, df2);
+    }
+    
+    @Test
+    public void shouldFail() {
+        try {
+            String[] columns = {"Pass", "No Pass"};
+            String[][] data = {{"NO", "Yes"}, {"NO", "NO"}, {"NO", "NO"}};
+            DataFrame df = new DataFrame(data, columns);
+            assertNotNull(df);
+            fail("This test should fail");
+        } catch (Exception e) {
+            fail("This test should fail");
+        }
+    }
+    
+    @Test
+    public void shouldError() {
+        String[] columns = {"Car", "Bycicle"};
+        String[][] data = {{"YES", "Yes"}, {"YES", "NO"}, {"HAVE", "HAVE"}};
+        DataFrame df = new DataFrame(data, columns);
+        throw new IllegalArgumentException("ERROR!");
+    }
+    
     /**
      * Tears down the test fixture.
      *

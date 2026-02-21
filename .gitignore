@@ -1,0 +1,21 @@
+# Ignorar archivos copilados de Java
+*.class
+
+# Ignorar archivos temporales de blueJ
+*.ctxt
+*.bluej
+
+# Ignorar carpetas de compilación
+bin/
+out/
+
+# Ignorar el archivo temporal de Astah
+*.asta.lock
+
+# Ignorar los archivos y carpetas de compilación innecesarios
+*.ctxt
+*.class
+*.pkg
+/bin
+/out
+
