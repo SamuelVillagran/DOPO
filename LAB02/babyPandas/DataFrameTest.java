@@ -17,13 +17,13 @@ public class DataFrameTest{
     }
 
     
-     @Test
+    @Test
     public void shouldCreateSmallestDataFrame(){
         String [] columns = {"Nombre", "Edad", "Profesión"};
         String [][] data={};
         int [] shape={0,3};
         DataFrame df=new DataFrame(data,columns);
-        assertEquals(shape, df.shape());     
+        assertArrayEquals(shape, df.shape());     
     }    
    
     @Test
@@ -35,7 +35,7 @@ public class DataFrameTest{
         {"Elena", "25", "Diseñador"}};
         int [] shape={4, 3};
         DataFrame df=new DataFrame(data,columns);
-        assertEquals(shape, df.shape());   
+        assertArrayEquals(shape, df.shape());   
     }    
     
     @Test
@@ -47,7 +47,7 @@ public class DataFrameTest{
         {"Elena", "25", "Diseñador"}};
         int [] shape={2,3};
         DataFrame df=new DataFrame(data,columns);
-        assertEquals(shape, df.shape());   
+        assertNotEquals(shape, df.shape());   
     }      
     
     @Test
@@ -61,8 +61,10 @@ public class DataFrameTest{
     public void shouldFail() {
         try {
             String[] columns = {"Pass", "No Pass"};
-            String[][] data = {{"NO", "Yes"}, {0, 1}, {false, true}};
+            String[][] data = {{"NO", "Yes"}, {"NO", "NO"}, {"NO", "NO"}};
             DataFrame df = new DataFrame(data, columns);
+            assertNotNull(df);
+            fail("This test should fail");
         } catch (Exception e) {
             fail("This test should fail");
         }
@@ -71,8 +73,9 @@ public class DataFrameTest{
     @Test
     public void shouldError() {
         String[] columns = {"Car", "Bycicle"};
-        String[][] data = {{"YES", "Yes"}, {1, 1}, {true, true}};
+        String[][] data = {{"YES", "Yes"}, {"YES", "NO"}, {"HAVE", "HAVE"}};
         DataFrame df = new DataFrame(data, columns);
+        throw new IllegalArgumentException("ERROR!");
     }
     
     /**

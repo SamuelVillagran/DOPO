@@ -27,7 +27,7 @@ public class DataFrame {
     }
 
     public int [] shape(){
-        return null;
+        return shape;
     }    
     
    
