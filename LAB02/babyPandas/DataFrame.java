@@ -1,8 +1,13 @@
 public class DataFrame {
     
+    private String[][] data;
+    private String[] columns;
+    private int[] shape;
     
     public DataFrame(String [][] data, String [] columns){
-        
+        this.data = data;
+        this.columns = columns;
+        shape = new int[] {data.length, columns.length};
     }
     
     /**
