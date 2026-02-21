@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class DataFrame {
     
     private String[][] data;
@@ -42,11 +44,48 @@ public class DataFrame {
       return "";
     }
     
-    public boolean equals(DataFrame df){
+    public boolean equals(DataFrame df) {
+        
+        if (df == null)  
+        
+        if (!(Arrays.equals(df.getShape(), this.shape))) return false;
+        
+        for (int i = 0; i < columns.length; i++) {
+            if (!(this.columns[i].equals(df.getColumns()[i]))) return false;
+        }
+        
+        for (int j = 0; j < data.length; j++) {
+            for (int k = 0; k < data[j].length; k++) {
+                if (!(this.data[j][k].equals(df.getData()[j][k]))) return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        
+        if (o == null) return false;
+        
+        if (!(o instanceof DataFrame)) return false;
+        
+        if (o instanceof DataFrame) return this.equals((DataFrame) o);
+        
+        if (o instanceof int[]) return this.shape.equals((int[]) o);
+        
         return false;
     }
     
-    public boolean equals(Object o){
-        return equals((DataFrame)o);
+    public String[] getColumns() {
+        return columns;
+    }
+    
+    public int[] getShape() {
+        return shape;
+    }
+    
+    public String[][] getData() {
+        return data;
     }
 }
