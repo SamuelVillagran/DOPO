@@ -87,4 +87,37 @@ public class DataFrameTest{
     public void tearDown()
     {
     }
+    
+    @Test
+    public void shouldReturnFirstRow(){
+        String[] columns = {"Nombre", "Edad", "Profesión"};
+        String[][] data = {{"Laura", "29", "Profesora"}, {"Ana", "25", "Doctora"},
+            {"Diego", "45", "Ingeniero"}};
+        DataFrame df = new DataFrame(data, columns);
+        String result = df.head(1);
+        assertTrue(result.contains("Laura"));
+        assertTrue(result.contains("29"));
+        assertTrue(result.contains("Profesora"));
+    }
+    
+    @Test
+    public void shouldIgnoreLastRowWithNegativeIndex(){
+        String[] columns = {"Nombre", "Edad", "Profesión"};
+        String[][] data = {{"Laura", "29", "Profesora"}, {"Ana", "25", "Doctora"},
+            {"Diego", "45", "Ingeniero"}};
+        DataFrame df = new DataFrame(data, columns);
+        String result = df.head(-1);
+        assertFalse(result.contains("Diego"));
+        assertTrue(result.contains("Ana"));
+    }
+    
+    @Test
+    public void shouldReturnColumnsNameWithIndexZero(){
+        String[] columns = {"Nombre", "Edad", "Profesión"};
+        String[][] data = {{"Laura", "29", "Profesora"}, {"Ana", "25", "Doctora"},
+            {"Diego", "45", "Ingeniero"}};
+        DataFrame df = new DataFrame(data, columns);
+        String result = df.head(0);
+        assertFalse(result.contains("Diego"));
+    }
 }
