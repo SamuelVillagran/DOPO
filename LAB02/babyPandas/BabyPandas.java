@@ -8,24 +8,58 @@ import java.util.HashMap;
 public class BabyPandas{
     
     private HashMap<String, DataFrame> variables;
+    private boolean lastOperOk;
     
+    /**
+     * Constructor default clase.
+     */
     public BabyPandas(){
+        variables = new HashMap<>();
+        lastOperOk = true;
     }
 
-    //Definea new variable
+    /**
+     * Define a new variable.
+     */
     public void define(String name){
-        
+        variables.put(name, null);
+        lastOperOk = true;
     }
      
-    //Assign a DataFrame to an existing variable
-    //a := DataFrame
-    public void assign(String a, String [] [] dataFrame){
+    /**
+     * Assign a DataFrame to an existing variable.
+     */
+    public void assign(String a, String [][] dataFrame){
+        String[] columns = {"Nombre", "Edad", "Profesión"};
         
-    }    
+        if(!variables.containsKey(a)){
+            lastOperOk = false;
+            return;
+        }
+        
+        for(int i = 0; i < dataFrame.length; i++){
+            int longData = dataFrame[i].length;
+            if(longData != columns.length){
+                lastOperOk = false;
+                return;
+            }
+        }
+        
+        DataFrame df = new DataFrame(dataFrame, columns);
+        variables.put(a, df);
+        lastOperOk = true;
+    }
     
-    //Return DataFrame's shape
+    /**
+     * Return DataFrame's shape
+     */
     public int[] shape(String a){
-        return null;
+        if(!variables.containsKey(a)){
+            lastOperOk = false;
+            return new int[]{0};
+        }
+        lastOperOk = true;
+        return variables.get(a).shape();
     }
     
     
@@ -49,14 +83,23 @@ public class BabyPandas{
     }
   
     
-    //Return some rows of the DataFrame
+    /**
+     * Return some rows of the DataFrame
+     */
     public String head(String variable, int rows){
-        return null;
+        if(!variables.containsKey(variable)){
+            lastOperOk = false;
+            return "";
+        }
+        lastOperOk = true;
+        return variables.get(variable).head(rows);
     }
     
     
-    //If the last operation was successfully completed
+    /**
+     * Check if the last operation was successfully completed.
+     */
     public boolean ok(){
-        return false;
+        return lastOperOk;
     }
 }

@@ -81,15 +81,48 @@ public class DataFrame {
     }    
     
    
-    // The columns are aligned, separated by three spaces, and include the index.
-    //     Nombre   Edad    Profesion
-    // 0    Lucía     28    Ingeniero
-    // 1   Carlos     35     Profesor
-    // 2      Ana     42       Doctor
-    // 3    Jorge     30   Arquitecto
-    // 4    Elena     25    Diseñador
+    /**
+     * Find the rows of the DataFrame given a number.
+     * @param rows Number of rows to see, if is positive takes the first
+     * if it takes negative vaules take all less the last n rows.
+     * @return result String with information dataframe.
+     */
     public String head(int rows) {
-      return "";
+      if(data == null){
+          return "";
+      }
+      String result = "";
+      
+      result += "   ";
+      for(int i = 0; i < columns.length; i++){
+          result += columns[i];
+          if(i < columns.length - 1){
+              result += "   ";
+          }
+      }
+      result += "\n";
+      
+      int limit;
+      if(rows >= 0){
+          limit = Math.min(rows, columns.length);
+      }else{
+            limit = data.length + rows;
+            if(limit < 0){
+                limit = 0;
+            }
+        }
+      
+      for(int j = 0; j < limit; j++){
+          result += j + "   ";
+          for(int i = 0; i < columns.length; i++){
+              result += data[j][i];
+              if(i < columns.length -1){
+                  result += "   ";
+              }
+          }
+          result += "\n";
+      }
+      return result;
     }
     
     public boolean equals(DataFrame df) {
