@@ -13,7 +13,11 @@ public class DataFrame {
     }
     
     /**
-     * 
+     * Given row's number of an array and specific column filter this dataframe
+     * and create a new that this just have the column with cells of row where intersects
+     * row-column
+     * @param rows This is the row's number that this going to compose new dataframe
+     * @param columns This is the only column that going to compose new dataframe 
      */
     public DataFrame loc(int[] rows, String columns) throws Exception{
         if (rows == null || columns == null) throw new 
@@ -36,9 +40,37 @@ public class DataFrame {
     }    
     
     public DataFrame select(String [] values){
-        return null;
+        
+        try {
+            int [] perFiles = new int[values.length];
+            
+            for (int i = 0; i < values.length; i++) {
+                perFiles[i] = Integer.parseInt(values[i]);
+            }
+            
+            String[][] newData = new String[values.length][columns.length];
+            int numbersRowPut = 0;
+            int numbersColPut = 0;
+            for (int j = 0; j < data.length; j++) {
+                int minValue = searchMinOnArray(perFiles);
+                if (j == minValue) {
+                    deleteIntAtArray(perFiles, minValue);
+                    for (int k = 0; k < data[j].length; k++) {
+                        newData[numbersRowPut][numbersColPut] = data[j][k]; 
+                        numbersColPut++;
+                    }
+                    numbersColPut = 0;
+                    numbersRowPut++;
+                }
+            }
+            
+            return new DataFrame(newData, this.columns);
+            
+        } catch (Exception e) {
+            return selectLikeString(values);
+        }
+        
     }      
-
 
     public DataFrame concat(DataFrame [] dfs, byte axis){
         return null;
@@ -143,20 +175,86 @@ public class DataFrame {
     }
     
     /*
-     * Delete number of array 
+     * Delete number given of array 
      * @param array It's the array to search the number's index and delete it 
      * @param number It's the number to search index and number is going eliminated 
      */
     private int[] deleteIntAtArray(int[] array, int number) {
         int[] arrayToGive = new int[array.length-1];
         int indexNew = 0;
+        boolean skipped = false;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == number) {
+            if (array[i] == number && !skipped) {
+                skipped = true;
                 continue;
-            }   
+            }
             array[indexNew] = array[i];
             indexNew++;
         }
         return arrayToGive;
+    }
+    
+    /*
+     * Delete string given of array 
+     * @param array It's the array to search the number's index and delete it 
+     * @param cell It's the cell's array to search and data is going eliminated 
+     * @return A array string without string given 
+     */
+    private String[] deleteStringAtArray(String[] array, String cell) {
+        String[] arrayToGive = new String[array.length-1];
+        int indexNew = 0;
+        boolean skipped = false;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == cell && !skipped) {
+                skipped = true;
+                continue;
+            }
+             
+            array[indexNew] = array[i];
+            indexNew++;
+        }
+        return arrayToGive;
+    }
+    
+    /*
+     * Convert column's names in index of columns
+     * @param columns This is columns to search the index
+     * @return Return an array of index of columns
+     */
+    private int[] convertColumnToIndex(String[] columns) {
+        int[] indexes = new int[columns.length];
+        int indexFinded = 0;
+        
+        for (int i = 0; i < this.columns.length; i++) {
+            for (String col: columns) {
+                if (col.equals(this.columns[i])) {
+                    indexes[indexFinded] = i;
+                    indexFinded++;
+                }
+            }
+        }
+        return indexes;
+    }
+    
+    private DataFrame selectLikeString(String[] values) {
+        String[][] newData = new String[this.data.length][values.length];
+        int numbersRowPut = 0;
+        int numbersColPut = 0;
+        int[] indexOfValues = convertColumnToIndex(values);
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+            
+                int minValue = searchMinOnArray(indexOfValues);
+                if (j == minValue) {
+                    deleteStringAtArray(values, this.columns[minValue]);
+                    newData[numbersRowPut][numbersColPut] = data[i][j];
+                    numbersColPut++;
+                }
+            }
+            numbersColPut = 0;
+            numbersRowPut++;
+        }
+        
+        return new DataFrame(newData, this.columns);
     }
 }
