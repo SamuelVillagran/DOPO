@@ -39,7 +39,7 @@ public class DataFrame {
         return new DataFrame(dataReformed, new String[] {this.columns[numColumn]});
     }    
     
-    public DataFrame select(String [] values){
+    public DataFrame select(String [] values) {
         
         try {
             int [] perFiles = new int[values.length];
