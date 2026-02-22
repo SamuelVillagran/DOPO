@@ -15,8 +15,24 @@ public class DataFrame {
     /**
      * 
      */
-    public DataFrame loc(int [] rows, String columns){
-        return null;
+    public DataFrame loc(int[] rows, String columns) throws Exception{
+        if (rows == null || columns == null) throw new 
+            IllegalArgumentException("Can't be parameters nulls");
+            
+        int numColumn = searchNumberColumn(columns);
+        if (numColumn < 0) throw new Exception("Can't found the column");
+        String[][] dataReformed = new String[rows.length][1];
+        int numbersFinded = 0;
+        for (int i = 0; i < data.length; i++) {
+            int minValueRows = searchMinOnArray(rows);
+            if (i == minValueRows) {
+                deleteIntAtArray(rows, minValueRows);
+                dataReformed[numbersFinded][0] = data[i][numColumn];
+                numbersFinded++;
+            }
+        }
+        
+        return new DataFrame(dataReformed, new String[] {this.columns[numColumn]});
     }    
     
     public DataFrame select(String [] values){
@@ -87,5 +103,60 @@ public class DataFrame {
     
     public String[][] getData() {
         return data;
+    }
+    
+    /*
+     * Search the column's number with the name column
+     * @param nameColumn It's the name column to search on dataframe's columns 
+     */
+    private int searchNumberColumn(String nameColumn) {
+        for (int i = 0; i < columns.length; i++) {
+            if (nameColumn.equals(columns[i])) return i;
+        }
+        return Integer.MIN_VALUE;
+    }
+    
+    /*
+     * Count the files with the value given
+     * @param valueToCount It's value going to count how many times is in dataframe's data
+     */
+    private int countFilesWithValue(String valueToCount) {
+        int count = 0;
+        for (int i = 0; i < data.length ; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+                if (valueToCount.equals(data[i][j])) count ++;
+            }
+        }
+        return count;
+    }
+    
+    /*
+     * Give the min of ints Array
+     * @param arrayToSearch It's the array where it's going to search the min
+     */
+    private int searchMinOnArray(int[] arrayToSearch) {
+        int minValue = Integer.MAX_VALUE;
+        for (int num : arrayToSearch) {
+            if (num < minValue) minValue = num;
+        }
+        return minValue;
+    }
+    
+    /*
+     * Delete number of array 
+     * @param array It's the array to search the number's index and delete it 
+     * @param number It's the number to search index and number is going eliminated 
+     */
+    private int[] deleteIntAtArray(int[] array, int number) {
+        int[] arrayToGive = new int[array.length-1];
+        int indexNew = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number) {
+                continue;
+            }   
+            array[indexNew] = array[i];
+            indexNew++;
+        }
+        return arrayToGive;
     }
 }

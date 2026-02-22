@@ -78,6 +78,20 @@ public class DataFrameTest{
         throw new IllegalArgumentException("ERROR!");
     }
     
+    @Test
+    public void shouldLocDataFrame() throws Exception {
+        String[] columns = {"Student", "Notes"};
+        String[][] data = {{"Carmenza", "10"}, {"Alfredo", "9.9"}, 
+            {"Camerún", "10"}, {"P.A", "N/A"}};
+        DataFrame df = new DataFrame(data, columns);
+        String[] clmnTest = {"Notes"};
+        String[][] dtTest = {{"10"}, {"10"}, {"N/A"}};
+        DataFrame dfTest = new DataFrame(dtTest, clmnTest);
+        int[] rowsToLoc = {0, 2, 3};
+        assertEquals(df.loc(rowsToLoc, "Notes"), dfTest);
+    }
+    
+    
     /**
      * Tears down the test fixture.
      *
