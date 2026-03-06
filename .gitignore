@@ -3,17 +3,13 @@
 
 # Ignorar archivos temporales de blueJ
 *.ctxt
+*.bluej
+*.pkg
+package.bluej
 
 # Ignorar carpetas de compilación
 bin/
 out/
 
-# Ignorar el archivo temporal de Astah
+# Ignorar archivos temporales de astah
 *.asta.lock
-
-# Ignorar los archivos y carpetas de compilación innecesarios
-*.ctxt
-*.class
-/bin
-/out
-
