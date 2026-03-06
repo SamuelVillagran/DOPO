@@ -3,7 +3,6 @@
 
 # Ignorar archivos temporales de blueJ
 *.ctxt
-*.bluej
 
 # Ignorar carpetas de compilación
 bin/
@@ -15,7 +14,6 @@ out/
 # Ignorar los archivos y carpetas de compilación innecesarios
 *.ctxt
 *.class
-*.pkg
 /bin
 /out
 
