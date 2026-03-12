@@ -1,7 +1,8 @@
 import java.util.Collection;
 
-public class Ship extends Machine {
+public class Ship extends Machine implements Nodriz {
 
-	private Collection<Sailor> sailors;
+    private Collection<Sailor> sailors;
 
+    
 }
