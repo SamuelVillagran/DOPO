@@ -38,11 +38,9 @@ public class Fleet {
      * @return An ArrayList of machines located at the specified longitude and latitude.
      */
     public ArrayList<Machine> willBeDestroyed(int longitude, int latitude) {
-        ArrayList<Machine> res = new ArrayList<>();
-        for (Machine m : machines) {
-            if (m.isAtThePosition(longitude, latitude)) res.add(m);    
-        }
-        return res;
+        ArrayList<Machine> result = new ArrayList<>();
+        result = board.machinesAtPosition(longitude, latitude);
+        return result;
     }
     
     /**
@@ -57,5 +55,9 @@ public class Fleet {
             if (m.isWeak()) res.add(m);
         }
         return res;
+    }
+    
+    public ArrayList<Machine> getMachines() {
+        return machines;
     }
 }

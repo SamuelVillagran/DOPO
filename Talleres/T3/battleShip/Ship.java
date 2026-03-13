@@ -9,6 +9,10 @@ public class Ship extends Machine implements Nodriz {
         super(lonPos, latPos);
     }
     
+    public void askInstruction() {
+        
+    }
+    
     /**
      * Consults if this is a weak machine. 
      * @return true if this ship has fewer than five sailors; 

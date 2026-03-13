@@ -16,11 +16,15 @@ public class Submarine extends Machine implements Nodriz {
        super(longitude, latitude);
     }
 
+    
+    
     /**
      * An example of a method - replace this comment with your own
      *
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    
+    public void askInstruction() {
+        
+    }
 }
