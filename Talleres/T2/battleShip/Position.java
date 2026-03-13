@@ -33,4 +33,16 @@ public class Position {
     public int getLatitude() {
         return latitude;
     }
+    
+    /**
+     * Verify if the position given (longitude and latitude)
+     * is the same with this position.
+     * @param longitude longitude given to verify.
+     * @param latitude latitude given to verify.
+     * @return true if given position is the same with this position;
+     *      false otherwise.
+     */
+    public boolean atThePosition(int longitude, int latitude) {
+        return this.longitude==longitude && this.latitude==latitude ? true : false;
+    }
 }
