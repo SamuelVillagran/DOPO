@@ -2,12 +2,18 @@
 dependency1.from=Board
 dependency1.to=Fleet
 dependency1.type=UsesDependency
+<<<<<<< HEAD
 dependency10.from=FleetTest
 dependency10.to=Machine
 dependency10.type=UsesDependency
 dependency11.from=Machine
 dependency11.to=Position
 dependency11.type=UsesDependency
+=======
+dependency10.from=Ship
+dependency10.to=Sailor
+dependency10.type=UsesDependency
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
 dependency2.from=Fleet
 dependency2.to=Machine
 dependency2.type=UsesDependency
@@ -20,6 +26,7 @@ dependency4.type=UsesDependency
 dependency5.from=Plane
 dependency5.to=Sailor
 dependency5.type=UsesDependency
+<<<<<<< HEAD
 dependency6.from=Plane
 dependency6.to=Position
 dependency6.type=UsesDependency
@@ -48,6 +55,36 @@ package.frame.height=736
 package.frame.width=1382
 package.numDependencies=11
 package.numTargets=9
+=======
+dependency6.from=AircraftCarrier
+dependency6.to=Plane
+dependency6.type=UsesDependency
+dependency7.from=FleetTest
+dependency7.to=Fleet
+dependency7.type=UsesDependency
+dependency8.from=FleetTest
+dependency8.to=Machine
+dependency8.type=UsesDependency
+dependency9.from=Machine
+dependency9.to=Position
+dependency9.type=UsesDependency
+editor.fx.0.height=739
+editor.fx.0.width=816
+editor.fx.0.x=292
+editor.fx.0.y=216
+objectbench.height=135
+objectbench.width=1681
+package.divider.horizontal=0.5545454545454546
+package.divider.vertical=0.8478027867095391
+package.editor.height=784
+package.editor.width=1591
+package.editor.x=0
+package.editor.y=0
+package.frame.height=1033
+package.frame.width=1721
+package.numDependencies=10
+package.numTargets=11
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
 package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
@@ -61,8 +98,27 @@ target1.name=Board
 target1.showInterface=false
 target1.type=ClassTarget
 target1.width=80
+<<<<<<< HEAD
 target1.x=10
 target1.y=120
+=======
+target1.x=50
+target1.y=80
+target10.height=50
+target10.name=Machine
+target10.showInterface=false
+target10.type=ClassTarget
+target10.width=90
+target10.x=330
+target10.y=150
+target11.height=50
+target11.name=Sailor
+target11.showInterface=false
+target11.type=ClassTarget
+target11.width=80
+target11.x=240
+target11.y=630
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
 target2.height=50
 target2.name=Fleet
 target2.showInterface=false
@@ -75,13 +131,19 @@ target3.name=Plane
 target3.showInterface=false
 target3.type=ClassTarget
 target3.width=80
+<<<<<<< HEAD
 target3.x=130
 target3.y=420
+=======
+target3.x=160
+target3.y=430
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
 target4.height=50
 target4.name=Position
 target4.showInterface=false
 target4.type=ClassTarget
 target4.width=90
+<<<<<<< HEAD
 target4.x=860
 target4.y=20
 target5.height=50
@@ -91,10 +153,22 @@ target5.type=ClassTarget
 target5.width=130
 target5.x=390
 target5.y=470
+=======
+target4.x=640
+target4.y=130
+target5.height=70
+target5.name=Nodriz
+target5.showInterface=false
+target5.type=InterfaceTarget
+target5.width=120
+target5.x=850
+target5.y=340
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
 target6.height=50
-target6.name=Ship
+target6.name=AircraftCarrier
 target6.showInterface=false
 target6.type=ClassTarget
+<<<<<<< HEAD
 target6.width=80
 target6.x=510
 target6.y=290
@@ -114,6 +188,27 @@ target8.x=390
 target8.y=70
 target9.height=50
 target9.name=Sailor
+=======
+target6.width=130
+target6.x=350
+target6.y=520
+target7.height=70
+target7.name=Submarine
+target7.showInterface=false
+target7.type=ClassTarget
+target7.width=120
+target7.x=600
+target7.y=480
+target8.height=50
+target8.name=Ship
+target8.showInterface=false
+target8.type=ClassTarget
+target8.width=80
+target8.x=320
+target8.y=360
+target9.height=70
+target9.name=FleetTest
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
 target9.showInterface=false
 target9.type=ClassTarget
 target9.width=80

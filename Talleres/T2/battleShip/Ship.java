@@ -1,8 +1,9 @@
 import java.util.Collection;
 
-public class Ship extends Machine {
+public class Ship extends Machine implements Nodriz {
 
     private Collection<Sailor> sailors;
+<<<<<<< HEAD
     
     public Ship(int lonPos, int latPos) {
         super(lonPos, latPos);
@@ -18,3 +19,8 @@ public class Ship extends Machine {
         return sailors.size() < 5 ? true : false;
     }
 }
+=======
+
+    
+}
+>>>>>>> 450fef2a648dee10a0ad8e88a4a3e84165dd43ae
