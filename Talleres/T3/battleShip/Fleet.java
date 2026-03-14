@@ -22,10 +22,6 @@ public class Fleet {
         }
     }
     
-    public void addMachine(int lonPos, int latPos) {
-        machines.add(new Machine(lonPos, latPos));
-    }
-    
     public Machine getASpeciefiedMachine(int index) {
         return machines.get(index);
     }
@@ -60,4 +56,6 @@ public class Fleet {
     public ArrayList<Machine> getMachines() {
         return machines;
     }
+    
+    
 }

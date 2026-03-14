@@ -1,17 +1,15 @@
 
 /**
- * Write a description of interface Nodriz here.
+ * This inteface describe methods will have classes implemets it 
  *
  * @author (your name)
  * @version (a version number or a date)
  */
 public interface Nodriz {
-    /**
-     * An example of a method header - replace this comment with your own
-     *
-     * @param  y a sample parameter for a method
-     * @return   the result produced by sampleMethod
-     */
-    void askInstruction();
+    
+    
+    default String askInstruction() {
+        return "Nodriz Instruction";
+    }
     
 }

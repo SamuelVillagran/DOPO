@@ -1,4 +1,4 @@
-public class Plane extends Machine {
+public class Plane extends Machine implements Prepared {
 
     private String plate;
     private boolean inAir;
@@ -32,5 +32,13 @@ public class Plane extends Machine {
     @Override
     public boolean isWeak() {
         return pilot==null ? true : false;
+    }
+    
+    public void autodestruct(String instruction) {
+        if (instruction.equals("auto-destruct")) {
+            System.out.println("Destroying...");
+            System.out.println("Destroyed...");
+            System.out.println("Auto-destruct was a instruction given by this, this machine was destroyed.");
+        }
     }
 }

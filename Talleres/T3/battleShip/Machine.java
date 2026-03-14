@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Machine {
+public abstract class Machine {
 
     private Position location;
 
@@ -32,9 +32,7 @@ public class Machine {
      * Defines if a machine has weak caracteristics
      * @return false This is the definition of a machine
      */
-    public boolean isWeak() {
-        return false;
-    }
+    public abstract boolean isWeak();
     
     /**
      * Verifies if this machine is located at the specified 
