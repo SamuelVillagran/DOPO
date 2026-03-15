@@ -6,9 +6,12 @@ public class Fleet {
     private ArrayList<Machine> machines;
     private ArrayList<Sailor> sailors;
     private Board board;
+    private ArrayList<Prepared> destroyedMachines;
     
     public Fleet() {
         machines = new ArrayList<>();
+        sailors = new ArrayList<>();
+        destroyedMachines = new ArrayList<>();
     }
     
     /**
@@ -57,5 +60,14 @@ public class Fleet {
         return machines;
     }
     
+    /**
+     * Add a destroyed machine to the registers of destroyed machines.
+     */
+    public void registerDestroyedMachines(Prepared destroyedMachine){
+        destroyedMachines.add(destroyedMachine);
+    }
     
+    public ArrayList<Prepared> destroyedMachines(){
+        return destroyedMachines;
+    }
 }

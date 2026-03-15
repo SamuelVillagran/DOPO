@@ -2,13 +2,22 @@ public class Sailor implements Prepared {
 
     private String name;
     private int rank;
+    private boolean isDestroyed;
+    private String cause;
 
-    public void autodestruct(String instruction) {
-        if (instruction.equals("auto-destruct")) {
-            System.out.println("Destroying...");
-            System.out.println("Destroyed");
-            System.out.println("Auto-destruct was a instruction given by this, this machine was destroyed.");
-        }
+    @Override
+    public void autodestruct(String cause) {
+        this.cause = cause;
+        isDestroyed = true;
     }
     
+    @Override
+    public boolean isDestroyed(){
+        return isDestroyed;
+    }
+    
+    @Override
+    public String destructionCause(){
+        return cause;
+    }
 }

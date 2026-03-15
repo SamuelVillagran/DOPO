@@ -1,16 +1,23 @@
 
 /**
- * Write a description of interface Prepared here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Defines the behavior to be autodestructed.
  */
 
 public interface Prepared
 {
     /**
-     * 
-     * @param  instruction instruction is the instruction that machine recibes to autodestruct
+     * Allows to the object autodestroys.
+     * @param  cause cause is the reason that machine recibes to autodestruct.
      */
-    void autodestruct(String instruction);
+    void autodestruct(String cause);
+    
+    /**
+     * Reports if the object has been auto-destroyed.
+     */
+    boolean isDestroyed();
+    
+    /**
+     * Report the cause if the autodestruction.
+     */
+    String destructionCause();
 }

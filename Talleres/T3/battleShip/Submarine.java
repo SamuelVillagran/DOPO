@@ -8,6 +8,8 @@ public class Submarine extends Machine implements Nodriz, Prepared {
 
     private boolean bellow8000Meters;
     private Nodriz nodriz;
+    private boolean isDestroyed;
+    private String cause;
     
     /**
      * Constructor for objects of class Submarine
@@ -37,8 +39,31 @@ public class Submarine extends Machine implements Nodriz, Prepared {
         return bellow8000Meters && (super.isAtThePosition(longitude, latitude));
     }
     
-    public void autodestruct(String instruction) {
-        if (nodriz == null) System.out.println("Destroyed, Submarine's nodriz was destroyed");
+    /**
+     * Check if the associated nodriz has been destroyed.
+     */
+    public void checkNodriz(){
+        if(nodriz.isDestroyed()){
+            autodestruct("Nodriz has been destroyed");
+        }
     }
     
+    @Override
+    public void autodestruct(String cause) {
+        if (nodriz == null) {
+            isDestroyed = true;
+            this.cause = cause;
+            System.out.println("Destroyed, Submarine's nodriz was destroyed");
+        }
+    }
+    
+    @Override
+    public String destructionCause(){
+        return cause;
+    }
+    
+    @Override
+    public boolean isDestroyed(){
+        return isDestroyed;
+    }
 }
