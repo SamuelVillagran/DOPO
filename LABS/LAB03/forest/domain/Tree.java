@@ -11,9 +11,9 @@ public class Tree extends LivingThing implements Thing {
     private int tictac;
     
     /**Create a new Tree(<b>row,column</b>) in the forest <b>forest</b>..
-     * @param forest 
-     * @param row 
-     * @param column 
+     * @param forest It's the fores where belog this tree
+     * @param row It's the specific row where going to be this tree
+     * @param column It's the specific column where going to be this tree
      */
     public Tree(Forest forest,int row, int column){
         this.forest=forest;
@@ -27,14 +27,14 @@ public class Tree extends LivingThing implements Thing {
     
 
     /**Returns the row
-    @return 
+    @return int That maining the specific row where is the tree
      */
     public final int getRow(){
         return row;
     }
 
     /**Returns the column
-    @return 
+    @return int That maining the specifigc column where is the tree
      */
     public final int getColumn(){
         return column;
@@ -42,14 +42,14 @@ public class Tree extends LivingThing implements Thing {
 
     
     /**Returns the color
-    @return 
+    @return color Returns color of tree, following tictac
      */
     public final Color getColor(){
         return color;
     }
 
     /**Returns the shape
-    @return 
+    @return integer that it's 1, their main is the type of figure round
      */
     public final int shape(){
         return Thing.ROUND;
@@ -57,7 +57,7 @@ public class Tree extends LivingThing implements Thing {
 
     
 
-    /**ticTac change the state of tree
+    /**ticTac change the state and color of tree
      */
     public void ticTac(){
         tictac++;
@@ -82,6 +82,10 @@ public class Tree extends LivingThing implements Thing {
         forest.setThing(row, column,null);
     }
   
+    /**
+     * Make more old this tree
+     * 
+     */
     public void getOld() {
         years++;
     }
