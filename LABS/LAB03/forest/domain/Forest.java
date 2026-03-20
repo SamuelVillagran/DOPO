@@ -31,10 +31,7 @@ public class Forest{
     public void someThings(){   
         Tree bread = new Tree(this, 10, 10);
         Tree soul = new Tree(this, 15, 15);
-        int breadRow = bread.getRow(), breadColumn = bread.getColumn();
-        int soulRow = soul.getRow(), soulColumn = soul.getColumn();
-        setThing(breadRow, breadColumn, (Thing) bread);
-        setThing(soulRow, soulColumn, (Thing) soul);
+        
     }
     
     public int neighborsEquals(int r, int c){
