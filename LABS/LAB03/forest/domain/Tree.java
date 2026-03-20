@@ -5,11 +5,8 @@ import java.awt.Color;
 <b>(forest,row,column,color)</b><br>
 <br>
  */
-public class Tree extends LivingThing implements Thing{
+public class Tree extends LivingThing implements Thing {
     private Forest forest;
-    
-    protected int row,column;    
-    protected Color color;
     private int season; //[spring, summer, autumn, winter]
     private int tictac;
     
@@ -60,7 +57,7 @@ public class Tree extends LivingThing implements Thing{
 
     
 
-    /**ticTac
+    /**ticTac change the state of tree
      */
     public void ticTac(){
         tictac++;
@@ -79,11 +76,20 @@ public class Tree extends LivingThing implements Thing{
         }
     }
       
-    /**Die
+    /**Die, makes tree null in the board
      */
     public void die(){
         forest.setThing(row, column,null);
     }
   
-        
+    public void getOld() {
+        years++;
+    }
+    
+    /**
+     * Change season of tree
+     */
+    public void changeSeason() {
+        season++;
+    }
 }

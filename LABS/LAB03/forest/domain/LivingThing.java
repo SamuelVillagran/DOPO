@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public abstract class LivingThing{
     
+    protected int row,column;    
+    protected Color color;
     protected int years;
     private int energy;
 
@@ -40,5 +42,7 @@ public abstract class LivingThing{
     public final boolean isLivingThing(){
         return true;
     }  
+    
+    public abstract void getOld();
     
 }
