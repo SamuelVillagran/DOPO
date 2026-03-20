@@ -1,4 +1,4 @@
-package presentation;
+package forest.presentation;
 import domain.*;
 
 import javax.swing.*;
