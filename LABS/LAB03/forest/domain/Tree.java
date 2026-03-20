@@ -83,8 +83,7 @@ public class Tree extends LivingThing implements Thing {
     }
   
     /**
-     * Make more old this tree
-     * 
+     * Make older this tree
      */
     public void getOld() {
         years++;

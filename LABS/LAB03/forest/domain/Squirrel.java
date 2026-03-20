@@ -25,19 +25,33 @@ public class Squirrel extends LivingThing implements Thing {
 
     }
 
+    /**
+     * tictac change the state, color, old and station
+     * of squirrel when tictoc button is clicked
+     */
     @Override
     public void ticTac() {
         
     }
     
+    /**
+     * changeSeason change the season of Squirrel when time comes
+     */
     public void changeSeason() {
-        
+        season++;
     }
     
+    /**
+     * Returns the specific color of this squirrel
+     * @return color color of squirrel
+     */
     public Color getColor() {
         return color;
     }
     
+    /**
+     * Makes this squirrel older 
+     */
     public void getOld() {
         years++;
     }
