@@ -29,7 +29,9 @@ public class Forest{
     }
 
     public void someThings(){   
-
+        Tree bread = new Tree(this, 10, 10);
+        Tree soul = new Tree(this, 15, 15);
+        Squirrel sql = new Squirrel(this, 5, 5);
     }
     
     public int neighborsEquals(int r, int c){
@@ -56,7 +58,14 @@ public class Forest{
     
    
     public void ticTac(){
-
+        
+        for (Thing[] fileThing : places) {
+            for (Thing thing : fileThing) {
+                if (thing != null) {
+                    thing.ticTac();
+                }
+            }
+        }
     }
 
 }

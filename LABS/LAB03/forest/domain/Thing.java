@@ -24,5 +24,7 @@ public interface Thing{
   public default boolean isLivingThing(){
       return false;
   }    
-     
+    
+  void changeSeason();
+  
 }
