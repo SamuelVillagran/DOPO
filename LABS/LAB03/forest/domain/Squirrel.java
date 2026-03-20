@@ -34,6 +34,10 @@ public class Squirrel extends LivingThing implements Thing {
         
     }
     
+    public Color getColor() {
+        return color;
+    }
+    
     public void getOld() {
         years++;
     }
