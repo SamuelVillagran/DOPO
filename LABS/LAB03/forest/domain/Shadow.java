@@ -25,16 +25,28 @@ public class Shadow implements Thing {
         this.season=0;
         this.tictac=0;
         this.forest.setThing(row,column,(Thing)this);    
-
+        this.forest.makeFileBlack(row, column);
     }
     
-    public void ticTac() {
-        int tictac = row;
-        tictac++; row = tictac % 25;
-        
+    public void ticTac() { // Ayudado con Claude Sonnet 4.6 IA 2026
+        forest.deleteLastShadow(row);
+        tictac++;
+
+        if (row == 0) {
+            row = 24;
+        } else {
+            row--;
+        }
+        forest.setThing(row, column, this); 
+        forest.makeFileBlack(row, column);
     }
 
     public void changeSeason() {
         
+    }
+    
+    @Override
+    public int shape() {
+        return Thing.ROUND;
     }
 }

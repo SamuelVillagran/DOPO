@@ -32,6 +32,7 @@ public class Forest{
         Tree bread = new Tree(this, 10, 10);
         Tree soul = new Tree(this, 15, 15);
         Squirrel sql = new Squirrel(this, 5, 5);
+        Shadow shadow = new Shadow(this, 0, 0);
     }
     
     public int neighborsEquals(int r, int c){
@@ -58,25 +59,31 @@ public class Forest{
     
    
     public void ticTac(){
-        int indexRow = 0, indexColumn = 0;
-        for (Thing[] fileThing : places) {
-            for (Thing thing : fileThing) {
+        for (int r = 0; r < SIZE; r++){
+            for (int c = 0; c < SIZE; c++){
+                Thing thing = places[r][c];
                 if (thing != null) {
-                    if (thing.getClass() == Shadow.class) {
-                        makeFileBlack(indexRow, indexColumn);
-                    }
                     thing.ticTac();
-                    indexRow++; indexColumn++;
                 }
+            }
+    }
+    }
+    
+    public void makeFileBlack(int indexRow,int indexColumn) {
+        
+        for (int i = 0; i < SIZE; i++) {
+            if ( !(i == indexColumn) && isEmpty(indexRow, i)) {
+                places[indexRow][i] = new ShadowMark(this, indexRow, i);
             }
         }
     }
     
-    private void makeFileBlack(int indexRow,int  indexColumn) {
-        
-        for (int i = 0; i < places[indexRow].length; i++) {
-            if (i == indexColumn || places[indexRow][i] != null) continue;
-            setThing(indexRow, i, new Shadow(this, indexRow, indexColumn));
+    public void deleteLastShadow(int indexRow) {
+        for (int i = 0; i < SIZE; i++) {
+            if (places[indexRow][i] instanceof Shadow || places[indexRow][i] instanceof ShadowMark) {
+                setThing(indexRow, i, null);
+            };
+            
         }
     }
 

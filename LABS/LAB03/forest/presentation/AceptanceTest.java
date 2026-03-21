@@ -2,6 +2,8 @@ package presentation;
 
 import domain.Forest;
 
+import domain.Shadow;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +46,11 @@ public class AceptanceTest {
         }
     }
     
-    
+    @Test
+    public void ShoudCreateShadow() {
+        Forest forest2 = gui.getForest();
+        Shadow shadow = new Shadow(forest2, 0, 0);
+    }
     
     /**
      * Tears down the test fixture.
