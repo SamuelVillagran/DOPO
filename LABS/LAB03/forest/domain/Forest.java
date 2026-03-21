@@ -32,7 +32,8 @@ public class Forest{
         Tree bread = new Tree(this, 10, 10);
         Tree soul = new Tree(this, 15, 15);
         Squirrel sql = new Squirrel(this, 5, 5);
-        Shadow shadow = new Shadow(this, 0, 0);
+        Shadow thief = new Shadow(this, 0, 0);
+        Shadow lass = new Shadow(this, 7, 12);
     }
     
     public int neighborsEquals(int r, int c){
