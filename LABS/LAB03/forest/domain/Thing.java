@@ -25,6 +25,6 @@ public interface Thing{
       return false;
   }    
     
-  void changeSeason();
+  public void changeSeason();
   
 }
