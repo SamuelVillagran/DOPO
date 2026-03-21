@@ -70,4 +70,17 @@ public class Fleet {
     public ArrayList<Prepared> destroyedMachines(){
         return destroyedMachines;
     }
+    /**
+     * Count the power of fleet,
+     * power is number of machines aren't weak
+     * @return Number of machines aren't weak
+     */
+    public int power() throws BlattleException {
+        int counterPower = 0;
+        for (Machine m : machines) {
+            if (!m.isWeak()) counterPower++;
+        }
+        if (counterPower == 0) throw new BlattleException(BlattleException.DONTPOWER);
+        return counterPower;
+    }
 }
