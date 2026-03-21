@@ -16,7 +16,6 @@ public class ShadowMark implements Thing {
         this.forest = forest;
         this.row = row;
         this.column = column;
-        forest.setThing(row, column, this); // solo esto, sin makeFileBlack
     }
 
     @Override
