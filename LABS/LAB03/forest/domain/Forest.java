@@ -1,4 +1,4 @@
-package forest.domain;
+package domain;
 import java.util.*;
 
 /*No olviden adicionar la documentacion*/
@@ -46,18 +46,23 @@ public class Forest{
         }
         return num;
     }
-   
-
+    
     public boolean isEmpty(int r, int c){
         return (inForest(r,c) && places[r][c]==null);
     }    
-        
-    private boolean inForest(int r, int c){
+    
+    protected boolean inForest(int r, int c){
         return ((0<=r) && (r<SIZE) && (0<=c) && (c<SIZE));
     }
     
-   
     public void ticTac(){
+        for(Thing[] fileThing : places){
+            for(Thing thing : fileThing){
+                if(thing instanceof Squirrel){
+                   ((Squirrel) thing).setState(false);
+               }
+            }
+        }
         
         for (Thing[] fileThing : places) {
             for (Thing thing : fileThing) {
