@@ -2,7 +2,7 @@ package domain;
 
 import java.awt.Color;
 /**
- * Write a description of class Shadow here.
+ * This is the class shadow
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -28,23 +28,36 @@ public class Shadow implements Thing {
         this.forest.makeFileBlack(row, column);
     }
     
-    public void ticTac() { // Ayudado con Claude Sonnet 4.6 IA 2026
+    /**tictac defines the movement of shadow
+     * 
+     */
+    public void ticTac() { // Ayudado con Claude Sonnet 4.6 IA 2026, corregido y revisado
         forest.deleteLastShadow(row);
         tictac++;
-
-        if (row == 0) {
+        row--;
+        if (row < 0) {
             row = 24;
-        } else {
-            row--;
-        }
+            
+        } 
+        
         forest.setThing(row, column, this); 
         forest.makeFileBlack(row, column);
     }
 
+    
+    public int getRow() {
+        return row;
+    }
+    /**
+     * Actually shadow doesn't change of season
+     */
     public void changeSeason() {
         
     }
     
+    /**
+     * Defines shape of shadow
+     */
     @Override
     public int shape() {
         return Thing.ROUND;

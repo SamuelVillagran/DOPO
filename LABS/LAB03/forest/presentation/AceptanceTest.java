@@ -47,9 +47,18 @@ public class AceptanceTest {
     }
     
     @Test
-    public void ShoudCreateShadow() {
+    public void shoudCreateShadow() {
         Forest forest2 = gui.getForest();
         Shadow shadow = new Shadow(forest2, 0, 0);
+        assertNotNull(shadow);
+    }
+    
+    @Test
+    public void shouldmoveLastPosition() {
+        Forest forest3 = gui.getForest();
+        Shadow shadow = new Shadow(forest3, 0, 0);
+        forest3.ticTac();
+        assertEquals(24, shadow.getRow());
     }
     
     /**

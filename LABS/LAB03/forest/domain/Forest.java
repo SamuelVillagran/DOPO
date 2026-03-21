@@ -59,16 +59,28 @@ public class Forest{
     
    
     public void ticTac(){
-        for (int r = 0; r < SIZE; r++){
-            for (int c = 0; c < SIZE; c++){
-                Thing thing = places[r][c];
-                if (thing != null) {
-                    thing.ticTac();
+        ArrayList<Thing> movingThings = new ArrayList<>(); // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
+        
+        // 1. Identificar qué hay en el bosque actualmente
+        for (int r = 0; r < SIZE; r++) {
+            for (int c = 0; c < SIZE; c++) {
+                if (places[r][c] != null) {
+                    movingThings.add(places[r][c]); // Esta linea fue ayudado por Claude Sonnet 4.6 IA 2026 
                 }
             }
-    }
+        }
+    
+        // 2. Ejecutar el movimiento de cada uno (una sola vez)
+        for (Thing t : movingThings) { // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
+            t.ticTac();
+        }
     }
     
+    /**
+     * Makes every cell of indexRow that is passed like parameter
+     * @param indexRow indexRow is the row that going to be fulled of shadow marks
+     * @param indexColumn indexColum is the column where is the shadow that produces shadow marks
+     */
     public void makeFileBlack(int indexRow,int indexColumn) {
         
         for (int i = 0; i < SIZE; i++) {
@@ -78,6 +90,10 @@ public class Forest{
         }
     }
     
+    /**
+     * Delete every trail of shadows
+     * @param indexRow indexRow is the index of row that going to be eliminated the shadows
+     */
     public void deleteLastShadow(int indexRow) {
         for (int i = 0; i < SIZE; i++) {
             if (places[indexRow][i] instanceof Shadow || places[indexRow][i] instanceof ShadowMark) {
