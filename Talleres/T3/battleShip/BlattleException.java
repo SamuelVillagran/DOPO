@@ -6,7 +6,7 @@
  * @version (a version number or a date)
  */
 public class BlattleException extends Exception {
-    public static final String DONTPOWER = "Fleet doesn't has power";
+    public static final String DONTENOUGHTPOWER = "Fleet doesn't has enought power";
     
     private String message;
     /**

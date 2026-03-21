@@ -45,4 +45,13 @@ public class Position {
     public boolean atThePosition(int longitude, int latitude) {
         return this.longitude==longitude && this.latitude==latitude ? true : false;
     }
+    
+    public boolean canMoveNorth() {
+        if (latitude == 90) return false;
+        return true;
+    }
+    
+    public void moveNorth() {
+        latitude++;
+    }
 }
