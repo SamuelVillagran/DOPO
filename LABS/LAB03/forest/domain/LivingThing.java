@@ -1,4 +1,4 @@
-package forest.domain;
+package domain;
 import java.awt.Color;
 
 
@@ -17,7 +17,6 @@ public abstract class LivingThing{
         years=0;
     }
 
-
     /**The LivingThing makes one step
      * 
      */
@@ -29,6 +28,10 @@ public abstract class LivingThing{
         }
         return ok;
     }    
+    
+    public final int getYears(){
+        return years;
+    }
     
      /**Returns the energy
     @return 

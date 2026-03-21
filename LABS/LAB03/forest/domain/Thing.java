@@ -1,4 +1,4 @@
-package forest.domain;
+package domain;
 import java.awt.Color;
 
 /*No olviden adicionar la documentacion*/
