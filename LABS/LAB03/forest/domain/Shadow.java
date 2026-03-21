@@ -29,6 +29,8 @@ public class Shadow implements Thing {
     }
     
     public void ticTac() {
+        int tictac = row;
+        tictac++; row = tictac % 25;
         
     }
 

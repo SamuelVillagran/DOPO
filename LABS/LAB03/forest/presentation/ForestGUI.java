@@ -14,7 +14,7 @@ public class ForestGUI extends JFrame{
     private JPanel  controlPanel;
     private PhotoForest photo;
     private Forest theForest;
-   
+    public static ForestGUI gui = null;
     
     private ForestGUI() {
         theForest=new Forest();
@@ -59,6 +59,17 @@ public class ForestGUI extends JFrame{
         ForestGUI cg=new ForestGUI();
         cg.setVisible(true);
     }  
+    
+    public static ForestGUI getGUI() {
+        
+        if (gui == null) gui = new ForestGUI();
+        
+        return gui;
+    }
+    
+    public Forest getForest() {
+        return theForest;
+    }
 }
 
 class PhotoForest extends JPanel{

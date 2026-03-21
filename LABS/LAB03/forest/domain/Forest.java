@@ -58,13 +58,25 @@ public class Forest{
     
    
     public void ticTac(){
-        
+        int indexRow = 0, indexColumn = 0;
         for (Thing[] fileThing : places) {
             for (Thing thing : fileThing) {
                 if (thing != null) {
+                    if (thing.getClass() == Shadow.class) {
+                        makeFileBlack(indexRow, indexColumn);
+                    }
                     thing.ticTac();
+                    indexRow++; indexColumn++;
                 }
             }
+        }
+    }
+    
+    private void makeFileBlack(int indexRow,int  indexColumn) {
+        
+        for (int i = 0; i < places[indexRow].length; i++) {
+            if (i == indexColumn || places[indexRow][i] != null) continue;
+            setThing(indexRow, i, new Shadow(this, indexRow, indexColumn));
         }
     }
 
