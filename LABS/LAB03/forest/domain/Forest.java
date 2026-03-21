@@ -48,19 +48,24 @@ public class Forest{
         }
         return num;
     }
-   
-
+    
     public boolean isEmpty(int r, int c){
         return (inForest(r,c) && places[r][c]==null);
     }    
-        
-    private boolean inForest(int r, int c){
+    
+    protected boolean inForest(int r, int c){
         return ((0<=r) && (r<SIZE) && (0<=c) && (c<SIZE));
     }
     
-   
     public void ticTac(){
         ArrayList<Thing> movingThings = new ArrayList<>(); // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
+        for(Thing[] fileThing : places){
+            for(Thing thing : fileThing){
+                if(thing instanceof Squirrel){
+                   ((Squirrel) thing).setState(false);
+               }
+            }
+        }
         
         // 1. Identificar qué hay en el bosque actualmente
         for (int r = 0; r < SIZE; r++) {
