@@ -29,4 +29,18 @@ public class Board {
         }
         return count;
     }
+    /**
+     * Consults the fleets that have infiltrated pilots. 
+     * @return  The fleets with infiltrated pilots
+     */
+    public ArrayList<Fleet> infiltrated() {
+        ArrayList<Fleet> fleetsWithInfiltrated = new ArrayList<>();
+        for (Fleet f : fleets) {
+            if (f.hasInfiltratedPilots()) fleetsWithInfiltrated.add(f);
+        }
+    }
+    
+    public ArrayList<Fleet> getFleets() {
+        return fleets;
+    }
 }

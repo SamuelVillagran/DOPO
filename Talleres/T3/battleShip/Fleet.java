@@ -101,6 +101,14 @@ public class Fleet {
         return numberFullMovements;
     }
     
+    public ArrayList<Sailor> getSailors() {
+        return sailors;
+    }
+    
+    public boolean hasInfiltratedPilot() {
+        
+    }
+    
     private boolean canDoFullMove() {
         for (Machine m : machines) {
             if (!m.canMoveNorth()) return false;
