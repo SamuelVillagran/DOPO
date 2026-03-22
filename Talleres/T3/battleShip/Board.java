@@ -17,4 +17,16 @@ public class Board {
         }
         return machinesAtPos;
     }
+    
+    /**
+     * Consults the number of fleets that completed a full movement
+     * @return int count of fleets that completed a full movement 
+     */
+    public int toNorth() {
+        int count = 0;
+        for (Fleet f : fleets) {
+            if (f.getFullMovements() > 0) count++;
+        }
+        return count;
+    }
 }

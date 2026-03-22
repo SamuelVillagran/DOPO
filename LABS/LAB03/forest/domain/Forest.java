@@ -20,7 +20,7 @@ public class Forest{
         return SIZE;
     }
 
-    public Thing getThing(int r,int c){
+    public Thing getThing(int r, int c){
         return places[r][c];
     }
 
@@ -38,6 +38,8 @@ public class Forest{
         BaobabPrince villagran = new BaobabPrince(this, 11, 11);
         BaobabPrince sanchez = new BaobabPrince(this, 14, 14);
         DefaultTree bob = new DefaultTree(this, 15,15);
+        Bear smally = new Bear(this, 5, 4);
+        Bear bear = new Bear(this, 15, 16);
     }
     
     public int neighborsEquals(int r, int c){
@@ -63,7 +65,7 @@ public class Forest{
     
     public void ticTac(){
         ArrayList<Thing> movingThings = new ArrayList<>(); // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
-        for(Thing[] fileThing : places){
+        for(Thing[] fileThing : places) {
             for(Thing thing : fileThing){
                 if(thing instanceof Squirrel){
                    ((Squirrel) thing).setState(false);
@@ -110,6 +112,16 @@ public class Forest{
                 setThing(indexRow, i, null);
             };
             
+        }
+    }
+
+    public boolean isLivingThing(int indexRow, int indexColumn) {
+        return places[indexRow][indexColumn] instanceof LivingThing;
+    }
+    
+    public void makeDamageEntity(int row, int column, int pointsOfDamage) {
+        if (isLivingThing(row, column)) {
+            ((LivingThing) places[row][column]).makeDamage(pointsOfDamage);
         }
     }
 

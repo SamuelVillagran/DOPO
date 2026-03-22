@@ -49,4 +49,13 @@ public abstract class Machine {
     public Position getLocation() {
         return location;
     }
+    
+    public boolean canMoveNorth() {
+        if (!location.canMoveNorth()) return false;
+        return true;
+    }
+    
+    public void moveNorth() {
+        location.moveNorth();
+    }
 }

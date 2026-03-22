@@ -7,6 +7,7 @@ public class Fleet {
     private ArrayList<Sailor> sailors;
     private Board board;
     private ArrayList<Prepared> destroyedMachines;
+    private int numberFullMovements = 0;
     
     public Fleet() {
         machines = new ArrayList<>();
@@ -69,5 +70,41 @@ public class Fleet {
     
     public ArrayList<Prepared> destroyedMachines(){
         return destroyedMachines;
+    }
+    
+    /**
+     * Count the power of fleet,
+     * power is number of machines aren't weak
+     * @return The power of the board. 
+     * @throws BlattleException If more than half of the fleets have power issues.
+     */
+    public int power() throws BlattleException {
+        int counterPower = 0;
+        for (Machine m : machines) {
+            if (!m.isWeak()) counterPower++;
+        }
+        
+        if (counterPower < machines.size()/2) throw new BlattleException(BlattleException.DONTENOUGHTPOWER);
+        return counterPower;
+    }
+    
+    public void moveNorth() {
+        if (canDoFullMove()) {
+            numberFullMovements++;
+            for (Machine m : machines) {
+                m.moveNorth();
+            }
+        }
+    }
+    
+    public int getFullMovements() {
+        return numberFullMovements;
+    }
+    
+    private boolean canDoFullMove() {
+        for (Machine m : machines) {
+            if (!m.canMoveNorth()) return false;
+        }
+        return true;
     }
 }
