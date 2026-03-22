@@ -5,10 +5,10 @@ import java.awt.Color;
 <b>(forest,row,column,color)</b><br>
 <br>
  */
-public class Tree extends LivingThing implements Thing {
-    private Forest forest;
-    private int season; //[spring, summer, autumn, winter]
-    private int tictac;
+public abstract class Tree extends LivingThing implements Thing {
+    protected Forest forest;
+    protected int season; //[spring, summer, autumn, winter]
+    protected int tictac;
     
     /**Create a new Tree(<b>row,column</b>) in the forest <b>forest</b>..
      * @param forest It's the fores where belog this tree
@@ -25,7 +25,6 @@ public class Tree extends LivingThing implements Thing {
         this.forest.setThing(row,column,(Thing)this);    
     }
     
-
     /**Returns the row
     @return int That maining the specific row where is the tree
      */
@@ -40,7 +39,6 @@ public class Tree extends LivingThing implements Thing {
         return column;
     }
 
-    
     /**Returns the color
     @return color Returns color of tree, following tictac
      */
@@ -53,27 +51,6 @@ public class Tree extends LivingThing implements Thing {
      */
     public final int shape(){
         return Thing.ROUND;
-    }
-
-    
-
-    /**ticTac change the state and color of tree
-     */
-    public void ticTac(){
-        tictac++;
-        color=(tictac % 4==0? Color.PINK:
-               tictac % 4==1? Color.GREEN:
-               tictac % 4==2? Color.ORANGE:
-               Color.GRAY);
-        if (tictac % 4 == 1){
-            years+=1;
-        }
-        if (tictac % 4 == 3){
-            boolean OK=step();
-            if (! OK){
-                die();
-            }
-        }
     }
       
     /**Die, makes tree null in the board

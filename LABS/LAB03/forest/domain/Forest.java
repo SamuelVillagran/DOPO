@@ -29,11 +29,13 @@ public class Forest{
     }
 
     public void someThings(){   
-        Tree bread = new Tree(this, 10, 10);
-        Tree soul = new Tree(this, 15, 15);
+        Tree bread = new DefaultTree(this, 10, 10);
+        Tree soul = new DefaultTree(this, 15, 15);
         Squirrel sql = new Squirrel(this, 5, 5);
         Shadow thief = new Shadow(this, 0, 0);
         Shadow lass = new Shadow(this, 7, 12);
+        BaobabPrince villagran = new BaobabPrince(this, 11, 11);
+        BaobabPrince sanchez = new BaobabPrince(this, 14, 14);
     }
     
     public int neighborsEquals(int r, int c){
