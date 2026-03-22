@@ -34,6 +34,7 @@ public class Forest{
         Squirrel sql = new Squirrel(this, 5, 5);
         Shadow thief = new Shadow(this, 0, 0);
         Shadow lass = new Shadow(this, 7, 12);
+        Bear smally = new Bear(this, 5, 3);
     }
     
     public int neighborsEquals(int r, int c){
@@ -109,4 +110,13 @@ public class Forest{
         }
     }
 
+    public boolean isLivingThing(int indexRow, int indexColumn) {
+        return places[indexRow][indexColumn] instanceof LivingThing;
+    }
+    
+    public void makeDamageEntity(int row, int column, int pointsOfDamage) {
+        if (isLivingThing(row, column)) {
+            ((LivingThing) places[row][column]).makeDamage(pointsOfDamage);
+        }
+    }
 }

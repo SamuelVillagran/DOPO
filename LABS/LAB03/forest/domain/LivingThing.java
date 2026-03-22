@@ -2,7 +2,7 @@ package domain;
 import java.awt.Color;
 
 
-public abstract class LivingThing{
+public abstract class LivingThing {
     
     protected int row,column;    
     protected Color color;
@@ -31,6 +31,13 @@ public abstract class LivingThing{
     
     public final int getYears(){
         return years;
+    }
+    
+    /**
+     * Makes damage to entitys
+     */
+    public void makeDamage(int pointsDamage) {
+        energy -= pointsDamage;
     }
     
      /**Returns the energy

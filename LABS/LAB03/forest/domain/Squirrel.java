@@ -6,8 +6,8 @@ import java.util.Random;
 /**
  * Write a description of class Squirrel here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Sanchez
+ * @version 1.0
  */
 public class Squirrel extends LivingThing implements Thing {
     private Forest forest;

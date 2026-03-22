@@ -70,7 +70,7 @@ public class Tree extends LivingThing implements Thing {
         }
         if (tictac % 4 == 3){
             boolean OK=step();
-            if (! OK){
+            if (! OK) {
                 die();
             }
         }
