@@ -35,8 +35,6 @@ public class Bear extends LivingThing implements Thing {
      * tictac's button is pressed
      */
     public void ticTac() {
-        season = tictac % 2 == 0 ? 1 : 0;
-        
         tictac++;
         
         if (tictac % 4 == 0) {
@@ -86,15 +84,19 @@ public class Bear extends LivingThing implements Thing {
     public void move() {
         Random rd = new Random();
         int delta = rd.nextInt(4) - 2;
-        int dr = row + delta, dc = column + delta;
         
-        if (dr == row && dr == column) move();
+        do {
+            delta = rd.nextInt(4) - 2; // Linea ayudada con IA
+        } while (delta == 0);
+        
+        
+        int dr = row + delta, dc = column + delta;
         
         changeSeason();
         
         boolean areThereEntity = forest.isEmpty(dr, dc);
         
-        if(areThereEntity && dr != row && dr != column
+        if(areThereEntity && dr != row && dc != column
             && season != 1) {
             forest.setThing(row, column, null);
             forest.setThing(dr, dc, this);
