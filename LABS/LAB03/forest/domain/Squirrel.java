@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- * Write a description of class Squirrel here.
- * 
- * @author Sanchez
- * @version 1.0
+ * Squirrel go to a random position on map.
+ * it could reproduce and die at 10 years.
  */
 public class Squirrel extends LivingThing implements Thing {
     private Forest forest;
@@ -83,6 +81,7 @@ public class Squirrel extends LivingThing implements Thing {
             case 8: color = new Color(99, 51, 0); break;
         }
         if(years >= 10) die(); 
+        
     }
     
     /**
@@ -111,25 +110,25 @@ public class Squirrel extends LivingThing implements Thing {
     /**
      * Generates a new Squirrel if there is a space with other Squirrel.
      */
-    public void reproduce() {
-            for(int dr =-1 ; dr< 2; dr++){
-                for(int dc = -1; dc < 2; dc++){
-                    int emptyRow = row + dr;
-                    int emptyCol = column + dc;
-                    int doubleRow = (dr * 2) + row;
-                    int doubleCol = (dc * 2) + column;
+    public void reproduce(){
+        for(int dr =-1 ; dr< 2; dr++){
+            for(int dc = -1; dc < 2; dc++){
+                int emptyRow = row + dr;
+                int emptyCol = column + dc;
+                int doubleRow = (dr * 2) + row;
+                int doubleCol = (dc * 2) + column;
                     
-                    if(forest.isEmpty(emptyRow, emptyCol)){
-                        if(forest.inForest(emptyRow, emptyCol) && forest.inForest(doubleRow, doubleCol)){
-                            Thing doublePlace = forest.getThing(doubleRow, doubleCol);
-                            if(doublePlace != null && doublePlace.getClass() == this.getClass()){
-                                new Squirrel(forest, emptyRow, emptyCol);
-                                return;
-                            }
+                if(forest.isEmpty(emptyRow, emptyCol)){
+                    if(forest.inForest(emptyRow, emptyCol) && forest.inForest(doubleRow, doubleCol)){
+                        Thing doublePlace = forest.getThing(doubleRow, doubleCol);
+                        if(doublePlace != null && doublePlace.getClass() == this.getClass()){
+                            new Squirrel(forest, emptyRow, emptyCol);
+                            return;
                         }
                     }
                 }
             }
+        }
     }
     
     /**

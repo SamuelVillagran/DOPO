@@ -124,16 +124,14 @@ public class Bear extends LivingThing implements Thing {
      * and attack if this can
      */
     public void attack() {
-        
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                int deltaRow = row-i, deltaColumn = column-j;
-                //boolean entityInBounds = deltaRow >= 0 && 
-                //    deltaColumn >= 0 && deltaRow < 25 && deltaColumn < 25;
+                int deltaRow = row - i, deltaColumn = column - j;
+                boolean entityInBounds = forest.inForest(deltaRow, deltaColumn);
                 boolean selfPosition = i == 0 && j == 0;
-                if (!forest.isEmpty(deltaRow, deltaColumn) && !selfPosition) {
-                        forest.makeDamageEntity(deltaRow, deltaColumn, DAMAGE);
-                    }
+                if (entityInBounds && !forest.isEmpty(deltaRow, deltaColumn) && !selfPosition) {
+                    forest.makeDamageEntity(deltaRow, deltaColumn, DAMAGE);
+                }
             }
         }
     }
