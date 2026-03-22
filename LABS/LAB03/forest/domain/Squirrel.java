@@ -111,7 +111,7 @@ public class Squirrel extends LivingThing implements Thing {
     /**
      * Generates a new Squirrel if there is a space with other Squirrel.
      */
-    public void reproduce(){
+    public void reproduce() {
             for(int dr =-1 ; dr< 2; dr++){
                 for(int dc = -1; dc < 2; dc++){
                     int emptyRow = row + dr;

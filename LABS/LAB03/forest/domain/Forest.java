@@ -20,7 +20,7 @@ public class Forest{
         return SIZE;
     }
 
-    public Thing getThing(int r,int c){
+    public Thing getThing(int r, int c){
         return places[r][c];
     }
 
@@ -34,7 +34,8 @@ public class Forest{
         Squirrel sql = new Squirrel(this, 5, 5);
         Shadow thief = new Shadow(this, 0, 0);
         Shadow lass = new Shadow(this, 7, 12);
-        Bear smally = new Bear(this, 5, 3);
+        Bear smally = new Bear(this, 5, 4);
+        Bear bear = new Bear(this, 15, 16);
     }
     
     public int neighborsEquals(int r, int c){
@@ -60,7 +61,7 @@ public class Forest{
     
     public void ticTac(){
         ArrayList<Thing> movingThings = new ArrayList<>(); // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
-        for(Thing[] fileThing : places){
+        for(Thing[] fileThing : places) {
             for(Thing thing : fileThing){
                 if(thing instanceof Squirrel){
                    ((Squirrel) thing).setState(false);
@@ -119,4 +120,5 @@ public class Forest{
             ((LivingThing) places[row][column]).makeDamage(pointsOfDamage);
         }
     }
+
 }

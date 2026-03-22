@@ -23,7 +23,7 @@ public class Bear extends LivingThing implements Thing {
         this.forest=forest;
         this.row=row;
         this.column=column; 
-        this.color= Color.ORANGE;
+        this.color= Color.RED;
         this.season=0;
         this.tictac=0;
         this.forest.setThing(row, column, (Thing)this);
@@ -41,6 +41,7 @@ public class Bear extends LivingThing implements Thing {
         
         if (tictac % 4 == 0) {
             getOld(); 
+            
             boolean OK = step();
             if (!OK) die();
         } 
@@ -48,23 +49,7 @@ public class Bear extends LivingThing implements Thing {
         move();
     }
     
-    /**
-     * Verify if bear can attack something
-     */
-    public void attack() {
-        
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                int deltaRow = row-i, deltaColumn = column-j;
-                //boolean entityInBounds = deltaRow >= 0 && 
-                //    deltaColumn >= 0 && deltaRow < 25 && deltaColumn < 25;
-                boolean selfPosition = i == 0 && j == 0;
-                if (!forest.isEmpty(deltaRow, deltaColumn) && !selfPosition) {
-                        forest.makeDamageEntity(deltaRow, deltaColumn, DAMAGE);
-                    }
-            }
-        }
-    }
+    
     
     /**
      * Get the bear's color
@@ -91,7 +76,8 @@ public class Bear extends LivingThing implements Thing {
         season = tictac%4 == 2 ? 1 : 0;
         
         color = season == 1 ?  new Color(102, 51, 0) :
-                Color.ORANGE;                
+                Color.RED; 
+                
     }
     
     /**
@@ -106,7 +92,9 @@ public class Bear extends LivingThing implements Thing {
         
         changeSeason();
         
-        if(forest.isEmpty(dr, dc) && dr != row && dr != column
+        boolean areThereEntity = forest.isEmpty(dr, dc);
+        
+        if(areThereEntity && dr != row && dr != column
             && season != 1) {
             forest.setThing(row, column, null);
             forest.setThing(dr, dc, this);
@@ -127,5 +115,40 @@ public class Bear extends LivingThing implements Thing {
      */
     public final int shape(){
         return Thing.ROUND;
+    }
+    
+    /**
+     * Verify if bear can attack something
+     * and attack if this can
+     */
+    public void attack() {
+        
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                int deltaRow = row-i, deltaColumn = column-j;
+                //boolean entityInBounds = deltaRow >= 0 && 
+                //    deltaColumn >= 0 && deltaRow < 25 && deltaColumn < 25;
+                boolean selfPosition = i == 0 && j == 0;
+                if (!forest.isEmpty(deltaRow, deltaColumn) && !selfPosition) {
+                        forest.makeDamageEntity(deltaRow, deltaColumn, DAMAGE);
+                    }
+            }
+        }
+    }
+    
+    /**
+     * Get bear's row
+     * @return row bear's row
+     */
+    public int getRow() {
+        return row;
+    }
+    
+    /**
+     * Get bear's column
+     * @return column bear's column
+     */
+    public int getColumn() {
+        return column;
     }
 }
