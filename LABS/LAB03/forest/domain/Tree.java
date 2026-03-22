@@ -1,9 +1,8 @@
 package domain;
 import java.awt.Color;
 
-/**Information about a Tree<br>
-<b>(forest,row,column,color)</b><br>
-<br>
+/**
+ * The Tree class represents the standard performance of a Tree.
  */
 public abstract class Tree extends LivingThing implements Thing {
     protected Forest forest;

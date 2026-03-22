@@ -65,6 +65,32 @@ public class C4BaobabPrinceTest
         assertTrue(sanchez.getIsDangerous());
     }
     
+    @Test
+    public void sohuldNeighborsTreesGetDamageAfterTenYears(){
+        DefaultTree bob = new DefaultTree(forest, 14,14); //Arbol vecino
+        
+        //Se llama al método de calcular 2 años, 5 veces.
+        tictacsByTwoYears();
+        assertEquals(98, bob.getEnergy());
+        tictacsByTwoYears();
+        assertEquals(96, bob.getEnergy());
+        tictacsByTwoYears();
+        assertEquals(94, bob.getEnergy());
+        tictacsByTwoYears();
+        assertEquals(92, bob.getEnergy());
+        tictacsByTwoYears();
+        
+        //Bob deberia tener 70 de daño ya que por pasados 10 años los baobabs empiezan a afectar
+        //otras plantas y quita -5 de daño por cada temporada del año
+        assertEquals(70, bob.getEnergy());
+    
+    }
+    
+    @Test
+    public void soulgNeighborsTreesDie(){
+        
+    }
+    
     private void tictacsByTwoYears(){
         forest.ticTac();
         forest.ticTac();

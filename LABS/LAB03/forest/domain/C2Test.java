@@ -18,18 +18,13 @@ public class C2Test
 {
     
     private Forest forest;
-    /**
-     * Creat the Forest instance before each test.
-     */
+
     @BeforeEach
     public void setUp()
     {
         forest = new Forest();
     }
 
-    /**
-     * Tests a Squirre will be on Places Matrix.
-     */
     @Test
     public void shouldAssignSquirrelOnPlaces(){
         Thing squirrelJoan = new Squirrel(forest, 10,10);
@@ -55,9 +50,6 @@ public class C2Test
         assertEquals(wishedAge, realAge);
     }
     
-    /**
-     * 
-     */
     @Test
     public void shoudlChangeColorEachTwoYears(){
         Thing squirrelJoan = new Squirrel(forest, 10,10);
@@ -115,11 +107,24 @@ public class C2Test
         assertTrue(forest.getThing(6,6) instanceof Squirrel);
     }
     
+    public void shouldMoveRandomly(){
+        Thing squirrelJoan = new Squirrel(forest, 5,5);
+        
+        forest.ticTac();
+        
+        int row = ((Squirrel) squirrelJoan).getRow();
+        int column = ((Squirrel) squirrelJoan).getRow();
+        
+        assertNotEquals(5, row);
+        assertNotEquals(5, column);
+        assertTrue(forest.getThing(row, column) instanceof Squirrel);
+    }
+    
     private void tictacsByYear(Forest forest){
         forest.ticTac();
         forest.ticTac();
         forest.ticTac();
         forest.ticTac();
     }
-    
+
 }

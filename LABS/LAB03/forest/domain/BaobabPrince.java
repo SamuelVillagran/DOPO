@@ -14,13 +14,12 @@ public class BaobabPrince extends Tree{
     public BaobabPrince(Forest forest, int row, int column)
     {
         super(forest, row, column);
-        this.color = Color.ORANGE;
+        this.color = new Color(143, 184, 255);
         this.isDangerous = false;
     }
     
     @Override
     public void ticTac(){
-        /*
         tictac++;
         color=(tictac % 4==0? new Color(143, 184, 255):
                tictac % 4==1? new Color(105, 160, 255):
@@ -39,7 +38,6 @@ public class BaobabPrince extends Tree{
                 die();
             }
         }
-        */
     }
     
     /**
@@ -54,7 +52,6 @@ public class BaobabPrince extends Tree{
      * Make damage to neighbors tree but not to its same specie.
      */
     private void generateDamage(){
-        /*
         for(int r = -1; r < 2; r++){
             for(int c = -1; c < 2; c++){
                 int dr = r + row;
@@ -72,7 +69,7 @@ public class BaobabPrince extends Tree{
                     }
                 }
             }
-        }*/
+        }
     }
     
     public boolean getIsDangerous(){
