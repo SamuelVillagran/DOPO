@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 
 public class Team extends Participant{
-   
+    
     private String manager;
     private String uniform;
     

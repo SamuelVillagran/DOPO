@@ -1,7 +1,7 @@
 package domain;
 
 
-
+ 
 public abstract class Participant{
     protected String name;
     protected Integer minutes;
@@ -33,7 +33,7 @@ public abstract class Participant{
        if (minutes == null) throw new FifaException(FifaException.MINUTES_UNKNOWN);
        return minutes;
     } 
-
+ 
  
     /**
      * Return the position

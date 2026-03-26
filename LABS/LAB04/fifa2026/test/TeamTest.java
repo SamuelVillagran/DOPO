@@ -22,7 +22,7 @@ public class TeamTest{
         try {
            assertEquals(168522432,t.marketValue());
         } catch (FifaException e){
-            fail("Threw a exception");
+            fail("Threw a exception"); 
         }    
     }    
 
@@ -38,7 +38,7 @@ public class TeamTest{
         } catch (FifaException e) {
             assertEquals(FifaException.IMPOSSIBLE,e.getMessage());
         }    
-    }    
+    }     
     
     
     @Test
