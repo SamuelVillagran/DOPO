@@ -44,7 +44,31 @@ public class Team extends Participant{
     //Otherwise, the average minutes played by known players is used for those whose minutes are unknown.
     
     public int expectedMarketValue() throws FifaException{
-        return 0;
+        double expectedValue = 0.0;
+        int contPlayersWithoutMinutes = 0;
+        double currentExpectedValue = 0.0;
+        try {
+            for (Player p : players) {
+                p.minutes(); // Verificar cuantos jugadores tienen los minutos registrados
+            }    
+            if (contPlayersWithoutMinutes == 0) return marketValue();
+            if (contPlayersWithoutMinutes > players.size()/2) {
+                for (Player p : players) {
+                    expectedValue += p.marketValue();
+                }
+                expectedValue /= players.size();
+            } else {
+                for (Player p : players) {
+                    if ((Integer) p.minutes() != null) currentExpectedValue += p.minutes(); // Cuenta tiempo total jugadores con valor de minutos
+                }   
+                currentExpectedValue /= players.size() - contPlayersWithoutMinutes; // Cuenta ese tiempo total y lo divide en los jugadores que si tienen
+            }
+        } catch (FifaException fe) {
+            String errorMessage = fe.getMessage();
+            if (errorMessage.equals(FifaException.MINUTES_UNKNOWN)) contPlayersWithoutMinutes++;
+            if (errorMessage.equals(FifaException.VALUE_UNKNOWN)) throw new FifaException(errorMessage);
+        }
+        return (int) expectedValue;
     }
     
     
@@ -60,7 +84,7 @@ public class Team extends Participant{
     
     
     @Override
-    public String data() throws FifaException{
+    public String data() throws FifaException {
         StringBuffer answer=new StringBuffer();
         answer.append(name+".\t Grupo: "+position+".\t Valor Promedio:" +marketValue());
         for(Player p: players) {

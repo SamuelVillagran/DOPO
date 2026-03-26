@@ -2,7 +2,7 @@ package domain;
 
 
  
-public abstract class Participant{
+public abstract class Participant {
     protected String name;
     protected Integer minutes;
     protected char position; //For players [P(Goalkeepers),D(Defenders), M(Midfielders), A(Forwards)] 
@@ -28,7 +28,6 @@ public abstract class Participant{
      * Return the minutes played
      * @return
      */
-
     public int minutes() throws FifaException{
        if (minutes == null) throw new FifaException(FifaException.MINUTES_UNKNOWN);
        return minutes;
@@ -46,7 +45,7 @@ public abstract class Participant{
     /**
      * Returns the Market Value of a player or the Weighted Market Value of a team
      * @return
-     * @throws FifaException, if any marker value or minutes is unknown
+     * @throws FifaException- VALUE_UNKNOWN, if any marker value or minutes is unknown
      */
     public abstract int marketValue() throws FifaException;
     
