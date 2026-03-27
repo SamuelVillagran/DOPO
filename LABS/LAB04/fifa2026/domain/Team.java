@@ -31,9 +31,27 @@ public class Team extends Participant{
     }
        
  
-   public int marketValue() throws FifaException{ 
-        return 0;
+   public int marketValue() throws FifaException{
+       double value = 0;
+       double totalMinutes = 0;
+       
+       if(players == null) throw new FifaException(FifaException.IMPOSSIBLE);
+       
+       for(Player p : players){
+           if(((Integer) p.minutes()) == null) //throw new FifaException(FifaException.MINUTES_UNKNOWN);
+           totalMinutes += p.minutes();
+       }
+       
+       if(totalMinutes == 0) throw new FifaException(FifaException.IMPOSSIBLE);
+       
+        for(Player p: players){
+            if((Integer)p.marketValue() == null) throw new FifaException(FifaException.VALUE_UNKNOWN);
+            value += p.marketValue() * (p.minutes() / totalMinutes);
+        }
+        
+        return (int)value;
     }
+
 
    /**
      * Returns the expectet Market Value 
