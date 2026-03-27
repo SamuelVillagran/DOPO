@@ -21,9 +21,17 @@ public class User {
     public boolean canCheckoutCart(String walletId) throws MercadoECIException {
         if (!cart.isValid()) throw new MercadoECIException(MercadoECIException.INVALID_CART);
         if (cart == null) throw new MercadoECIException(MercadoECIException.NO_CART);
-        
         ECIWallet wallet = loadWallet(walletId);
-        boolean canPay = wallet.canPaidCart(cart);
+        boolean canPay = false;
+        try {
+            canPay = wallet.canPaidCart(cart);
+            
+        } catch (MercadoECIException mee) {
+            if (!canPay) {
+                Notification n = new Notification(mee.getMessage());    
+            }
+            mee.printStackTrace();
+        }
         return canPay;
     }
     

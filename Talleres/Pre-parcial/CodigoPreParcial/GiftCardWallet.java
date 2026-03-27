@@ -21,7 +21,8 @@ public class GiftCardWallet extends ECIWallet {
         boolean allowedCategories = cart.belongAllowedCategories(eligibleCategories);
         if (!sufficientBalance) throw new MercadoECIException(MercadoECIException.INSUFICIENT_BALANCE);
         if (!notExpired)  throw new MercadoECIException(MercadoECIException.EXPIRED_BALANCE);
-        
+        if (!allowedCategories) throw new MercadoECIException(MercadoECIException.NOT_ALLOWED_CATEGORY_ITEM);
+        return sufficientBalance && notExpired && allowedCategories;
     }
     
     

@@ -11,8 +11,7 @@ public class Cart {
     private double totalPrice;
     private ArrayList<PurchaseDetail> selectedProducts;
     
-    public double getTotalPrice() throws MercadoECIException{
-        if (totalPrice == 0) throw  new MercadoECIException(MercadoECIException.INSUFICIENT_BALANCE);
+    public double getTotalPrice() throws MercadoECIException {
         return totalPrice;
     }
     

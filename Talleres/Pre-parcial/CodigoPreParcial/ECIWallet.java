@@ -9,7 +9,7 @@ public class ECIWallet {
     protected String id;
     protected double balance;
     
-    public boolean canPaidCart(Cart cart) throws MercadoECIException{
+    public boolean canPaidCart(Cart cart) throws MercadoECIException {
         boolean sufficientBalance = balance >= cart.getTotalPrice();
         if (!sufficientBalance) throw new MercadoECIException(MercadoECIException.INSUFICIENT_BALANCE);
         return sufficientBalance;
