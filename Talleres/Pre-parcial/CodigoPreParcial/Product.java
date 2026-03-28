@@ -1,12 +1,10 @@
 
 /**
- * Write a description of class Product here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * A PhysicalProduct in the MercadoECI system,it contains the
+ * necessary information of all products.
  */
 public class Product {
-
+  
     private int stock;
     private String category;
     
