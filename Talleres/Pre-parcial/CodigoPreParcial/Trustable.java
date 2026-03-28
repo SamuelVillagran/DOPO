@@ -8,6 +8,9 @@
 
 public interface Trustable {
     
+    /**
+     * Verify if some object is reliable following some specifications
+     */
     boolean isReliable();
     
 }

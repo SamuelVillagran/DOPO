@@ -61,8 +61,9 @@ public class User implements Trustable {
      */
     public boolean isReliable() {
         int contPurchaseUnreliable = 0;
+        String statePurchase;
         for (Purchase p : purchases) {
-            String statePurchase = p.getStatus();
+            statePurchase = p.getStatus();
             if (statePurchase.equals("denegado")) contPurchaseUnreliable++;
         }
         if (contPurchaseUnreliable > posts.size()) return false; // Si la mayoria de sus compras tiene estado denegado
@@ -72,6 +73,11 @@ public class User implements Trustable {
         return true;
     }
     
+    /**
+     * Verify the equals between objects
+     * @return true if some attributes of both objects are same (id, name, email)
+     *      false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
