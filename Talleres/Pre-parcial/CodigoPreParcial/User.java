@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Write a description of class User here.
@@ -7,15 +8,16 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class User {
+public class User implements Trustable {
     private int id;
     private String name;
     private String email;
     private LocalDate birthDay;
     private String shippingAdress;
     private Cart cart;
-    private ArrayList<Post> posts;
+    private HashMap<Integer, Post> posts;
     private ArrayList<ECIWallet> wallets;
+    private ArrayList<Purchase> purchases;
     
     /**
      * This method verifies if the wallet's cart is valid for payment.
@@ -50,5 +52,45 @@ public class User {
             if (w.getID().equals(walletId)) return w;
         }
         return null;
+    }
+    
+    /**
+     * Verify if this is a reliable user 
+     * @return true if this is a reliable user
+     *          false if It is considered unreliable if the majority of their purchases have a "denied" status or if any of their posts are unreliable.
+     */
+    public boolean isReliable() {
+        int contPurchaseUnreliable = 0;
+        for (Purchase p : purchases) {
+            String statePurchase = p.getStatus();
+            if (statePurchase.equals("denegado")) contPurchaseUnreliable++;
+        }
+        if (contPurchaseUnreliable > posts.size()) return false; // Si la mayoria de sus compras tiene estado denegado
+        for (Post p: posts.values()) {
+            if (!isReliable()) return false; // Si alguno de sus posts no es confiable
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        String userName = user.getName();
+        String userEmail = user.getEmail();
+        return id == user.getID() && name.equals(userName) && email.equals(userEmail);
+    }
+    
+    public int getID() {
+        return id;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public String getName() {
+        return name;
     }
 }

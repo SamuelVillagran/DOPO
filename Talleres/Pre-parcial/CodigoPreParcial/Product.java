@@ -23,5 +23,9 @@ public class Product {
     public String getCategory() {
         return category;
     }
+    
+    public int getStock() {
+        return stock;
+    }
 
 }
