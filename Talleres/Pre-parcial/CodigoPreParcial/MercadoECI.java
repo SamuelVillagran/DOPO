@@ -18,8 +18,8 @@ public class MercadoECI {
      * @param userId userId is the identifier of the user whose cart is to be validated for the checkout process.
      * @param walletId walletId is the identifier of the wallet to be used for the cart payment.
      * @throws MercadoECIException - USER_NOT_FOUND: The user does not exist in the system.
-                MercadoECIException - NO_CART: The user does not have a shopping cart that can be validated.
-                MercadoECIException - INVALID_CART: The cart contains at least one product with a requested quantity exceeding the available stock.
+     *           MercadoECIException - NO_CART: The user does not have a shopping cart that can be validated.
+     *           MercadoECIException - INVALID_CART: The cart contains at least one product with a requested quantity exceeding the available stock.
      */
     public boolean canCheckout(int userId, String walletId) throws MercadoECIException {
         User u = loadUser(userId);

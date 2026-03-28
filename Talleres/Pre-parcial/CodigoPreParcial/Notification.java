@@ -10,6 +10,9 @@ public class Notification {
     private String message;
     private LocalDateTime creationDate;
     
+    /**
+     * Constructor of notification
+     */
     public Notification(String message) {
         this.message = message;
         creationDate = LocalDateTime.now();

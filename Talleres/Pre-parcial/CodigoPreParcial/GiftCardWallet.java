@@ -14,6 +14,14 @@ public class GiftCardWallet extends ECIWallet {
     private double initialBalance;
     private Set<String> eligibleCategories;
      
+    /**
+     * Verify if satisfy requirements to cart will be paid
+     * @param cart cart is cart that it wants to paid
+     * @return true if wallet has sufficient balance to pay and
+     *              this wallet hasn't expired and
+     *              every categories that user choose belong to products choosed at the cart
+     *          false otherwise
+     */
     @Override
     public boolean canPaidCart(Cart cart) throws MercadoECIException {
         boolean sufficientBalance = balance >= cart.getTotalPrice();

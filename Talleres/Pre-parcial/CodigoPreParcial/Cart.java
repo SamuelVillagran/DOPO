@@ -15,6 +15,11 @@ public class Cart {
         return totalPrice;
     }
     
+    /**
+     * Comprobe if cart is valid with its prurchases datails 
+     * @return true if every purchase detail is valid
+     *          false if some purchase detail isn't valid
+     */
     public boolean isValid() {
         for (PurchaseDetail pd : selectedProducts) {
             if (!pd.isAValidPurchaseDetail()) return false;
@@ -22,6 +27,11 @@ public class Cart {
         return true;
     }
     
+    /**
+     * Verify if products category given is within categories allowed
+     * @param true if every products categories given belong to the categories of products of this cart
+     *        false otherwise
+     */
     public boolean belongAllowedCategories(Set<String> categoriesAllowed) {
         for (PurchaseDetail pd : selectedProducts) {
             if (!pd.belongAllowedCategories(categoriesAllowed)) return false;

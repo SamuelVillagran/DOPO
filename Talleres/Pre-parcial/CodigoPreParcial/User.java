@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * @version (a version number or a date)
  */
 public class User {
-    
     private int id;
     private String name;
     private String email;
@@ -18,6 +17,12 @@ public class User {
     private ArrayList<Post> posts;
     private ArrayList<ECIWallet> wallets;
     
+    /**
+     * This method verifies if the wallet's cart is valid for payment.
+     * @param walletId walletId is the identifier of the wallet to be used for the cart payment.
+     * @throws MercadoECIException - NO_CART: The user does not have a shopping cart that can be validated.
+     *         MercadoECIException - INVALID_CART: The cart contains at least one product with a requested quantity exceeding the available stock.
+     */
     public boolean canCheckoutCart(String walletId) throws MercadoECIException {
         if (!cart.isValid()) throw new MercadoECIException(MercadoECIException.INVALID_CART);
         if (cart == null) throw new MercadoECIException(MercadoECIException.NO_CART);
@@ -35,6 +40,11 @@ public class User {
         return canPay;
     }
     
+    /**
+     * Search the specific wallet with its specific id
+     * @param walletId walletId is the id of user that wants to found at the wallets
+     * @return Wallet Wallet that wants to found at wallets
+     */
     public ECIWallet loadWallet(String walletId) {
         for (ECIWallet w : wallets) {
             if (w.getID().equals(walletId)) return w;
