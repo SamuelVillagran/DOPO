@@ -11,7 +11,7 @@ public class Team extends Participant{
     
     /**
      * Constructs a new Team
-     * @param name
+     * @param name name of team
      * @param type
      */
     public Team(String name, int minutes, char position, String manager, String uniform){
@@ -38,14 +38,12 @@ public class Team extends Participant{
        if(players == null) throw new FifaException(FifaException.IMPOSSIBLE);
        
        for(Player p : players){
-           if(((Integer) p.minutes()) == null) //throw new FifaException(FifaException.MINUTES_UNKNOWN);
            totalMinutes += p.minutes();
        }
        
        if(totalMinutes == 0) throw new FifaException(FifaException.IMPOSSIBLE);
        
         for(Player p: players){
-            if((Integer)p.marketValue() == null) throw new FifaException(FifaException.VALUE_UNKNOWN);
             value += p.marketValue() * (p.minutes() / totalMinutes);
         }
         
@@ -65,10 +63,22 @@ public class Team extends Participant{
         double expectedValue = 0.0;
         int contPlayersWithoutMinutes = 0;
         double currentExpectedValue = 0.0;
-        try {
-            for (Player p : players) {
-                p.minutes(); // Verificar cuantos jugadores tienen los minutos registrados
-            }    
+        double totalKnownMinutes = 0.0;
+        
+        // 1. Contar cuántos jugadores NO tienen minutos
+        for (Player p : players) { //Esta parte fue ayudado por Claude Sonnet 4.6 2024 IA
+            try {
+                totalKnownMinutes += p.minutes(); // Acumula minutos conocidos
+            } catch (FifaException fe) {
+                if (fe.getMessage().equals(FifaException.MINUTES_UNKNOWN)) {
+                    contPlayersWithoutMinutes++; // Cuenta correctamente por cada jugador
+                } else {
+                    throw fe; // VALUE_UNKNOWN u otro: relanza
+                }
+            }
+        }
+        
+        try {  
             if (contPlayersWithoutMinutes == 0) return marketValue();
             if (contPlayersWithoutMinutes > players.size()/2) {
                 for (Player p : players) {

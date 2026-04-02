@@ -89,5 +89,24 @@ public class TeamTest{
         }    
     }  
 
-    
+   @Test
+   public void shouldThrowExceptionValueUnknowDefaultMarketValue() {
+       Team t = new Team("COLOMBIA",1620, 'K', "Hernan", "Amarill-Rojo-Azul");
+        t.addPlayer(new Player("BOHORQUEZ", 100, 'E', null, "Nu Colombia"));
+        t.addPlayer(new Player("LOPEZ", 60, 'M', 30000000, "Minnesota"));
+        t.addPlayer(new Player("URIBE", 40, 'A', 50000000, "Sport Club"));
+       try { 
+           int value=t.expectedMarketValue();
+           fail("Did not throw exception");
+        } catch (FifaException e) {
+            assertEquals(FifaException.IMPOSSIBLE, e.getMessage());
+        }    
+   }
+    /*
+     * Team t = new Team("COLOMBIA",1620, 'K', "Hernan", "Amarill-Rojo-Azul");
+        t.addPlayer(new Player("BOHORQUEZ", 100, 'E', 10000000, "Nu Colombia"));
+        t.addPlayer(new Player("LOPEZ", 60, 'M', 30000000, "Minnesota"));
+        t.addPlayer(new Player("URIBE", 40, 'A', 50000000, "Sport Club"));
+
+     */
 }
