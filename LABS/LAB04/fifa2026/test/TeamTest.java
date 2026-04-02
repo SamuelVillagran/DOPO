@@ -99,7 +99,7 @@ public class TeamTest{
            int value=t.expectedMarketValue();
            fail("Did not throw exception");
         } catch (FifaException e) {
-            assertEquals(FifaException.IMPOSSIBLE, e.getMessage());
+            assertEquals(FifaException.VALUE_UNKNOWN, e.getMessage());
         }    
    }
     /*
