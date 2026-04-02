@@ -18,7 +18,7 @@ public class ECIWallet {
     public boolean canPaidCart(Cart cart) throws MercadoECIException {
         boolean sufficientBalance = balance >= cart.getTotalPrice();
         if (!sufficientBalance) throw new MercadoECIException(MercadoECIException.INSUFICIENT_BALANCE);
-        return sufficientBalance;
+        return sufficientBalance; 
     }
     
     public String getID() {

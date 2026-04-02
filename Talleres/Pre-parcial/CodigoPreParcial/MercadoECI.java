@@ -23,7 +23,6 @@ public class MercadoECI {
      */
     public boolean canCheckout(int userId, String walletId) throws MercadoECIException {
         User u = loadUser(userId);
-        if (u == null) throw new MercadoECIException(MercadoECIException.USER_NOT_FOUND);
         return u.canCheckoutCart(walletId);
     }
     
@@ -32,7 +31,8 @@ public class MercadoECI {
      * @param userId userId is the id of user that wants to found at the users
      * @return User User that wants to found at users
      */
-    public User loadUser(int userId) {
+    public User loadUser(int userId) throws MercadoECIException {
+        if (users.get(userId) == null) throw new MercadoECIException(MercadoECIException.USER_NOT_FOUND);
         return users.get(userId);
     }
 }

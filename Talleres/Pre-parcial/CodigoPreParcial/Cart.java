@@ -11,7 +11,7 @@ public class Cart {
     private double totalPrice;
     private ArrayList<PurchaseDetail> selectedProducts;
     
-    public double getTotalPrice() throws MercadoECIException {
+    public double getTotalPrice() {
         return totalPrice;
     }
     
