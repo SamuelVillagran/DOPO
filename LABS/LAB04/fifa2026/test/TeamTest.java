@@ -90,7 +90,7 @@ public class TeamTest{
     }  
 
    @Test
-   public void shouldThrowExceptionValueUnknowDefaultMarketValue() {
+   public void shouldThrowExceptionExpectedMarketValueValueUnknowDefaultMarketValue() {
        Team t = new Team("COLOMBIA",1620, 'K', "Hernan", "Amarill-Rojo-Azul");
         t.addPlayer(new Player("BOHORQUEZ", 100, 'E', null, "Nu Colombia"));
         t.addPlayer(new Player("LOPEZ", 60, 'M', 30000000, "Minnesota"));
@@ -101,6 +101,23 @@ public class TeamTest{
         } catch (FifaException e) {
             assertEquals(FifaException.VALUE_UNKNOWN, e.getMessage());
         }    
+   }
+   
+   @Test
+   public void shouldCalculateExpectedMarketValueWithoutAMin() {
+       Team t = new Team("COLOMBIA",1620, 'K', "Hernan", "Amarill-Rojo-Azul");
+        t.addPlayer(new Player("BOHORQUEZ", null, 'E', 10000000, "Nu Colombia"));
+        t.addPlayer(new Player("LOPEZ", 60, 'M', 30000000, "Minnesota"));
+        t.addPlayer(new Player("URIBE", 40, 'A', 50000000, "Sport Club"));
+        int value = 0;
+        try { 
+           value=t.expectedMarketValue(); // Calcula el valor cuando no hay un valor de minutos
+           
+        } catch (FifaException e) {
+            e.printStackTrace();
+        }    
+        
+        assertEquals(28666666, value); 
    }
     /*
      * Team t = new Team("COLOMBIA",1620, 'K', "Hernan", "Amarill-Rojo-Azul");

@@ -65,6 +65,7 @@ public class Team extends Participant{
         double currentExpectedValue = 0.0;
         double totalKnownMinutes = 0.0;
         
+        
         // 1. Contar cuántos jugadores NO tienen minutos
         for (Player p : players) { //Esta parte fue ayudado por Claude Sonnet 4.6 2024 IA
             try {
@@ -78,7 +79,7 @@ public class Team extends Participant{
             }
         }
         
-        try {  
+        
             if (contPlayersWithoutMinutes == 0) return marketValue();
             if (contPlayersWithoutMinutes > players.size()/2) {
                 for (Player p : players) {
@@ -86,16 +87,22 @@ public class Team extends Participant{
                 }
                 expectedValue /= players.size();
             } else {
+                double avgKnownMinutes = totalKnownMinutes/(players.size() - contPlayersWithoutMinutes);
+                double totalAvgMinutes = totalKnownMinutes + contPlayersWithoutMinutes*avgKnownMinutes;
+                double mins;
                 for (Player p : players) {
-                    if ((Integer) p.minutes() != null) currentExpectedValue += p.minutes(); // Cuenta tiempo total jugadores con valor de minutos
+                    try {
+                        mins = p.minutes();
+                    } catch (FifaException fe) {
+                        mins = avgKnownMinutes;
+                    }
+                    expectedValue += p.marketValue() * (mins/totalAvgMinutes);
+                     // Cuenta tiempo total jugadores con valor de minutos
                 }   
-                currentExpectedValue /= players.size() - contPlayersWithoutMinutes; // Cuenta ese tiempo total y lo divide en los jugadores que si tienen
+                
+                // Cuenta ese tiempo total y lo divide en los jugadores que si tienen
             }
-        } catch (FifaException fe) {
-            String errorMessage = fe.getMessage();
-            if (errorMessage.equals(FifaException.MINUTES_UNKNOWN)) contPlayersWithoutMinutes++;
-            if (errorMessage.equals(FifaException.VALUE_UNKNOWN)) throw new FifaException(errorMessage);
-        }
+        
         return (int) expectedValue;
     }
     
