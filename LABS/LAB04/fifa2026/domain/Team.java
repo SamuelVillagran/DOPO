@@ -53,9 +53,10 @@ public class Team extends Participant{
 
    /**
      * Returns the expectet Market Value 
-     * @return
-     * @throws FifaException, if any marker value or minutes is unknown
+     * @return The team's value expected following the specifications given 
+     * @throws FifaException - IMPOSSIBLE if any marker value or minutes is unknown
      */
+    /* Specifications */
     //If more than half of the players have no recorded minutes, the total number of players is used to average. 
     //Otherwise, the average minutes played by known players is used for those whose minutes are unknown.
     

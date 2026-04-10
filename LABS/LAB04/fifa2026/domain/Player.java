@@ -13,7 +13,10 @@ public class Player extends Participant{
     
  
        
-    
+    /**
+     * Give the player's value at the market 
+     * @throws FifaException - VALUE_UNKNOWN If player doesn't have value
+     */
     @Override
     public int marketValue() throws FifaException{
        if (value == null) throw new FifaException(FifaException.VALUE_UNKNOWN);
