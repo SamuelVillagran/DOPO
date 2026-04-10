@@ -71,7 +71,8 @@ public class Team extends Participant{
             try {
                 totalKnownMinutes += p.minutes(); // Acumula minutos conocidos
             } catch (FifaException fe) {
-                if (fe.getMessage().equals(FifaException.MINUTES_UNKNOWN)) {
+                String message = fe.getMessage();
+                if (message.equals(FifaException.MINUTES_UNKNOWN)) {
                     contPlayersWithoutMinutes++; // Cuenta correctamente por cada jugador
                 } else {
                     throw fe; // VALUE_UNKNOWN u otro: relanza
@@ -79,23 +80,24 @@ public class Team extends Participant{
             }
         }
         
+        if (totalKnownMinutes == 0) throw new FifaException(FifaException.IMPOSSIBLE);
         
-            if (contPlayersWithoutMinutes == 0) return marketValue();
-            if (contPlayersWithoutMinutes > players.size()/2) {
-                for (Player p : players) {
-                    expectedValue += p.marketValue();
+        if (contPlayersWithoutMinutes == 0) return marketValue();
+        if (contPlayersWithoutMinutes > players.size()/2) {
+           for (Player p : players) {
+                 expectedValue += p.marketValue();
+             }
+            expectedValue /= players.size();
+        } else {
+            double avgKnownMinutes = totalKnownMinutes/(players.size() - contPlayersWithoutMinutes);
+            double totalAvgMinutes = totalKnownMinutes + contPlayersWithoutMinutes*avgKnownMinutes;
+            double mins;
+            for (Player p : players) {
+               try {
+                     mins = p.minutes();
+                 } catch (FifaException fe) {
+                    mins = avgKnownMinutes;
                 }
-                expectedValue /= players.size();
-            } else {
-                double avgKnownMinutes = totalKnownMinutes/(players.size() - contPlayersWithoutMinutes);
-                double totalAvgMinutes = totalKnownMinutes + contPlayersWithoutMinutes*avgKnownMinutes;
-                double mins;
-                for (Player p : players) {
-                    try {
-                        mins = p.minutes();
-                    } catch (FifaException fe) {
-                        mins = avgKnownMinutes;
-                    }
                     expectedValue += p.marketValue() * (mins/totalAvgMinutes);
                      // Cuenta tiempo total jugadores con valor de minutos
                 }   
