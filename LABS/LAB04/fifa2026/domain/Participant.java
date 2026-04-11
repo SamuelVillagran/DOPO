@@ -1,7 +1,9 @@
 package domain;
 
 
- 
+ /**
+  * Participants of Fifa (teams and players), Class's participants
+  */
 public abstract class Participant {
     protected String name;
     protected Integer minutes;

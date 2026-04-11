@@ -4,14 +4,14 @@ package domain;
 import java.util.ArrayList;
 import java.util.TreeMap;
 /**
- * Fifa
+ * Fifa class
  * @author DOPO
  * @version ECI 2026
  */
 
 public class Fifa{
     private ArrayList<Participant> participants;
-    private TreeMap<String,JLayer> players;
+    private TreeMap<String, Player> players;
 
     /**
      * Create a Fifa

@@ -2,6 +2,10 @@ package domain;
  
 import java.util.ArrayList;
 
+
+/**
+ * Team of players class, class's Team
+ */
 public class Team extends Participant{
     
     private String manager;
