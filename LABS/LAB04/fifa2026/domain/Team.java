@@ -29,13 +29,19 @@ public class Team extends Participant{
     public void addPlayer(Player c){
         players.add(c);
     }
-       
- 
+    
+    
+   /**
+    * Calculates the weighted average of the market values of players.
+    * It takes minutes played as weights.
+    * @return the team's weighted average marked value. 
+    * @Trows FifaException - IMPOSSIBLE If players doesn't have minutes or if there's no players.
+    */
    public int marketValue() throws FifaException{
        double value = 0;
        double totalMinutes = 0;
        
-       if(players == null) throw new FifaException(FifaException.IMPOSSIBLE);
+       if(players.isEmpty()) throw new FifaException(FifaException.IMPOSSIBLE);
        
        for(Player p : players){
            if(((Integer) p.minutes()) == null) //throw new FifaException(FifaException.MINUTES_UNKNOWN);
