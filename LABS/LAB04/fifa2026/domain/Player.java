@@ -1,5 +1,8 @@
 package domain;  
 
+/**
+ * Players of teams of fifa, class's Player
+ */
 public class Player extends Participant{
     
     private Integer value;    //[0..300000000] 
@@ -16,7 +19,6 @@ public class Player extends Participant{
      * @return the value of the player.
      * @throws FifaException - VALUE_UNKNOWN If player doesn't have value
      */
-
     @Override
     public int marketValue() throws FifaException{
        if (value == null) throw new FifaException(FifaException.VALUE_UNKNOWN);
@@ -33,5 +35,13 @@ public class Player extends Participant{
             theData += ". *** Datos incompletos";
         }
         return theData;
+    }
+    
+    public Integer getValue() {
+        return value;
+    }
+    
+    public String getClub() {
+        return club;
     }
 }
