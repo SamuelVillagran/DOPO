@@ -26,7 +26,6 @@ public class TeamTest{
         }    
     }    
 
-    
     @Test
     public void shouldThrowExceptionIfTeamHasNoPlayer(){
         Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
@@ -76,11 +75,11 @@ public class TeamTest{
    @Test
     public void shouldThrowExceptionIfAMinutesIsNotKnown(){
         Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
-        t.addPlayer(new Player("L.DIAZ", 690,'A',760000000,"Bayer"));
-        t.addPlayer(new Player("JAMES", 516,'M',2200000,"Minnesota"));
-        t.addPlayer(new Player("BORRE", 445,'A',4400000,"Sport Club"));
-        t.addPlayer(new Player("LUCUMI", 1250,'D',125000000,"Bologna"));
-        t.addPlayer(new Player("VARGAS", null,'P',540000,"Atlas"));
+        t.addPlayer(new Player("L.DIAZ", 690,'A',0,"Bayer"));
+        t.addPlayer(new Player("JAMES", 516,'M',0,"Minnesota"));
+        t.addPlayer(new Player("BORRE", 445,'A',0,"Sport Club"));
+        t.addPlayer(new Player("LUCUMI", 1250,'D',0,"Bologna"));
+        t.addPlayer(new Player("VARGAS", null,'P',0,"Atlas"));
         try { 
            int value=t.marketValue();
            fail("Did not throw exception");
@@ -89,5 +88,50 @@ public class TeamTest{
         }    
     }  
 
+    @Test
+    public void shouldCalculateDefatulMarketValue(){
+        Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
+        t.addPlayer(new Player("L.DIAZ", 690,'A',760000000,"Bayer"));
+        t.addPlayer(new Player("JAMES", null,'M',2200000,"Minnesota"));
+        t.addPlayer(new Player("BORRE", 445,'A',null,"Sport Club"));
+        t.addPlayer(new Player("LUCUMI", 1250,'D',125000000,"Bologna"));
+        t.addPlayer(new Player("VARGAS", null,'P',null,"Atlas"));
+        try { 
+           int value=t.defaultMarkedValue(1000000, 1000);
+           assertEquals(156053591, value);
+        } catch (FifaException e) {
+            fail("threw an exception");
+        }
+    }
+    
+    @Test
+    public void shouldThrowExceptionIfPlayersNotHasMinutes(){
+        Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
+        t.addPlayer(new Player("L.DIAZ",0,'A',760000000,"Bayer"));
+        t.addPlayer(new Player("JAMES", 0,'M',2200000,"Minnesota"));
+        t.addPlayer(new Player("BORRE", 0,'A',4400000,"Sport Club"));
+        t.addPlayer(new Player("LUCUMI", 0,'D',125000000,"Bologna"));
+        t.addPlayer(new Player("VARGAS", 0,'P',540000,"Atlas"));
+        
+        try{
+            t.defaultMarkedValue(1000000, 1000);
+            fail("Did not throw exception");
+        }
+        catch(FifaException f){
+            assertEquals(FifaException.IMPOSSIBLE,f.getMessage());
+        }
+    }
+    
+    @Test
+    public void shouldThrowExceptionIfTeamHasNotPlayersInDefaultMarketValue(){
+        Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
+        
+        try { 
+           int value=t.defaultMarkedValue(1000000, 1000);
+           fail("Did not throw exception");
+        } catch (FifaException e) {
+            assertEquals(FifaException.IMPOSSIBLE,e.getMessage());
+        }  
+    }
     
 }
