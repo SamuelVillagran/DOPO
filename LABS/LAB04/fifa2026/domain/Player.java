@@ -32,8 +32,10 @@ public class Player extends Participant{
         String theData= String.format("%-10s Rol: %c", name+".", position);
         if (!(value instanceof Integer || minutes instanceof Integer)) throw new FifaException(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY);
         try{
-            theData+= String.format(" Valor:%-12d Minutos:%d", marketValue(), minutes());
-        } catch (FifaException e){
+            int marketValue = marketValue();
+            if (marketValue < 0) throw new FifaException(FifaException.INCORRECT_MARKETVALUE);
+            theData+= String.format(" Valor:%-12d Minutos:%d", marketValue, minutes());
+        } catch (FifaException e) {
             theData += ". *** Datos incompletos";
         }
         return theData;

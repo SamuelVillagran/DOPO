@@ -13,6 +13,7 @@ public class FifaException extends Exception{
     public static final String PARTICIPANT_WITH_SAME_NAME = "Participant name is repeated, can't show at the screen";
     public static final String ATTRIBUTE_INTEGER_SETTING_INCORRECTLY = "Some integer attribute isn't setting correctly";
     public static final String ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY = "Some String or char attribute isn't setting correctly";
+    public static final String INCORRECT_MARKETVALUE = "Market value is negative, this is incorrect";
     
     public FifaException(String message){
         super(message);

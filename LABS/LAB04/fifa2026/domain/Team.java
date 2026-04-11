@@ -166,6 +166,7 @@ public class Team extends Participant{
     public String data() throws FifaException {
         StringBuffer answer=new StringBuffer();
         if (!(name instanceof String || (Character) position instanceof Character)) throw new FifaException(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY);
+        if (marketValue()  < 0) throw new FifaException(FifaException.INCORRECT_MARKETVALUE);
         answer.append(name+".\t Grupo: "+position+".\t Valor Promedio:" + marketValue());
         for(Player p: players) {
             answer.append("\n\t"+p.data());

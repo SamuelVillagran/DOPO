@@ -106,6 +106,7 @@ public class Fifa {
         for (Participant p : participants) {
             nameParticipants.add(p.getName());
         }
+        
         for(Participant p : selected) {
             try{
                 repeticions = Collections.frequency(nameParticipants, p.getName());
