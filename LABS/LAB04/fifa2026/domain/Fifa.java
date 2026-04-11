@@ -3,6 +3,8 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.Collections;
+
 /**
  * Fifa class
  * @author DOPO
@@ -99,8 +101,15 @@ public class Fifa {
     public String data(ArrayList<Participant> selected){
         StringBuffer answer=new StringBuffer();
         answer.append(participants.size() + " elementos\n");
+        int repeticions = 0;
+        ArrayList<String> nameParticipants = new ArrayList<>();
+        for (Participant p : participants) {
+            nameParticipants.add(p.getName());
+        }
         for(Participant p : selected) {
             try{
+                repeticions = Collections.frequency(nameParticipants, p.getName());
+                if (repeticions > 1) throw new FifaException(FifaException.PARTICIPANT_WITH_SAME_NAME);
                 answer.append('>' + p.data());
                 answer.append("\n");
             }catch(FifaException e){

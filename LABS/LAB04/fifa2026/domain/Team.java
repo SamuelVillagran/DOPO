@@ -121,19 +121,51 @@ public class Team extends Participant{
     
     
     /**
-     * Returns the Marked Value using default values 
-     * @return
-     * @throws FifaException, if the resistance cannot be calculate
+     * If a player's market value or minutes played are unknown, default values are used.
+     * @param defaultMarketValue the value used when marketvalue player is unknown.
+     * @param defaultMinutes the value used when minute player is unknown.
+     * @return the Marked Value using default values.
+     * @throws FifaException if minutes team or players ar unknown.
      */
-    //If a player's market value or minutes played are unknown, default values ​​are used.
     public int defaultMarkedValue(int defaultMarketValue, int defaultMinutes) throws FifaException{
-        return 0;
+        if (players.isEmpty() || players == null) throw new FifaException(FifaException.IMPOSSIBLE);
+        double totalMin = 0;
+        double sum = 0;
+        double marketValue = 0;
+        double minutes = 0;
+    
+        for(Player p: players){
+            try{
+                totalMin += p.minutes();
+            } catch (FifaException f) {
+                if (FifaException.MINUTES_UNKNOWN.equals(f.getMessage())) totalMin += defaultMinutes;
+            }
+        }
+        
+        if (totalMin == 0) throw new FifaException(FifaException.IMPOSSIBLE);
+    
+        for (Player p : players) {
+            try{
+                minutes = p.minutes();
+            } catch(FifaException f){
+                if (FifaException.MINUTES_UNKNOWN.equals(f.getMessage())) minutes = defaultMinutes;
+            }
+            
+            try{
+                marketValue = p.marketValue();
+            } catch (FifaException f) {
+                if (FifaException.VALUE_UNKNOWN.equals(f.getMessage())) marketValue = defaultMarketValue;
+            }
+            sum += marketValue *(minutes / totalMin);
+        }
+        return (int) sum;
     }
     
     
     @Override
     public String data() throws FifaException {
         StringBuffer answer=new StringBuffer();
+        if (!(name instanceof String || (Character) position instanceof Character)) throw new FifaException(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY);
         answer.append(name+".\t Grupo: "+position+".\t Valor Promedio:" + marketValue());
         for(Player p: players) {
             answer.append("\n\t"+p.data());
