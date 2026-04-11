@@ -58,7 +58,7 @@ public class Fifa {
      * Add a new player
     */
     public void addPlayer(String name, String minutes, String position, String value, String club){ 
-        Player np=new Player(name,Integer.parseInt(minutes),position.charAt(0),Integer.parseInt(value),club);
+        Player np=new Player(name,Integer.parseInt(minutes), position.charAt(0),Integer.parseInt(value),club);
         participants.add(np);
         players.put(name.toUpperCase(), np); 
     }
