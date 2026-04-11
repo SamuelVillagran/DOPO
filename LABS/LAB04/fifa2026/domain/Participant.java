@@ -49,6 +49,10 @@ public abstract class Participant {
         return position;
     }
     
+    public Integer getMinutes() {
+        return minutes;
+    }
+    
     /**
      * Calculate the market value of the participant.
      * @return market the Market Value of a player or the Weighted Market Value of a team

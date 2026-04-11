@@ -9,7 +9,7 @@ import java.util.TreeMap;
  * @version ECI 2026
  */
 
-public class Fifa{
+public class Fifa {
     private ArrayList<Participant> participants;
     private TreeMap<String, Player> players;
 
@@ -58,16 +58,16 @@ public class Fifa{
     public void addPlayer(String name, String minutes, String position, String value, String club){ 
         Player np=new Player(name,Integer.parseInt(minutes),position.charAt(0),Integer.parseInt(value),club);
         participants.add(np);
-        players.put(name.toUpperCase(),np); 
+        players.put(name.toUpperCase(), np); 
     }
     
     /**
      * Add a new team
     */
     public void addTeam(String name, String minutes, String position, String manager, String uniform, String thePlayers){ 
-        Team c = new Team(name,Integer.parseInt(minutes),position.charAt(0),manager, uniform);
+        Team c = new Team(name,(int) Integer.parseInt(minutes), (char) position.charAt(0), manager, uniform);
         String [] aPlayers= thePlayers.split("\n");
-        for (String b : aPlayers){
+        for (String b : aPlayers) {
             c.addPlayer(players.get(b.toUpperCase()));
         }
         participants.add(c);

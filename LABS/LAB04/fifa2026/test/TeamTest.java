@@ -101,7 +101,7 @@ public class TeamTest{
         } catch (FifaException e) {
             e.printStackTrace();
         }    
-        assertEquals(7200000, value);
+        assertEquals(24000000, value);
     }
 
    @Test

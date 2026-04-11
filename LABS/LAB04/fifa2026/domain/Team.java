@@ -47,7 +47,7 @@ public class Team extends Participant{
        
        if(players.isEmpty()) throw new FifaException(FifaException.IMPOSSIBLE);
        
-       for(Player p : players){
+       for(Player p : players) {
            totalMinutes += p.minutes();
        }
        
