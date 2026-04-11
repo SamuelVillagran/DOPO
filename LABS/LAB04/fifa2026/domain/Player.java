@@ -28,10 +28,10 @@ public class Player extends Participant{
     
     
     @Override
-    public String data(){
-        String theData= name+".\t Rol: "+position;
+    public String data(){ // Las versiones .format del String fueron ayudadas a hacer por Claude Sonnet 4.6 IA 2026
+        String theData= String.format("%-10s Rol: %c", name+".", position);
         try{
-            theData= theData+". \t Valor:" +marketValue()+"\t Minutos:"+ minutes();
+            theData+= String.format(" Valor:%-12d Minutos:%d", marketValue(), minutes());
         } catch (FifaException e){
             theData += ". *** Datos incompletos";
         }

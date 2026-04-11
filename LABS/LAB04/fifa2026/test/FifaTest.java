@@ -64,21 +64,6 @@ public class FifaTest {
 
         assertEquals(expected, fifa.toString());
     }
-    /* data() en players 
-     * String theData= name+".\t Rol: "+position;
-        try{
-            theData= theData+". \t Valor:" +marketValue()+"\t Minutos:"+ minutes();
-        } catch (FifaException e){
-            theData += ". *** Datos incompletos";
-        }
-        return theData;
-     */
-    /*players= {{"L.DIAZ", "690","A","760000000","Bayer"},
-                              {"JAMES", "516","M","2200000","Minnesota"},
-                              {"BORRE", "445","A","4400000","Sport Club"},
-                              {"LUCUMI", "1250","D","125000000","Bologna"},
-                              {"VARGAS", "1160","P","540000","Atlas"}}; 
-                              
-     teams = {{"COLOMBIA","1620", "K", "Lorenzo", "Amarill-Rojo-Azul", "L.DIAZ\nJAMES\nBORRE\nLUCUMI\nVARGAS"}};
-                              */
+
+
 }
