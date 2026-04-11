@@ -31,12 +31,26 @@ public class Fifa {
                               {"LUCUMI", "1250","D","125000000","Bologna"},
                               {"VARGAS", "1160","P","540000","Atlas"}};
         for (String [] p: players){
-            addPlayer(p[0],p[1],p[2],p[3],p[4]);
+            try
+            {
+                addPlayer(p[0],p[1],p[2],p[3],p[4]);
+            }
+            catch (FifaException fe)
+            {
+                fe.printStackTrace();
+            }
         }
         
         String [][] teams = {{"COLOMBIA","1620", "K", "Lorenzo", "Amarill-Rojo-Azul", "L.DIAZ\nJAMES\nBORRE\nLUCUMI\nVARGAS"}};
         for (String [] t: teams){
-            addTeam(t[0],t[1],t[2],t[3],t[4],t[5]);
+            try
+            {
+                addTeam(t[0],t[1],t[2],t[3],t[4],t[5]);
+            }
+            catch (FifaException fe)
+            {
+                fe.printStackTrace();
+            }
         }
     }
 
@@ -57,8 +71,24 @@ public class Fifa {
     /**
      * Add a new player
     */
-    public void addPlayer(String name, String minutes, String position, String value, String club){ 
-        Player np=new Player(name,Integer.parseInt(minutes), position.charAt(0),Integer.parseInt(value),club);
+    public void addPlayer(String name, String minutes, String position, String value, String club) throws FifaException{ 
+        int mins = 0, val = 0;
+        try { // El try fue ayudado a hacer por Gemini IA 2026
+            mins = Integer.parseInt(minutes);
+            val = Integer.parseInt(value);
+            
+        } catch (NumberFormatException e) {
+            throw new FifaException(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY);
+        }
+        
+        char pos = 0;
+        try {
+            pos = position.charAt(0);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new FifaException(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY);
+        }
+        
+        Player np=new Player(name,mins, position.charAt(0), val, club);
         participants.add(np);
         players.put(name.toUpperCase(), np); 
     }
@@ -66,11 +96,27 @@ public class Fifa {
     /**
      * Add a new team
     */
-    public void addTeam(String name, String minutes, String position, String manager, String uniform, String thePlayers){ 
-        Team c = new Team(name,(int) Integer.parseInt(minutes), (char) position.charAt(0), manager, uniform);
-        String [] aPlayers= thePlayers.split("\n");
+    public void addTeam(String name, String minutes, String position, String manager, String uniform, String thePlayers) throws FifaException{ 
+        Integer minutesInt = 0;
+        try {// El try fue ayudado a hacer por Claude Sonnet 4.6 IA 2026
+            minutesInt = Integer.parseInt(minutes);
+            
+        } catch (NumberFormatException e) {
+            throw new FifaException(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY);
+        }
+        char positionChar = ' ';
+        try {
+            positionChar = position.charAt(0);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new FifaException(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY);
+        }
+    
+        Team c = new Team(name, minutesInt, positionChar, manager, uniform);
+        String[] aPlayers = thePlayers.split("\n");
         for (String b : aPlayers) {
-            c.addPlayer(players.get(b.toUpperCase()));
+            Player p = players.get(b.trim().toUpperCase());
+        if (p == null) throw new FifaException(FifaException.PARTICIPANT_WITH_SAME_NAME); // o crea una constante nueva
+            c.addPlayer(p);
         }
         participants.add(c);
     }

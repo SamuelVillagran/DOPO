@@ -21,7 +21,14 @@ public class FifaTest {
     @Test
     public void shouldAddPlayer() {
         Fifa fifa = new Fifa();
-        fifa.addPlayer("MESSI", "1420", "D", "15000000" , "Inter");
+        try
+        {
+            fifa.addPlayer("MESSI", "1420", "D", "15000000" , "Inter");
+        }
+        catch (FifaException fe)
+        {
+            fe.printStackTrace();
+        }
         Player playerAdded = fifa.getPlayers().get("MESSI");
         assertEquals(playerAdded.getClass(), Player.class);
         assertEquals(playerAdded.getName(), "MESSI");
