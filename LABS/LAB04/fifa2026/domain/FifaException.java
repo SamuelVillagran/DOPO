@@ -2,10 +2,9 @@ package domain;
 
 
 /**
- * Write a description of class FifaExceptions here.
+ * Fifa's exception class
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Sanchez-Villagran
  */
 public class FifaException extends Exception{
     public static final String MINUTES_UNKNOWN = "There's not minutes known";

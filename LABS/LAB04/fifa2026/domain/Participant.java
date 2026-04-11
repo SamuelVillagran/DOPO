@@ -1,9 +1,10 @@
 package domain;
 
-/**
- * Abstract class respresents a participant in the system.
- * A participant can be a player or a team.
- */
+
+ /**
+  * Abstract class respresents a participant in the system.
+  * A participant can be a player or a team.
+  */
 public abstract class Participant {
     protected String name;
     protected Integer minutes;

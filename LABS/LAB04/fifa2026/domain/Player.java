@@ -1,5 +1,8 @@
 package domain;  
 
+/**
+ * Players of teams of fifa, class's Player
+ */
 public class Player extends Participant{
     
     private Integer value;    //[0..300000000] 
