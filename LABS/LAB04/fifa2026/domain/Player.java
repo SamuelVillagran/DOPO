@@ -11,10 +11,10 @@ public class Player extends Participant{
         this.club=club;
     }
     
- 
-       
+
     /**
-     * Give the player's value at the market 
+     * Give the player's value at the market.
+     * @return the value of the player.
      * @throws FifaException - VALUE_UNKNOWN If player doesn't have value
      */
     @Override
@@ -22,7 +22,6 @@ public class Player extends Participant{
        if (value == null) throw new FifaException(FifaException.VALUE_UNKNOWN);
        return value;
     }    
-    
     
     
     @Override
