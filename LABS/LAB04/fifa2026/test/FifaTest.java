@@ -44,5 +44,41 @@ public class FifaTest {
         assertEquals(argentina.getPlayers().size(), 3); 
     }
     
-    
+    @Test
+    public void shouldMakeListAtTeam() { // Test ayudado a hacer por Claude Sonnet 4.6 IA 2026
+        Fifa fifa = new Fifa();
+
+        String expected =
+        "6 elementos\n" +
+        ">L.DIAZ.\t Rol: A. \t Valor:760000000\t Minutos:690\n" +
+        ">JAMES.\t Rol: M. \t Valor:2200000\t Minutos:516\n" +
+        ">BORRE.\t Rol: A. \t Valor:4400000\t Minutos:445\n" +
+        ">LUCUMI.\t Rol: D. \t Valor:125000000\t Minutos:1250\n" +
+        ">VARGAS.\t Rol: P. \t Valor:540000\t Minutos:1160\n" +
+        ">COLOMBIA.\t Grupo: K.\t Valor Promedio:168522432\n" +
+        "\tL.DIAZ.\t Rol: A. \t Valor:760000000\t Minutos:690\n" +
+        "\tJAMES.\t Rol: M. \t Valor:2200000\t Minutos:516\n" +
+        "\tBORRE.\t Rol: A. \t Valor:4400000\t Minutos:445\n" +
+        "\tLUCUMI.\t Rol: D. \t Valor:125000000\t Minutos:1250\n" +
+        "\tVARGAS.\t Rol: P. \t Valor:540000\t Minutos:1160\n";
+
+        assertEquals(expected, fifa.toString());
+    }
+    /* data() en players 
+     * String theData= name+".\t Rol: "+position;
+        try{
+            theData= theData+". \t Valor:" +marketValue()+"\t Minutos:"+ minutes();
+        } catch (FifaException e){
+            theData += ". *** Datos incompletos";
+        }
+        return theData;
+     */
+    /*players= {{"L.DIAZ", "690","A","760000000","Bayer"},
+                              {"JAMES", "516","M","2200000","Minnesota"},
+                              {"BORRE", "445","A","4400000","Sport Club"},
+                              {"LUCUMI", "1250","D","125000000","Bologna"},
+                              {"VARGAS", "1160","P","540000","Atlas"}}; 
+                              
+     teams = {{"COLOMBIA","1620", "K", "Lorenzo", "Amarill-Rojo-Azul", "L.DIAZ\nJAMES\nBORRE\nLUCUMI\nVARGAS"}};
+                              */
 }

@@ -134,7 +134,7 @@ public class Team extends Participant{
     @Override
     public String data() throws FifaException {
         StringBuffer answer=new StringBuffer();
-        answer.append(name+".\t Grupo: "+position+".\t Valor Promedio:" +marketValue());
+        answer.append(name+".\t Grupo: "+position+".\t Valor Promedio:" + marketValue());
         for(Player p: players) {
             answer.append("\n\t"+p.data());
         }

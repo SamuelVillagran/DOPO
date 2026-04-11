@@ -98,7 +98,7 @@ public class Fifa {
      */
     public String data(ArrayList<Participant> selected){
         StringBuffer answer=new StringBuffer();
-        answer.append(participants.size()+ " elementos\n");
+        answer.append(participants.size() + " elementos\n");
         for(Participant p : selected) {
             try{
                 answer.append('>' + p.data());
