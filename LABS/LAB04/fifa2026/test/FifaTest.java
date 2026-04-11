@@ -41,7 +41,14 @@ public class FifaTest {
     @Test
     public void shouldAddTeam() {
         Fifa fifa = new Fifa();
-        fifa.addTeam("Argentina", "1620", "J", "Scaloni",  "Azul-blanco", "MESSI\nMaradona\nHernan");
+        try
+        {
+            fifa.addTeam("Argentina", "1620", "J", "Scaloni",  "Azul-blanco", "MESSI\nMaradona\nHernan");
+        }
+        catch (FifaException fe)
+        {
+            fe.printStackTrace();
+        }
         Team argentina = (Team) fifa.getParticipants().get(6);
         assertEquals(argentina.getName(), "Argentina");
         assertEquals(argentina.getMinutes(), 1620);

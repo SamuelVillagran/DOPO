@@ -27,7 +27,7 @@ public class Player extends Participant{
     
     
     @Override
-    public String data() throws domain.FifaException{ // Las versiones .format del String fueron ayudadas a hacer por Claude Sonnet 4.6 IA 2026
+    public String data() throws FifaException{ // Las versiones .format del String fueron ayudadas a hacer por Claude Sonnet 4.6 IA 2026
         
         String theData= String.format("%-10s Rol: %c", name+".", position);
         
