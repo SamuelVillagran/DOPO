@@ -53,6 +53,14 @@ public abstract class Participant {
         return minutes;
     }
     
+    public String getName() {
+        return name;
+    }
+    
+    public char getPosition() {
+        return position;
+    }
+    
     /**
      * Calculate the market value of the participant.
      * @return market the Market Value of a player or the Weighted Market Value of a team

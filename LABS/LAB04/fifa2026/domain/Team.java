@@ -141,5 +141,15 @@ public class Team extends Participant{
         return answer.toString();
     } 
     
+    public String getManager() {
+        return manager;
+    }
 
+    public String getUniform() {
+        return uniform;
+    }
+    
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 }

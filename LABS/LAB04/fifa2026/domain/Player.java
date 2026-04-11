@@ -37,4 +37,12 @@ public class Player extends Participant{
         }
         return theData;
     }
+    
+    public Integer getValue() {
+        return value;
+    }
+    
+    public String getClub() {
+        return club;
+    }
 }

@@ -136,5 +136,13 @@ public class Fifa {
     public int numberParticipants(){
         return participants.size();
     }
+    
+    public TreeMap<String, Player> getPlayers() {
+        return players;
+    }
+    
+    public ArrayList<Participant> getParticipants() {
+        return participants;
+    }
 
 }
