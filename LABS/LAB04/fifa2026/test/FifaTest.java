@@ -79,5 +79,16 @@ public class FifaTest {
         assertEquals(expected, fifa.toString());
     }
 
-
+    @Test
+    public void shouldThrowFifaExceptionIncorrectMarketValue() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addPlayer("Hernan", "Samuel", "D", "1234", "Colombia"); // No debería ir Samuel sino un número entero
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
 }
