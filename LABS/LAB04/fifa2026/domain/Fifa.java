@@ -104,7 +104,7 @@ public class Fifa {
         } catch (NumberFormatException e) {
             throw new FifaException(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY);
         }
-        char positionChar = ' ';
+        char positionChar;
         try {
             positionChar = position.charAt(0);
         } catch (StringIndexOutOfBoundsException e) {
