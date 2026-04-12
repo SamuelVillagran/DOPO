@@ -235,20 +235,32 @@ public class FifaGUI extends JFrame{
     }
     
     private void  actionAdd(){
-        if (players.getText().trim().equals("")){
-            fifa.addPlayer(name.getText(),position.getText(),minutes.getText(),managerClub.getText(),value.getText());
-        }else{ 
-            fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
+        try{
+            if (players.getText().trim().equals("")){
+                fifa.addPlayer(name.getText(),position.getText(),minutes.getText(),managerClub.getText(),value.getText());
+            }else{ 
+                fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
+            }
+        }catch(Exception e){
+            Log.record(e);
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar realizar la búsqueda. Notifique a su proveedor de software",
+            "error!", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     private void actionSearch(){
-        String patronBusqueda=textSearch.getText();
-        String answer = "";
-        if(patronBusqueda.length() > 0) {
-            answer = fifa.search(patronBusqueda);
+        try{
+            String patronBusqueda=textSearch.getText();
+            String answer = "";
+            if(patronBusqueda.length() > 0) {
+                answer = fifa.search(patronBusqueda);
+            }
+            textResults.setText(answer);
+        } catch(Exception e){
+            Log.record(e);
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar realizar la búsqueda. Notifique a su proveedor de software",
+            "error!", JOptionPane.WARNING_MESSAGE);
         }
-        textResults.setText(answer);
     } 
     
    public static void main(String args[]){
