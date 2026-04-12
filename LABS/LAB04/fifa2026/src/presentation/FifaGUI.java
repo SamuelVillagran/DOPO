@@ -1,6 +1,8 @@
-package presentation; 
+package presentation;
+
+  
  
-import domain.*;
+import domain.*; 
 
 import java.awt.*;
 import java.awt.event.*;
@@ -197,7 +199,14 @@ public class FifaGUI extends JFrame{
         /*Add*/
         buttonAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev){
-                actionAdd();                    
+                try
+                {
+                    actionAdd();
+                }
+                catch (FifaException fe)
+                {
+                    fe.printStackTrace();
+                }                    
             }
         });
         
@@ -233,18 +242,13 @@ public class FifaGUI extends JFrame{
     private void actionList(){
         textDetails.setText(fifa.toString());
     }
-    
-    private void  actionAdd(){
-        try{
-            if (players.getText().trim().equals("")){
-                fifa.addPlayer(name.getText(),position.getText(),minutes.getText(),managerClub.getText(),value.getText());
-            }else{ 
-                fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
-            }
-        }catch(Exception e){
-            Log.record(e);
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar realizar la búsqueda. Notifique a su proveedor de software",
-            "error!", JOptionPane.WARNING_MESSAGE);
+
+    private void  actionAdd() throws FifaException {
+        if (players.getText().trim().equals("")){
+            fifa.addPlayer(name.getText(),minutes.getText(),position.getText(),value.getText(), managerClub.getText());
+        }else{ 
+            fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
+
         }
     }
 

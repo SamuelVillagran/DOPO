@@ -85,11 +85,76 @@ public class FifaTest {
     }
 
     @Test
-    public void shouldThrowFifaExceptionIncorrectMarketValue() {
+    public void shouldThrowFifaExceptionDataisNoAInteger() {
         Fifa fifa = new Fifa();
         
         try {
             fifa.addPlayer("Hernan", "Samuel", "D", "1234", "Colombia"); // No debería ir Samuel sino un número entero
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionStringOrCharIsIncorrect() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addPlayer("Hernan", "50", "1230", "1234", "Colombia"); // No debería ir 1230 sino un char
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionIncorrectMarketValue() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addPlayer("Hernan", "150", "D", "-1234", "Colombia"); // No debería ir un -1234, numero negativo sino un numero entero positivo
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionParticipantWithSameNameValueAddTeam() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addTeam("Colombia", "150", "D", "Samuel", "Amarillo-azul-rojo", "L.DIAZ\nFALCABO\nCUADRADO\nFALCABO"); // No se deberia repetir el nombre FALCABO
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.PARTICIPANT_WITH_SAME_NAME, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionStringCharSettingIncorrectlyAddTeam() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addTeam("Colombia", "150", "1350", "Samuel", "Amarillo-azul-rojo", "JAMES"); // En el apartado de position no debe ir un numero
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionAttributeIntegerSettingIncorrectlyAddTeam() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addTeam("Colombia", "Samuel", "D", "Samuel", "Amarillo-azul-rojo", "L.DIAZ\nFALCABO\nCUADRADO"); // En el apartado de minutos no debe ir un String (letras)
             
         } catch (FifaException fe) {
             assertEquals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY, fe.getMessage());
