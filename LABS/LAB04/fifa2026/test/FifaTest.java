@@ -59,22 +59,22 @@ public class FifaTest {
     }
     
     @Test
-    public void shouldMakeListAtTeam() { // Test ayudado a hacer por Claude Sonnet 4.6 IA 2026
+    public void shouldMakeListAtTeam() { // Test ayudado a hacer por Claude Sonnet 4.6 IA 2026 (El String)
         Fifa fifa = new Fifa();
 
         String expected =
-        "6 elementos\n" +
-        ">L.DIAZ.\t Rol: A. \t Valor:760000000\t Minutos:690\n" +
-        ">JAMES.\t Rol: M. \t Valor:2200000\t Minutos:516\n" +
-        ">BORRE.\t Rol: A. \t Valor:4400000\t Minutos:445\n" +
-        ">LUCUMI.\t Rol: D. \t Valor:125000000\t Minutos:1250\n" +
-        ">VARGAS.\t Rol: P. \t Valor:540000\t Minutos:1160\n" +
-        ">COLOMBIA.\t Grupo: K.\t Valor Promedio:168522432\n" +
-        "\tL.DIAZ.\t Rol: A. \t Valor:760000000\t Minutos:690\n" +
-        "\tJAMES.\t Rol: M. \t Valor:2200000\t Minutos:516\n" +
-        "\tBORRE.\t Rol: A. \t Valor:4400000\t Minutos:445\n" +
-        "\tLUCUMI.\t Rol: D. \t Valor:125000000\t Minutos:1250\n" +
-        "\tVARGAS.\t Rol: P. \t Valor:540000\t Minutos:1160\n";
+            "6 elementos\n" +
+            ">L.DIAZ.    Rol: A Valor:760000000    Minutos:690\n" +
+            ">JAMES.     Rol: M Valor:2200000      Minutos:516\n" +
+            ">BORRE.     Rol: A Valor:4400000      Minutos:445\n" +
+            ">LUCUMI.    Rol: D Valor:125000000    Minutos:1250\n" +
+            ">VARGAS.    Rol: P Valor:540000       Minutos:1160\n" +
+            ">COLOMBIA.\t Grupo: K.\t Valor Promedio:168522432\n" +
+            "\tL.DIAZ.    Rol: A Valor:760000000    Minutos:690\n" +
+            "\tJAMES.     Rol: M Valor:2200000      Minutos:516\n" +
+            "\tBORRE.     Rol: A Valor:4400000      Minutos:445\n" +
+            "\tLUCUMI.    Rol: D Valor:125000000    Minutos:1250\n" +
+            "\tVARGAS.    Rol: P Valor:540000       Minutos:1160\n";
 
         assertEquals(expected, fifa.toString());
     }
