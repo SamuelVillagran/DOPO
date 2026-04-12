@@ -242,13 +242,25 @@ public class FifaGUI extends JFrame{
     private void actionList(){
         textDetails.setText(fifa.toString());
     }
-
-    private void  actionAdd() throws FifaException {
-        if (players.getText().trim().equals("")){
-            fifa.addPlayer(name.getText(),minutes.getText(),position.getText(),value.getText(), managerClub.getText());
-        }else{ 
-            fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
-
+    
+    private void  actionAdd(){
+        try{
+            if (players.getText().trim().equals("")){
+                fifa.addPlayer(name.getText(),position.getText(),minutes.getText(),managerClub.getText(),value.getText());
+            }else{ 
+                fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
+            }
+        }catch(Exception e){
+            if(e.getMessage().equals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY)){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "error!", JOptionPane.WARNING_MESSAGE);
+            }
+            if(e.getMessage().equals(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY)){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "error!", JOptionPane.WARNING_MESSAGE);
+            }
+            if(e.getMessage().equals(FifaException.PARTICIPANT_WITH_SAME_NAME)){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "error!", JOptionPane.WARNING_MESSAGE);
+            }
+            Log.record(e);
         }
     }
 
