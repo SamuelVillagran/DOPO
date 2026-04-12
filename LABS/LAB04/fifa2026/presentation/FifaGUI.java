@@ -242,9 +242,16 @@ public class FifaGUI extends JFrame{
                 fifa.addTeam(name.getText(),position.getText(), minutes.getText(), managerClub.getText(),uniform.getText(),players.getText());
             }
         }catch(Exception e){
+            if(e.getMessage().equals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY)){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "error!", JOptionPane.WARNING_MESSAGE);
+            }
+            if(e.getMessage().equals(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY)){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "error!", JOptionPane.WARNING_MESSAGE);
+            }
+            if(e.getMessage().equals(FifaException.PARTICIPANT_WITH_SAME_NAME)){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "error!", JOptionPane.WARNING_MESSAGE);
+            }
             Log.record(e);
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar realizar la búsqueda. Notifique a su proveedor de software",
-            "error!", JOptionPane.WARNING_MESSAGE);
         }
     }
 
