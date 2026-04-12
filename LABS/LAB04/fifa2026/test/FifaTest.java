@@ -41,15 +41,20 @@ public class FifaTest {
     @Test
     public void shouldAddTeam() {
         Fifa fifa = new Fifa();
-        try
-        {
-            fifa.addTeam("Argentina", "1620", "J", "Scaloni",  "Azul-blanco", "MESSI\nMaradona\nHernan");
-        }
-        catch (FifaException fe)
-        {
+        try {   
+        // Primero hay que agregar los jugadores que Argentina va a referenciar
+        fifa.addPlayer("MESSI",    "900", "A", "1000000000", "Inter");
+        fifa.addPlayer("Maradona", "850", "A", "500000000",  "Napoli");
+        fifa.addPlayer("Hernan",   "700", "D", "300000000",  "Milan");
+
+        // addSome() ya agregó 5 players (0-4) + COLOMBIA (5)
+        // Los 3 nuevos quedan en índices 6, 7, 8
+        // Argentina quedará en el índice 9
+        fifa.addTeam("Argentina", "1620", "J", "Scaloni", "Azul-blanco", "MESSI\nMaradona\nHernan");
+        } catch (FifaException fe) {
             fe.printStackTrace();
         }
-        Team argentina = (Team) fifa.getParticipants().get(6);
+        Team argentina = (Team) fifa.getParticipants().get(9); // ← índice corregido
         assertEquals(argentina.getName(), "Argentina");
         assertEquals(argentina.getMinutes(), 1620);
         assertEquals(argentina.getPosition(), 'J');
