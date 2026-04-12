@@ -85,11 +85,37 @@ public class FifaTest {
     }
 
     @Test
-    public void shouldThrowFifaExceptionIncorrectMarketValue() {
+    public void shouldThrowFifaExceptionDataisNoAInteger() {
         Fifa fifa = new Fifa();
         
         try {
             fifa.addPlayer("Hernan", "Samuel", "D", "1234", "Colombia"); // No debería ir Samuel sino un número entero
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionStringOrCharIsIncorrect() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addPlayer("Hernan", "50", "1230", "1234", "Colombia"); // No debería ir 1230 sino un char
+            
+        } catch (FifaException fe) {
+            assertEquals(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY, fe.getMessage());
+        }
+        
+    }
+    
+    @Test
+    public void shouldThrowFifaExceptionIncorrectMarketValue() {
+        Fifa fifa = new Fifa();
+        
+        try {
+            fifa.addPlayer("Hernan", "150", "D", "-1234", "Colombia"); // No debería ir un -1234, numero negativo sino un numero entero positivo
             
         } catch (FifaException fe) {
             assertEquals(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY, fe.getMessage());
