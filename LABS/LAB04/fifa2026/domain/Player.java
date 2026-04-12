@@ -27,10 +27,10 @@ public class Player extends Participant{
     
     
     @Override
-    public String data() throws domain.FifaException{ // Las versiones .format del String fueron ayudadas a hacer por Claude Sonnet 4.6 IA 2026
-        if (!(name instanceof String || (Character) position instanceof Character)) throw new FifaException(FifaException.ATTRIBUTE_STRING_CHAR_SETTING_INCORRECTLY);
+    public String data() throws FifaException{ // Las versiones .format del String fueron ayudadas a hacer por Claude Sonnet 4.6 IA 2026
+        
         String theData= String.format("%-10s Rol: %c", name+".", position);
-        if (!(value instanceof Integer || minutes instanceof Integer)) throw new FifaException(FifaException.ATTRIBUTE_INTEGER_SETTING_INCORRECTLY);
+        
         try{
             int marketValue = marketValue();
             if (marketValue < 0) throw new FifaException(FifaException.INCORRECT_MARKETVALUE);
