@@ -105,3 +105,5 @@ Soluciones probadas a problemas recurrentes ("La lengua franca de los desarrolla
 
 ---
 *Repositorio generado para consolidar los conocimientos de DOPO/POOB 2025-02.*
+
+*TODO PFD PROPORCIONADO EN ESTE REPOSITORIO NO SE DA AUTORIZACIÓN DE DISTRIBUIRLO, ES PROPIEDAD DE LA UNIVERSIDAD ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO*
