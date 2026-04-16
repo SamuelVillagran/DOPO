@@ -14,6 +14,22 @@ public class SokobanGUI extends JFrame{
 	
 	private void prepareElements() {
 		setTitle("EasySokoban");
+		setScreen();
+		elementsPanelButtons();
+		elementsPanelImage();
+	}
+	
+	private void elementsPanelImage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void elementsPanelButtons() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setScreen() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int)size.getWidth() / 2;
 		int height = (int)size.getHeight() / 2;
@@ -21,7 +37,7 @@ public class SokobanGUI extends JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-	
+
 	public static void main (String[] args) {
 		SokobanGUI sokobanGUI = new SokobanGUI();
 		sokobanGUI.setVisible(true);
