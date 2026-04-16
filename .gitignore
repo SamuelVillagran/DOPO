@@ -11,3 +11,4 @@ out/
 
 # Ignorar archivos temporales de astah
 *.asta.lock
+/.metadata/
