@@ -1,4 +1,4 @@
-package test;
+package src.test;
 import domain.*;
 
 
@@ -9,7 +9,6 @@ import org.junit.Test;
 
 
 public class TeamTest{
-   
  
     @Test
     public void shouldCalculateTheMarketValueOfATeam(){                              
@@ -89,7 +88,7 @@ public class TeamTest{
     }  
 
     @Test
-    public void shouldCalculateDefatulMarketValue(){
+    public void shouldCalculateDefatulMarketValueWitUnknownMinutesAndMarketValue(){
         Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
         t.addPlayer(new Player("L.DIAZ", 690,'A',760000000,"Bayer"));
         t.addPlayer(new Player("JAMES", null,'M',2200000,"Minnesota"));
@@ -133,7 +132,7 @@ public class TeamTest{
             assertEquals(FifaException.IMPOSSIBLE,e.getMessage());
         }  
     }
-    
+
     @Test
     public void shouldCalculateMarketValueExpectedMarketValue(){
         Team t = new Team("COLOMBIA",1620, 'K', "Lorenzo", "Amarill-Rojo-Azul");
@@ -198,7 +197,7 @@ public class TeamTest{
    }
    
    @Test
-   public void shouldCalculateExpected() {
+   public void shouldCalculateExpectedMarketValue() {
        Team t = new Team("COLOMBIA",1620, 'K', "Hernan", "Amarill-Rojo-Azul");
         t.addPlayer(new Player("BOHORQUEZ", 100, 'E', 10000000, "Nu Colombia"));
         t.addPlayer(new Player("LOPEZ", null, 'M', 30000000, "Minnesota"));

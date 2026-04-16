@@ -1,9 +1,10 @@
-package domain;
+package src.domain;
 
 
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 
 /**
  * Fifa class
@@ -129,16 +130,20 @@ public class Fifa {
     public ArrayList<Participant> select(String prefix){
         ArrayList <Participant> answers=new ArrayList<Participant>();
         prefix=prefix.toUpperCase();
-        for(int i=0;i<=participants.size();i++){
-            if(participants.get(i).name().toUpperCase().startsWith(prefix)){
-                answers.add(participants.get(i));
-            }   
+        try{
+            for(int i=0;i<=participants.size();i++){
+                if(participants.get(i).name().toUpperCase().startsWith(prefix)){
+                    answers.add(participants.get(i));
+                }   
+            }
+        } catch(Exception e){
+            Log.record(e);
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar realizar la búsqueda. Notifique a su proveedor de software",
+            "error!", JOptionPane.WARNING_MESSAGE);
         }
         return answers;
     }
 
-
-    
     /**
      * Consult selected participants
      * @param selected
