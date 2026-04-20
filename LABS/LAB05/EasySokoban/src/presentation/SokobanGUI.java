@@ -1,17 +1,33 @@
 package presentation;
 import java.awt.Dimension;
+
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
 
 public class SokobanGUI extends JFrame{
 	
+	private SokobanGUI gui;
+	
 	public SokobanGUI() {
-		prepareElements();
+		prepareElements(); /*Vista*/
+		prepareActions();  /*Controlador*/
 		
 	}
 	
+	private void prepareActions() {
+	    addWindowListener(new WindowAdapter() {
+	        @Override
+	        public void windowClosing(WindowEvent e) {
+	            // Elimina proceso cuando se oprime X
+	            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        }
+	    });
+	}
+
 	private void prepareElements() {
 		setTitle("EasySokoban");
 		setScreen();
@@ -20,7 +36,6 @@ public class SokobanGUI extends JFrame{
 	}
 	
 	private void elementsPanelImage() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -39,7 +54,7 @@ public class SokobanGUI extends JFrame{
 	}
 
 	public static void main (String[] args) {
-		SokobanGUI sokobanGUI = new SokobanGUI();
-		sokobanGUI.setVisible(true);
+		SokobanGUI gui = new SokobanGUI();
+		gui.setVisible(true);
 	}
 }
