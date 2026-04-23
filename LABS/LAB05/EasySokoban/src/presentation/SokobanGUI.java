@@ -20,9 +20,7 @@ public class SokobanGUI extends JFrame{
 	
 	public SokobanGUI() {
 		prepareElements(); /*Vista*/
-		prepareElementsMenu(); /*Menu*/
 		prepareActions();  /*Controlador*/
-		prepareActionsMenu(); /*AccionesMenu*/
 	}
 
 	private void prepareElements() {
@@ -30,7 +28,8 @@ public class SokobanGUI extends JFrame{
 		setScreen();
 		elementsPanelButtons();
 		elementsPanelImage();
-		prepareElementsMenu();
+		
+		prepareElementsMenu();/*Menu*/
 		
 	}
 	
@@ -46,6 +45,8 @@ public class SokobanGUI extends JFrame{
 				}
 			}
 		});
+		
+		prepareActionsMenu(); /*AccionesMenu*/
 	}
 	
 	private void prepareElementsMenu() {
