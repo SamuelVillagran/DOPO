@@ -41,7 +41,7 @@ public class SokobanGUI extends JFrame{
 				int result = JOptionPane.showConfirmDialog(SokobanGUI.this, 
 						"¿Está seguro que desea salir?");
 				switch(result) {
-					case JOptionPane.YES_OPTION -> System.exit(0);
+					case JOptionPane.YES_OPTION -> SokobanGUI.this.dispose();
 				}
 			}
 		});
