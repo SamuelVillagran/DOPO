@@ -1,4 +1,4 @@
-package src.presentation;
+package presentation;
 
   
  
@@ -199,13 +199,13 @@ public class FifaGUI extends JFrame{
         /*Add*/
         buttonAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev){
-                try
+                //try
                 {
                     actionAdd();
                 }
-                catch (FifaException fe)
+                //catch (FifaException fe)
                 {
-                    fe.printStackTrace();
+                    //fe.printStackTrace();
                 }                    
             }
         });
