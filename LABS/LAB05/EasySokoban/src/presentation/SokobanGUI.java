@@ -49,6 +49,11 @@ public class SokobanGUI extends JFrame{
 		prepareActionsMenu(); /*AccionesMenu*/
 	}
 	
+	private void prepareActionsMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void prepareElementsMenu() {
 		menuBar = new JMenuBar();
 		menuFile = new JMenu("Archivo");
@@ -70,19 +75,6 @@ public class SokobanGUI extends JFrame{
 		setJMenuBar(menuBar);
 	}
 	
-	private void prepareActionsMenu() {
-		menuItemExit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(SokobanGUI.this,
-						"¿Está seguro que desea salir?");
-				if(result == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}
-			}
-		});
-	}
-	
 	private void elementsPanelImage() {
 		
 	}
@@ -101,18 +93,6 @@ public class SokobanGUI extends JFrame{
 		setVisible(true);
 	}
 	
-	
-	private void prepareActions() {
-		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				int result = JOptionPane.showConfirmDialog(SokobanGUI.this, "¿Está seguro que desea salir?");
-				switch(result) {
-					case JOptionPane.YES_OPTION -> System.exit(0);
-				}
-			}
-		});
-	}
 	
 	public static void main (String[] args) {
 		SokobanGUI gui = new SokobanGUI();
