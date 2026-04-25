@@ -1,4 +1,4 @@
-package src.domain;  
+package domain;  
 
 /**
  * Players of teams of fifa, class's Player
