@@ -50,8 +50,32 @@ public class SokobanGUI extends JFrame{
 	}
 	
 	private void prepareActionsMenu() {
-		// TODO Auto-generated method stub
-		
+		menuItemOpen.addActionListener(new ActionListener() { //Ayudado por Claude Sonnet 4.6, supervisado
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            JFileChooser fc = new JFileChooser();
+	            fc.setDialogTitle("Abrir archivo");
+	            int opcion = fc.showOpenDialog(SokobanGUI.this);
+	            if (opcion == JFileChooser.APPROVE_OPTION) {
+	                
+	                JOptionPane.showMessageDialog(SokobanGUI.this,
+	                        "Funcion en construcción");
+	            }
+	        }
+	    });
+
+	    menuItemSave.addActionListener(new ActionListener() { //Ayudado por Claude Sonnet 4.6, supervisado
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            JFileChooser fc = new JFileChooser();
+	            fc.setDialogTitle("Guardar Archivo");
+	            int opcion = fc.showSaveDialog(SokobanGUI.this);
+	            if (opcion == JFileChooser.APPROVE_OPTION) {
+	                JOptionPane.showMessageDialog(SokobanGUI.this,
+	                		"Funcion en construcción");
+	            }
+	        }
+	    });
 	}
 
 	private void prepareElementsMenu() {
