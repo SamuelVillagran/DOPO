@@ -100,7 +100,20 @@ public class SokobanGUI extends JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-
+	
+	
+	private void prepareActions() {
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int result = JOptionPane.showConfirmDialog(SokobanGUI.this, "¿Está seguro que desea salir?");
+				switch(result) {
+					case JOptionPane.YES_OPTION -> System.exit(0);
+				}
+			}
+		});
+	}
+	
 	public static void main (String[] args) {
 		SokobanGUI gui = new SokobanGUI();
 		gui.setVisible(true);
