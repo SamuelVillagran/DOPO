@@ -1,6 +1,7 @@
  package presentation;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -34,8 +35,8 @@ public class SokobanGUI extends JFrame{
 		super("EasySokoban");
 		prepareElements(); /*Vista*/
 		prepareActions();  /*Controlador*/
-		prepareElementsBoard();
-		prepareActionsBoard();
+		
+		
 	}
 
 	private void prepareElements() {
@@ -44,6 +45,7 @@ public class SokobanGUI extends JFrame{
 		elementsPanelImage();
 		
 		prepareElementsMenu();/*Menu*/
+		prepareElementsBoard();
 		
 	}
 	
@@ -61,8 +63,28 @@ public class SokobanGUI extends JFrame{
 		});
 		
 		prepareActionsMenu(); /*AccionesMenu*/
+		
+		prepareActionsBoard();
 	}
 	
+	private void prepareActionsBtnPlay() { //Ayudado con Claude Sonnet 4.6 IA
+		btnPlay.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            int heigth = Integer.parseInt(configHeight.getText());
+		            int width = Integer.parseInt(configWidth.getText());
+		            createBoard(heigth, width);
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(SokobanGUI.this,
+		                "Ingresa números válidos para Height y Width.");
+		        }
+		    }
+
+			
+		});
+	}
+
 	private void prepareActionsMenu() {
 		menuItemOpen.addActionListener(new ActionListener() { //Ayudado por Claude Sonnet 4.6, supervisado
 	        @Override
@@ -90,6 +112,9 @@ public class SokobanGUI extends JFrame{
 	            }
 	        }
 	    });
+	    
+	    
+	    
 	}
 
 	private void prepareElementsMenu() {
@@ -156,7 +181,6 @@ public class SokobanGUI extends JFrame{
 		
 		
 		//Configuracion botones del juego.
-		
 		arrowsPanel = new JPanel(new BorderLayout());
 		controlPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -221,8 +245,60 @@ public class SokobanGUI extends JFrame{
 	}
 	
 	private void prepareActionsBoard() {
-		
+		prepareActionsBtnPlay();
+		prepareActionsBtnChangeColor();
+	
 	}
+	
+	private void prepareActionsBtnChangeColor() {
+		btnChangeColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color color = JColorChooser.showDialog(SokobanGUI.this, 
+						"Elige el color de las piezas", 
+						getForeground()
+				);
+				if (color != null) {
+					changeColorProps(color);
+				}
+			}
+		});
+	}
+
+	private void changeColorProps(Color color) {
+		if (cells != null) {
+			for (JPanel cell : cells) {
+				cell.setBackground(color);
+				cell.repaint();
+			}
+		}
+	}
+	
+	private void createBoard(int heigth, int width) {
+		if (boardPanel != null && cells != null) {
+			boardPanel = null;
+			cells = null;
+		}
+		int STATIC_AREA = 500; // Se tienen 500 pixeles para el area
+		int CELL_PIXELS =  Math.max(5, STATIC_AREA / Math.max(heigth, width)); // Idea dada por Claude Sonnet 4.6 IA
+		
+		boardPanel = new JPanel(new GridLayout(heigth, width));
+		boardPanel.setPreferredSize(new Dimension(width * CELL_PIXELS, heigth * CELL_PIXELS));
+		cells = new JPanel[heigth*width];
+		
+		for (int i = 0; i < cells.length; i++) {
+			cells[i] = new JPanel();
+			cells[i].setBackground(getForeground());
+			cells[i].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); /* Ayudado por Clude Sonnet 4.6 IA 
+			            Se hace una linea para identificar el espácio                     */
+			boardPanel.add(cells[i]);
+		}
+		
+		add(boardPanel, BorderLayout.CENTER);
+		revalidate();
+	    repaint();
+	}
+	
 	private void setScreen() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int)size.getWidth() / 2;
