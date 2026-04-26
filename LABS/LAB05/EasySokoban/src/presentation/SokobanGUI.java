@@ -13,6 +13,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
+
+import domain.Sokoban;
+import domain.SokobanException;
+
 import java.awt.event.*;
 
 
@@ -28,6 +32,7 @@ public class SokobanGUI extends JFrame{
 	private JPanel infoPanel, optionsPanel, configPanel, controlPanel, arrowsPanel, boardPanel;
 	private JButton btnPlay, btnChangeColor, btnRefresh, btnDown, btnRight, btnLeft, btnUp;
 	private JPanel[] cells;
+	private Sokoban game;
 	
 	
 	
@@ -41,11 +46,8 @@ public class SokobanGUI extends JFrame{
 
 	private void prepareElements() {
 		setScreen();
-		elementsPanelButtons();
-		elementsPanelImage();
-		
 		prepareElementsMenu();/*Menu*/
-		prepareElementsBoard();
+		prepareElementsMainWindow();
 		
 	}
 	
@@ -63,25 +65,16 @@ public class SokobanGUI extends JFrame{
 		});
 		
 		prepareActionsMenu(); /*AccionesMenu*/
-		
 		prepareActionsBoard();
+		prepareActionsArrows();
 	}
 	
 	private void prepareActionsBtnPlay() { //Ayudado con Claude Sonnet 4.6 IA
 		btnPlay.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        try {
-		            int heigth = Integer.parseInt(configHeight.getText());
-		            int width = Integer.parseInt(configWidth.getText());
-		            createBoard(heigth, width);
-		        } catch (NumberFormatException ex) {
-		            JOptionPane.showMessageDialog(SokobanGUI.this,
-		                "Ingresa números válidos para Height y Width.");
-		        }
+		           prepareElementsBoard();
 		    }
-
-			
 		});
 	}
 
@@ -138,16 +131,59 @@ public class SokobanGUI extends JFrame{
 		setJMenuBar(menuBar);
 	}
 	
-	private void elementsPanelImage() {
-		
-	}
-
-	private void elementsPanelButtons() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void prepareElementsBoard() {
+		try {
+            int height = Integer.parseInt(configHeight.getText());
+            int width = Integer.parseInt(configWidth.getText());
+            game = new Sokoban(height, width);
+            createBoard(height, width);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(SokobanGUI.this,
+                "Ingresa números válidos para Height y Width.");
+        } catch(SokobanException e){
+        	JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+	}
+
+	private void prepareActionsArrows() {
+		btnUp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (game != null) { 
+					game.movePlayer('n');
+					refresh(); }
+			}
+		});
+		
+		btnDown.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (game != null) { 
+					game.movePlayer('s');
+					refresh(); }
+			}
+		});
+		
+		btnLeft.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (game != null) { 
+					game.movePlayer('w');
+					refresh(); }
+			}
+		});
+		
+		btnRight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (game != null) { 
+					game.movePlayer('e');
+					refresh(); }
+			}
+		});
+	}
+	
+	private void prepareElementsMainWindow() {
 		//Asignando el layout como BorderLayout
 		setLayout(new BorderLayout());
 		
@@ -219,9 +255,10 @@ public class SokobanGUI extends JFrame{
 		JPanel eastPanel = new JPanel(new BorderLayout());
 		infoPanel = new JPanel(new GridLayout(2,1,5,5));
 		infoPanel.add(new JLabel("Score:"));
-		JTextField infoScore = new JTextField("0", 5);
-		infoScore.setEditable(false);
-		infoPanel.add(infoScore);
+		
+		score = new JTextField("0", 5);
+		score.setEditable(false);
+		infoPanel.add(score);
 		
 		infoPanel.add(new JLabel("Time:"));
 		JTextField infoTime = new JTextField("00:00", 5);
@@ -275,28 +312,35 @@ public class SokobanGUI extends JFrame{
 	}
 	
 	private void createBoard(int heigth, int width) {
-		if (boardPanel != null && cells != null) {
+		if (boardPanel != null) {
+			remove(boardPanel);
 			boardPanel = null;
 			cells = null;
 		}
-		int STATIC_AREA = 500; // Se tienen 500 pixeles para el area
-		int CELL_PIXELS =  Math.max(5, STATIC_AREA / Math.max(heigth, width)); // Idea dada por Claude Sonnet 4.6 IA
-		
-		boardPanel = new JPanel(new GridLayout(heigth, width));
-		boardPanel.setPreferredSize(new Dimension(width * CELL_PIXELS, heigth * CELL_PIXELS));
-		cells = new JPanel[heigth*width];
-		
-		for (int i = 0; i < cells.length; i++) {
-			cells[i] = new JPanel();
-			cells[i].setBackground(getForeground());
-			cells[i].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); /* Ayudado por Clude Sonnet 4.6 IA 
-			            Se hace una linea para identificar el espácio                     */
-			boardPanel.add(cells[i]);
+		try {
+			game = new Sokoban(heigth, width);
+			int STATIC_AREA = 500; // Se tienen 500 pixeles para el area
+			int CELL_PIXELS =  Math.max(5, STATIC_AREA / Math.max(heigth, width)); // Idea dada por Claude Sonnet 4.6 IA
+			
+			boardPanel = new JPanel(new GridLayout(heigth, width));
+			boardPanel.setPreferredSize(new Dimension(width * CELL_PIXELS, heigth * CELL_PIXELS));
+			cells = new JPanel[heigth*width];
+			
+			for (int i = 0; i < cells.length; i++) {
+				cells[i] = new JPanel();
+				cells[i].setBackground(getForeground());
+				cells[i].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); /* Ayudado por Clude Sonnet 4.6 IA 
+				            Se hace una linea para identificar el espácio                     */
+				boardPanel.add(cells[i]);
+			}
+			add(boardPanel, BorderLayout.CENTER);
+			refresh();
+			revalidate();
+		    repaint();
+		    
+		} catch(SokobanException s) {
+			JOptionPane.showMessageDialog(this, s.getMessage());
 		}
-		
-		add(boardPanel, BorderLayout.CENTER);
-		revalidate();
-	    repaint();
 	}
 	
 	private void setScreen() {
@@ -308,6 +352,25 @@ public class SokobanGUI extends JFrame{
 		setVisible(true);
 	}
 	
+	private void refresh() {
+		char[][] board = game.board();
+		
+		for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+            	int index = i * board[0].length + j;
+                cells[index].setBackground(switch (board[i][j]) {
+                	case '1' -> Color.YELLOW;
+                	case 'g' -> Color.RED;
+                	case 'b' -> Color.ORANGE;
+                	case 'p' -> Color.CYAN;
+                	default -> Color.LIGHT_GRAY;
+                });
+            }
+		}
+		score.setText(String.valueOf(game.getScore()));
+		revalidate();
+		repaint();
+	}
 	
 	public static void main (String[] args) {
 		SokobanGUI gui = new SokobanGUI();
