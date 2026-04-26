@@ -29,8 +29,8 @@ public class Sokoban {
 		width = w;
 		numbersH = new HashSet();
 		numbersW = new HashSet();
-		board = new char[height][width];
-		totalBoxes = (int) 0.1*width*height;
+		board = new char[width][height];
+		totalBoxes = (int) (0.1*width*height);
 		generateObjects();
 	}
 	
@@ -40,7 +40,24 @@ public class Sokoban {
 	public void generateObjects() {
 		
 		generateWalls();
-		generateBoxes(); 
+		generateBoxes();
+		generatePointGoal();
+	}
+
+	private void generatePointGoal() {
+		int copyTotal = totalBoxes;
+		while (copyTotal > 0) {
+			int posXBox = generateRandomNumW();
+			int posYBox = generateRandomNumH();
+			if (board[posXBox][posYBox] == '\0') { 
+				
+				board[posXBox][posYBox] = 'g';
+				numbersW.add(posXBox);
+				numbersH.add(posYBox);
+				copyTotal--;
+			}
+			
+		}
 	}
 
 	/*
@@ -51,7 +68,7 @@ public class Sokoban {
 		while (copyTotal > 0) {
 			int posXBox = generateRandomNumW();
 			int posYBox = generateRandomNumH();
-			if (!numbersW.contains(posXBox) || !numbersH.contains(posYBox)) { 
+			if (board[posXBox][posYBox] == '\0') { 
 				// if some of both coordenates aren't at the sets
 				board[posXBox][posYBox] = 'b';
 				numbersW.add(posXBox);
@@ -69,19 +86,17 @@ public class Sokoban {
 	private void generateWalls() {
 		for (int i = 0; i < height; i++) {
 			board[i][0] = '1';
-			board[i][height-1] = '1';
+			board[i][width-1] = '1';
 		}
 		
 		for (int j = 0; j < width; j++) {
-			if (board[0][j] != '1') {
-				board[0][j] = '1';
-				board[width][j] = '1';
-			}
+			board[0][j] = '1';
+			board[height-1][j] = '1';
 		}
 		numbersW.add(0);
 		numbersH.add(0);
-		numbersW.add(height);
-		numbersH.add(width);
+		numbersW.add(height-1);
+		numbersH.add(width-1);
 	}
 	
 	/*
@@ -100,5 +115,9 @@ public class Sokoban {
 	private int generateRandomNumW() {
 		Random rand = new Random();
 		return Math.min(rand.nextInt(width)+1, width-1); 
+	}
+	
+	public char[][] getBoard() {
+		return board;
 	}
 }
