@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class SokobanTest {
 
 	@Test
-	void shouldGenerateCorectlyWalls() {
+	void shouldGenerateCorectlyWalls() throws SokobanException {
 		Sokoban game = new Sokoban(4, 4);
 		char[][] boardGame = game.getBoard();
 		
@@ -18,18 +18,17 @@ class SokobanTest {
 			assertEquals('1', boardGame[3][i]);
 			assertEquals('1', boardGame[i][3]);
 		}
-		
 	}
 
 	@Test
-	void shouldGenerateCorrectlyTotalBoxes() {
+	void shouldGenerateCorrectlyTotalBoxes() throws SokobanException {
 		Sokoban game = new Sokoban(10, 10);
 		int totalBoxes = game.getTotalBoxes();
 		assertEquals(10, totalBoxes);
 	}
 	
 	@Test
-	void shouldGenerateAllBoxes() {
+	void shouldGenerateAllBoxes() throws SokobanException {
 		Sokoban game = new Sokoban(6, 7); // Area = 6*7 = 42
 		char[][] boardGame = game.getBoard();
 		int countBoxes = 0, width = game.getWidth(), heigth = game.getHeigth();
@@ -45,7 +44,7 @@ class SokobanTest {
 	}
 	
 	@Test
-	void shouldGenerateAllPointsGoal() {
+	void shouldGenerateAllPointsGoal() throws SokobanException {
 		Sokoban game = new Sokoban(6, 7); // Area = 6*7 = 42
 		char[][] boardGame = game.getBoard();
 		int countGoal = 0, width = game.getWidth(), heigth = game.getHeigth();
@@ -56,7 +55,6 @@ class SokobanTest {
 				}
 			}
 		}
-		
 		assertEquals(4, countGoal);
 	}
 	
