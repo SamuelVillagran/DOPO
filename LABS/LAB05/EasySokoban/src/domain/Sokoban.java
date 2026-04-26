@@ -1,213 +1,265 @@
-
 package domain;
 
-import java.awt.Point;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
-/**
- * This is Sokoban logic
- */
+
+
 public class Sokoban {
-
-	private static int height;
-	private static int width;
-	private static int boxesInGoal;
-	private static int totalBoxes;
-	private static char[][] board;
-	private static Set<Integer> numbersH;
-	private static Set<Integer> numbersW;
-	private static Point coordenadesPy;
+	public static final int MIM_DIMENSSIONS = 9;
+	public static final int MAX_DIMENSSIONS = 40;
+	private int height;
+	private int width;
+	private char[][] board;
+	private int score;
+	private int playerRow;
+	private int playerCol;
+	private List <int[]> goalPositions;
 	
-	/**
-	 * This is the constructor of logic 
-	 * of this game Sokoban
-	 * @param h h is the height of board
-	 * @param w w is the width of board
-	 * @throws SokobanException - BOARD_TOO_SMALL
-	 */
-	public Sokoban(int h, int w) throws SokobanException {
-		if (h <= 3 && w <= 3) throw new SokobanException(SokobanException.BOARD_TOO_SMALL);
-		height = h;
-		width = w;
-		numbersH = new HashSet();
-		numbersW = new HashSet();
-		board = new char[width][height];
-		totalBoxes = (int) (0.1*width*height);
-		generateObjects();
-	}
 	
-	/*
-	 * Generate all objects at the board
-	 */
-	public void generateObjects() {
+	public Sokoban(int height, int width) throws SokobanException {
+		checkDimenssions(height,  width);
+		
+		board = new char[height][width];
+		buildBoardCeros();
+		this.height = height;
+		this.width = width;
+		score = 0;
+		goalPositions = new ArrayList<>();
+		
+		playerRow = height /2;
+		playerCol = width /2;
+		board[playerRow][playerCol] = 'p';
 		
 		generateWalls();
-		generateBoxes();
-		generatePointGoal();
-		generatePlayer();
+		//generateAleatoryWalls();
+		//generateBoxes();
+		//generatePointGoal();
+		
 	}
 	
 	/*
-	 * Makes move the player to some direction
-	 * @param d d is the direction that going to move player
+	 * Fill the board of zero.
 	 */
-	public void movePlayer(char d) throws SokobanException {
-		int pyx, newpyy;
-		boolean inBounds;
-		switch (d) { /* 'u' = up, 'd' = down, 'r' = right, 'l' = left */
-			case 'u':
-				pyx = (int) coordenadesPy.getX();
-				newpyy = (int) (coordenadesPy.getY()+1);
-				inBounds = pyx < width-1 && newpyy < height;
-				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
-				if (board[pyx][newpyy] == '\0' && inBounds) {
-					board[pyx][newpyy] = 'p';
-					coordenadesPy.setLocation(pyx, newpyy);
-				}
-				break;
-				
-			case 'd':
-				pyx = (int) coordenadesPy.getX();
-				newpyy = (int) (coordenadesPy.getY()-1);
-				inBounds = pyx < width-1 && newpyy < height;
-				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
-				if (board[pyx][newpyy] == '\0' && inBounds) {
-					board[pyx][newpyy] = 'p';
-					coordenadesPy.setLocation(pyx, newpyy);
-				}
-				break;
-				
-			case 'r':
-				pyx = (int) coordenadesPy.getX()+1;
-				newpyy = (int) (coordenadesPy.getY());
-				inBounds = pyx < width-1 && newpyy < height;
-				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
-				if (board[pyx][newpyy] == '\0' && inBounds) {
-					board[pyx][newpyy] = 'p';
-					coordenadesPy.setLocation(pyx, newpyy);
-				}
-				break;
-				
-			case 'l':
-				pyx = (int) coordenadesPy.getX()-1;
-				newpyy = (int) (coordenadesPy.getY());
-				inBounds = pyx < width-1 && newpyy < height;
-				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
-				if (board[pyx][newpyy] == '\0' && inBounds) {
-					board[pyx][newpyy] = 'p';
-					coordenadesPy.setLocation(pyx, newpyy);
-				}
-				break;
-		}
-	}
-
-	private void generatePlayer() {
-		int isCreatedPy = 1;
-		while (isCreatedPy > 0) {
-			int posXBox = generateRandomNumW();
-			int posYBox = generateRandomNumH();
-			if (board[posXBox][posYBox] == '\0') { 
-				board[posXBox][posYBox] = 'p';
-				coordenadesPy = new Point(posXBox, posYBox);
-				numbersW.add(posXBox);
-				numbersH.add(posYBox);
-				isCreatedPy--;
+	private void buildBoardCeros() {
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[i].length; j++) {
+				board[i][j] = '0';
 			}
 		}
 	}
-
-	/*
-	 * Generate the points of goal of sokoban
-	 */
-	private void generatePointGoal() {
-		int copyTotal = totalBoxes;
-		while (copyTotal > 0) {
-			int posXBox = generateRandomNumW();
-			int posYBox = generateRandomNumH();
-			if (board[posXBox][posYBox] == '\0') { 
-				
-				board[posXBox][posYBox] = 'g';
-				numbersW.add(posXBox);
-				numbersH.add(posYBox);
-				copyTotal--;
-			}
-			
-		}
-	}
-
-	/*
-	 * Generate boxes necessary at the board
-	 */
-	private void generateBoxes() {
-		int copyTotal = totalBoxes;
-		while (copyTotal > 0) {
-			int posXBox = generateRandomNumW();
-			int posYBox = generateRandomNumH();
-			if (board[posXBox][posYBox] == '\0') { 
-				// if some of both coordenates aren't at the sets
-				board[posXBox][posYBox] = 'b';
-				numbersW.add(posXBox);
-				numbersH.add(posYBox);
-				copyTotal--;
-			}
-			
-		}
+	
+	public Sokoban(int height, int width, String type) throws SokobanException {
+		checkDimenssions(height,  width);
 		
+		board = new char[height][width];
+		buildBoardCeros();
+		this.height = height;
+		this.width = width;
+		score = 0;
+		goalPositions = new ArrayList<>();
+		
+		playerRow = height /2;
+		playerCol = width /2;
+		board[playerRow][playerCol] = 'p';
+		
+		generateWalls();
 	}
-
+	
+	
 	/*
-	 * Generate the walls of the board
+	 * Generate walls.
 	 */
 	private void generateWalls() {
-		for (int i = 0; i < height; i++) {
-			board[0][i] = '1';
-			board[width-1][i] = '1';
+		for(int i = 0; i < height; i++) {
+			board[i][0] = '1';
+			board[i][width-1] = '1';
 		}
 		
-		for (int j = 0; j < width; j++) {
-			board[j][0] = '1';
-			board[j][height-1] = '1';
+		for(int j = 0; j< width; j++) {
+			board[0][j] = '1';
+			board[0][width-1] = '1';
 		}
-		
-		numbersW.add(0);
-		numbersH.add(0);
-		numbersW.add(width-1);
-		numbersH.add(height-1);
 	}
 	
 	/*
-	 * Generate a random number from
-	 * 1 to height-1
+	 * Generate aleatory walls, 5 as much.
 	 */
-	private int generateRandomNumH() {
-		Random rand = new Random();
-		return Math.min(rand.nextInt(height)+1, height-1); 
+	private void generateAleatoryWalls() { 
+		Random range = new Random();
+		int extraWalls = 3 + range.nextInt(4);
+		
+		int placed = 0, attempts = 0;	//Idea generada por chatGpt
+        while (placed < extraWalls && attempts < 200) {
+            int r = 1 + range.nextInt(height - 2);
+            int c = 1 + range.nextInt(width  - 2);
+            if (board[r][c] == '0'
+                    && !(r == height / 2 && c == width / 2)
+                    && !(r == height / 2 && c == width / 2 + 1)) {
+                board[r][c] = '1';
+                placed++;
+            }
+            attempts++;
+        }
 	}
 	
 	/*
-	 * Generate a random number from
-	 * 1 to width-1
+	 * Generate boxes aleatory.
 	 */
-	private int generateRandomNumW() {
-		Random rand = new Random();
-		return Math.min(rand.nextInt(width)+1, width-1); 
+	private void generateBoxes() {
+		Random range = new Random();
+		int placed = 0;
+		while(placed < 2) {
+			int row = 1 + range.nextInt(height - 2);
+			int col = 1 + range.nextInt(width - 2);
+			if(board[row][col] == '0') {
+				board[row][col] = 'b';
+				placed++;
+			}
+		}
 	}
 	
-	public char[][] getBoard() {
+	private void generatePointGoal() {
+		Random range = new Random();
+		int placed = 0;
+		while(placed < 2) {
+			int row = 1 + range.nextInt(height - 2);
+            int col = 1 + range.nextInt(width  - 2);
+            if(board[row][col] =='0') {
+            	board[row][col] = 'g';
+            	placed++;
+            }
+		}		
+	}
+	
+	
+	public void movePlayer(char direction) {
+		int dr = 0, dc = 0;
+		switch(direction) {
+			case 'n' -> dr = -1;
+			case 's' -> dr = 1;
+			case 'w' -> dc = -1;
+			case 'e' -> dc = 1;
+		}
+		
+		int newRow = playerRow +dr;
+		int newCol = playerCol + dc;
+		
+		if(!inBounds(newRow, newCol)) return;
+		
+		char nextMovement = board[newRow][newCol];
+		
+		if(nextMovement == '1') { //Muro - no deja mover
+			return;
+		}
+		
+		if(nextMovement == '0' || nextMovement == 'g') { //Celda libre
+			resetLeavePosition();
+			playerRow = newRow;
+			playerCol = newCol;
+			board[playerRow][playerCol] = 'p';
+		} else if (nextMovement == 'b') { //Celda con caja, la empuja
+			int newRowBox = newRow + dr;
+			int newColBox = newCol + dc;
+			
+			if(!inBounds(newRowBox, newColBox)) return;
+			
+			char behindBox = board[newRowBox][newColBox];
+			if(behindBox == '0' || behindBox == 'g') {
+				board[newRowBox][newColBox] = 'b';
+				board[newRow][newCol] = isGoal(newRow, newCol) ? 'g' : '0';
+				resetLeavePosition();
+				playerRow = newRow;
+				playerCol = newCol;
+				board[playerRow][playerCol] = 'p';
+					
+				calculateScore();
+			}
+		}
+	}
+	
+	private void calculateScore() {
+		int count = 0;
+		for(int[] goal : goalPositions) {
+			if (board[goal[0]][goal[1]] == 'b') count++;
+			score = count;
+		}
+	}
+	
+	public int getScore() {
+		return score;
+	}
+	
+	private boolean inBounds(int r, int c) {
+		return r >=0 && r < height && c >= 0 && c < width; 
+		
+	}
+	private void resetLeavePosition() {
+		board[playerRow][playerCol] = isGoal(playerRow, playerCol) ? 'g' : '0';
+	}
+	
+	/**
+	 * Check if (r,c) is a position of a goal.
+	 * @param r row
+	 * @param c col
+	 * @return true if r, c is a goal.
+	 */
+	private boolean isGoal(int r, int c) {
+		for(int[] goal : goalPositions) {
+			if(goal[0] == r && goal[1] == c) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	private char[][] getBoard(){
 		return board;
 	}
 	
-	public int getTotalBoxes() {
-		return totalBoxes;
+	public int getPlayerRow() {
+		return playerRow;
 	}
 	
-	public int getHeigth() {
-		return height;
+	public char getElement(int r, int c) {
+		return board[r][c];
 	}
 	
-	public int getWidth() {
-		return width;
+	public int getPlayerCol() {
+		return playerCol;
 	}
+	
+	public void setCharacter(int r, int c, char ch) {
+		if (ch == 'g') {
+			goalPositions.add(new int[]{r, c});
+		} else {
+			for (int i = 0; i < goalPositions.size(); i++) {
+				int[] goal = goalPositions.get(i);
+				if (goal[0] == r && goal[1] == c) {
+					goalPositions.remove(i);
+					break;
+				}
+			}
+		}
+		board[r][c] = ch;
+	}
+	
+	/**
+	 * Check the dimensions of the new board.
+	 * @param h new height wished.
+	 * @param w new width wished.
+	 * @throws SokobanException.
+	 */
+	private void checkDimenssions(int h, int w) throws SokobanException {
+		if(h <  Sokoban.MIM_DIMENSSIONS || w <  Sokoban.MIM_DIMENSSIONS) {
+			throw new SokobanException(SokobanException.BOARD_TOO_SMALL);
+		}else if(h >Sokoban.MAX_DIMENSSIONS || w > Sokoban.MAX_DIMENSSIONS) {
+			throw new SokobanException(SokobanException.BOARD_TOO_BIG);
+		}
+	}
+	
+	
+	
 }
