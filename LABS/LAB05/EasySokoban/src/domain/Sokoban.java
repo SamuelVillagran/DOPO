@@ -25,8 +25,10 @@ public class Sokoban {
 	 * of this game Sokoban
 	 * @param h h is the height of board
 	 * @param w w is the width of board
+	 * @throws SokobanException - BOARD_TOO_SMALL
 	 */
-	public Sokoban(int h, int w) {
+	public Sokoban(int h, int w) throws SokobanException {
+		if (h <= 3 && w <= 3) throw new SokobanException(SokobanException.BOARD_TOO_SMALL);
 		height = h;
 		width = w;
 		numbersH = new HashSet();
@@ -40,6 +42,7 @@ public class Sokoban {
 	 * Generate all objects at the board
 	 */
 	public void generateObjects() {
+		
 		generateWalls();
 		generateBoxes();
 		generatePointGoal();
