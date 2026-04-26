@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -17,6 +18,7 @@ public class Sokoban {
 	private static char[][] board;
 	private static Set<Integer> numbersH;
 	private static Set<Integer> numbersW;
+	private static Point coordenadesPy;
 	
 	/**
 	 * This is the constructor of logic 
@@ -42,8 +44,77 @@ public class Sokoban {
 		generateWalls();
 		generateBoxes();
 		generatePointGoal();
+		generatePlayer();
+	}
+	
+	/*
+	 * Makes move the player to some direction
+	 * @param d d is the direction that going to move player
+	 */
+	public void movePlayer(char d) throws SokobanException {
+		int pyx, newpyy;
+		boolean inBounds;
+		switch (d) { /* 'u' = up, 'd' = down, 'r' = right, 'l' = left */
+			case 'u':
+				pyx = (int) coordenadesPy.getX();
+				newpyy = (int) (coordenadesPy.getY()+1);
+				inBounds = pyx < width-1 && newpyy < height;
+				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
+				if (board[pyx][newpyy] == '\0' && inBounds) {
+					board[pyx][newpyy] = 'p';
+				}
+				break;
+				
+			case 'd':
+				pyx = (int) coordenadesPy.getX();
+				newpyy = (int) (coordenadesPy.getY()-1);
+				inBounds = pyx < width-1 && newpyy < height;
+				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
+				if (board[pyx][newpyy] == '\0' && inBounds) {
+					board[pyx][newpyy] = 'p';
+				}
+				break;
+				
+			case 'r':
+				pyx = (int) coordenadesPy.getX()+1;
+				newpyy = (int) (coordenadesPy.getY());
+				inBounds = pyx < width-1 && newpyy < height;
+				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
+				if (board[pyx][newpyy] == '\0' && inBounds) {
+					board[pyx][newpyy] = 'p';
+				}
+				break;
+				
+			case 'l':
+				pyx = (int) coordenadesPy.getX()-1;
+				newpyy = (int) (coordenadesPy.getY());
+				inBounds = pyx < width-1 && newpyy < height;
+				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
+				if (board[pyx][newpyy] == '\0' && inBounds) {
+					board[pyx][newpyy] = 'p';
+				}
+				break;
+		}
 	}
 
+	private void generatePlayer() {
+		int isCreatedPy = 1;
+		while (isCreatedPy > 0) {
+			int posXBox = generateRandomNumW();
+			int posYBox = generateRandomNumH();
+			if (board[posXBox][posYBox] == '\0') { 
+				board[posXBox][posYBox] = 'p';
+				coordenadesPy = new Point(posXBox, posYBox);
+				numbersW.add(posXBox);
+				numbersH.add(posYBox);
+				isCreatedPy--;
+			}
+		}
+	}
+
+	/*
+	 * Generate the points of goal of sokoban
+	 */
 	private void generatePointGoal() {
 		int copyTotal = totalBoxes;
 		while (copyTotal > 0) {
@@ -85,18 +156,19 @@ public class Sokoban {
 	 */
 	private void generateWalls() {
 		for (int i = 0; i < height; i++) {
-			board[i][0] = '1';
-			board[i][width-1] = '1';
+			board[0][i] = '1';
+			board[width-1][i] = '1';
 		}
 		
 		for (int j = 0; j < width; j++) {
-			board[0][j] = '1';
-			board[height-1][j] = '1';
+			board[j][0] = '1';
+			board[j][height-1] = '1';
 		}
+		
 		numbersW.add(0);
 		numbersH.add(0);
-		numbersW.add(height-1);
-		numbersH.add(width-1);
+		numbersW.add(width-1);
+		numbersH.add(height-1);
 	}
 	
 	/*
@@ -119,5 +191,17 @@ public class Sokoban {
 	
 	public char[][] getBoard() {
 		return board;
+	}
+	
+	public int getTotalBoxes() {
+		return totalBoxes;
+	}
+	
+	public int getHeigth() {
+		return height;
+	}
+	
+	public int getWidth() {
+		return width;
 	}
 }

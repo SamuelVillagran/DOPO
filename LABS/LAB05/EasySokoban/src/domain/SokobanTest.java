@@ -21,4 +21,43 @@ class SokobanTest {
 		
 	}
 
+	@Test
+	void shouldGenerateCorrectlyTotalBoxes() {
+		Sokoban game = new Sokoban(10, 10);
+		int totalBoxes = game.getTotalBoxes();
+		assertEquals(10, totalBoxes);
+	}
+	
+	@Test
+	void shouldGenerateAllBoxes() {
+		Sokoban game = new Sokoban(6, 7); // Area = 6*7 = 42
+		char[][] boardGame = game.getBoard();
+		int countBoxes = 0, width = game.getWidth(), heigth = game.getHeigth();
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < heigth ; j++) {
+				if (boardGame[i][j] == 'b') {
+					countBoxes++; // Should count 4 = 42*0.1 = area*0.1
+				}
+			}
+			
+		}
+		assertEquals(4, countBoxes);
+	}
+	
+	@Test
+	void shouldGenerateAllPointsGoal() {
+		Sokoban game = new Sokoban(6, 7); // Area = 6*7 = 42
+		char[][] boardGame = game.getBoard();
+		int countGoal = 0, width = game.getWidth(), heigth = game.getHeigth();
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < heigth ; j++) {
+				if (boardGame[i][j] == 'g') {
+					countGoal++; // Should count 4 = 42*0.1 = area*0.1
+				}
+			}
+		}
+		
+		assertEquals(4, countGoal);
+	}
+	
 }
