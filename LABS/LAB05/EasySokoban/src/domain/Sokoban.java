@@ -9,15 +9,21 @@ import java.util.Random;
 public class Sokoban {
 	public static final int MIM_DIMENSSIONS = 9;
 	public static final int MAX_DIMENSSIONS = 40;
-	private int height;
-	private int width;
+	private final int height;
+	private final int width;
 	private char[][] board;
 	private int score;
 	private int playerRow;
 	private int playerCol;
 	private List <int[]> goalPositions;
 	
-	
+	/**
+	 * Constuctor class Sokoban
+	 * Generates a Sokoban game with walls, boxes and one player.
+	 * @param height number of rows.
+	 * @param width  number of columns.
+	 * @throws SokobanException if dimensions are so big or too small.
+	 */
 	public Sokoban(int height, int width) throws SokobanException {
 		checkDimenssions(height,  width);
 		
@@ -32,24 +38,15 @@ public class Sokoban {
 		playerCol = width /2;
 		board[playerRow][playerCol] = 'p';
 		
-		generateWalls();
-		//generateAleatoryWalls();
-		//generateBoxes();
-		//generatePointGoal();
-		
+		generateObjects();
 	}
 	
-	/*
-	 * Fill the board of zero.
+	/**
+	 * Build a sokoban with just one player and a wall around limits.
+	 * @param height number of rows.
+	 * @param width  number of columns.
+	 * @throws SokobanException if dimensions are so big or too small.
 	 */
-	private void buildBoardCeros() {
-		for(int i = 0; i < board.length; i++) {
-			for(int j = 0; j < board[i].length; j++) {
-				board[i][j] = '0';
-			}
-		}
-	}
-	
 	public Sokoban(int height, int width, String type) throws SokobanException {
 		checkDimenssions(height,  width);
 		
@@ -67,9 +64,30 @@ public class Sokoban {
 		generateWalls();
 	}
 	
+	/*
+	 * Fill the board of zero.
+	 */
+	private void buildBoardCeros() {
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[i].length; j++) {
+				board[i][j] = '0';
+			}
+		}
+	}
+	
+	/**
+	 * Build the walls, boxes and goals in random positions.
+	 */
+	public void generateObjects() {
+		generateWalls();
+		generateAleatoryWalls();
+		generateBoxes();
+		generatePointGoal();
+	}
+	
 	
 	/*
-	 * Generate walls.
+	 * Generate walls limits.
 	 */
 	private void generateWalls() {
 		for(int i = 0; i < height; i++) {
@@ -128,12 +146,16 @@ public class Sokoban {
             int col = 1 + range.nextInt(width  - 2);
             if(board[row][col] =='0') {
             	board[row][col] = 'g';
+            	goalPositions.add(new int[]{row, col});
             	placed++;
             }
 		}		
 	}
 	
-	
+	/**
+	 * Move the player in the wished direction.
+	 * @param direction char indicating the direction feel.
+	 */
 	public void movePlayer(char direction) {
 		int dr = 0, dc = 0;
 		switch(direction) {
@@ -201,8 +223,8 @@ public class Sokoban {
 	
 	/**
 	 * Check if (r,c) is a position of a goal.
-	 * @param r row
-	 * @param c col
+	 * @param r row position in the board.
+	 * @param c col position in the board.
 	 * @return true if r, c is a goal.
 	 */
 	private boolean isGoal(int r, int c) {
@@ -231,6 +253,12 @@ public class Sokoban {
 		return playerCol;
 	}
 	
+	/**
+	 * Set the character in the board.
+	 * @param r row in board.
+	 * @param c col in board.
+	 * @param ch character wished to put.
+	 */
 	public void setCharacter(int r, int c, char ch) {
 		if (ch == 'g') {
 			goalPositions.add(new int[]{r, c});
@@ -246,6 +274,10 @@ public class Sokoban {
 		board[r][c] = ch;
 	}
 	
+	public char[][] board(){
+		return board;
+	}
+	
 	/**
 	 * Check the dimensions of the new board.
 	 * @param h new height wished.
@@ -259,7 +291,6 @@ public class Sokoban {
 			throw new SokobanException(SokobanException.BOARD_TOO_BIG);
 		}
 	}
-	
 	
 	
 }
