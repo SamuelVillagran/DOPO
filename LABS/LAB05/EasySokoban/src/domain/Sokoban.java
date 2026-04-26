@@ -40,7 +40,6 @@ public class Sokoban {
 	 * Generate all objects at the board
 	 */
 	public void generateObjects() {
-		
 		generateWalls();
 		generateBoxes();
 		generatePointGoal();
@@ -62,6 +61,7 @@ public class Sokoban {
 				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
 				if (board[pyx][newpyy] == '\0' && inBounds) {
 					board[pyx][newpyy] = 'p';
+					coordenadesPy.setLocation(pyx, newpyy);
 				}
 				break;
 				
@@ -72,6 +72,7 @@ public class Sokoban {
 				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
 				if (board[pyx][newpyy] == '\0' && inBounds) {
 					board[pyx][newpyy] = 'p';
+					coordenadesPy.setLocation(pyx, newpyy);
 				}
 				break;
 				
@@ -82,6 +83,7 @@ public class Sokoban {
 				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
 				if (board[pyx][newpyy] == '\0' && inBounds) {
 					board[pyx][newpyy] = 'p';
+					coordenadesPy.setLocation(pyx, newpyy);
 				}
 				break;
 				
@@ -92,6 +94,7 @@ public class Sokoban {
 				if (!inBounds || board[pyx][newpyy] != '\0') throw new SokobanException(SokobanException.PLAYER_CANT_MOVE);
 				if (board[pyx][newpyy] == '\0' && inBounds) {
 					board[pyx][newpyy] = 'p';
+					coordenadesPy.setLocation(pyx, newpyy);
 				}
 				break;
 		}
