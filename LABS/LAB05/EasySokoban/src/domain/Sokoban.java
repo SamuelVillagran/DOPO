@@ -47,11 +47,20 @@ public class Sokoban {
 	 * Generate boxes necessary at the board
 	 */
 	private void generateBoxes() {
-		for (int i = 0; i < totalBoxes ; i++) {
+		int copyTotal = totalBoxes;
+		while (copyTotal > 0) {
 			int posXBox = generateRandomNumW();
 			int posYBox = generateRandomNumH();
-			board[posXBox][posYBox] = 'b';
+			if (!numbersW.contains(posXBox) && !numbersH.contains(posYBox)
+					) {
+				board[posXBox][posYBox] = 'b';
+				numbersW.add(posXBox);
+				numbersH.add(posYBox);
+				copyTotal--;
+			}
+			
 		}
+		
 	}
 
 	/*
