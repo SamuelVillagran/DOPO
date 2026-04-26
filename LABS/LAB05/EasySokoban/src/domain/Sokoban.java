@@ -51,8 +51,8 @@ public class Sokoban {
 		while (copyTotal > 0) {
 			int posXBox = generateRandomNumW();
 			int posYBox = generateRandomNumH();
-			if (!numbersW.contains(posXBox) && !numbersH.contains(posYBox)
-					) {
+			if (!numbersW.contains(posXBox) || !numbersH.contains(posYBox)) { 
+				// if some of both coordenates aren't at the sets
 				board[posXBox][posYBox] = 'b';
 				numbersW.add(posXBox);
 				numbersH.add(posYBox);
@@ -78,6 +78,10 @@ public class Sokoban {
 				board[width][j] = '1';
 			}
 		}
+		numbersW.add(0);
+		numbersH.add(0);
+		numbersW.add(height);
+		numbersH.add(width);
 	}
 	
 	/*
