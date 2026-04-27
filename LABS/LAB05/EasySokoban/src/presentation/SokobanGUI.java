@@ -11,7 +11,6 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.*;
 
 import domain.Sokoban;
@@ -30,12 +29,14 @@ public class SokobanGUI extends JFrame{
 	//Atributos board
 	private JTextField score, time, configHeight, configWidth;
 	private JPanel infoPanel, optionsPanel, configPanel, controlPanel, arrowsPanel, boardPanel;
-	private JButton btnPlay, btnChangeColor, btnRefresh, btnDown, btnRight, btnLeft, btnUp;
+	private JButton btnPlay, btnChangeColor, btnRefresh, btnDown, btnRight, btnLeft, btnUp, btnRestart;
 	private JPanel[] cells;
 	private Sokoban game;
 	
 	
-	
+	/**
+	 * Class contains the sokoban game and show to tne user.
+	 */
 	public SokobanGUI() {
 		super("EasySokoban");
 		prepareElements(); /*Vista*/
@@ -135,7 +136,11 @@ public class SokobanGUI extends JFrame{
 		try {
             int height = Integer.parseInt(configHeight.getText());
             int width = Integer.parseInt(configWidth.getText());
-            game = new Sokoban(height, width);
+            if(game == null) {
+            	new Sokoban(height, width);
+            }else {
+            	game.changeSize(height, width);
+            }
             createBoard(height, width);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(SokobanGUI.this,
@@ -183,6 +188,9 @@ public class SokobanGUI extends JFrame{
 		});
 	}
 	
+	/*
+	 * Prepare the necessary elements to the correctly work.
+	 */
 	private void prepareElementsMainWindow() {
 		//Asignando el layout como BorderLayout
 		setLayout(new BorderLayout());
@@ -210,7 +218,9 @@ public class SokobanGUI extends JFrame{
 		optionsPanel.setLayout(new GridLayout(4,1, 10, 10));
 		optionsPanel.add(new JButton("Modify"));
 		optionsPanel.add(new JButton("Save"));
-		optionsPanel.add(new JButton("Restart"));
+		
+		btnRestart = new JButton("Restart");
+		optionsPanel.add(btnRestart);
 		optionsPanel.add(new JButton("Open"));
 		
 		add(optionsPanel, BorderLayout.WEST);
@@ -284,6 +294,7 @@ public class SokobanGUI extends JFrame{
 	private void prepareActionsBoard() {
 		prepareActionsBtnPlay();
 		prepareActionsBtnChangeColor();
+		prepareActionsBtnRestart();
 	
 	}
 	
@@ -301,6 +312,18 @@ public class SokobanGUI extends JFrame{
 			}
 		});
 	}
+	
+	private void prepareActionsBtnRestart() {
+		btnRestart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (game != null) {
+					game.restart();
+					refresh();
+				}
+			}
+		});
+	}
 
 	private void changeColorProps(Color color) {
 		if (cells != null) {
@@ -311,6 +334,9 @@ public class SokobanGUI extends JFrame{
 		}
 	}
 	
+	/*
+	 * Creates a board of JPanels
+	 */
 	private void createBoard(int heigth, int width) {
 		if (boardPanel != null) {
 			remove(boardPanel);
@@ -343,6 +369,9 @@ public class SokobanGUI extends JFrame{
 		}
 	}
 	
+	/*
+	 * Set the size and center in the screen. 
+	 */
 	private void setScreen() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int)size.getWidth() / 2;
@@ -352,6 +381,9 @@ public class SokobanGUI extends JFrame{
 		setVisible(true);
 	}
 	
+	/*
+	 * Updates visually the board.
+	 */
 	private void refresh() {
 		char[][] board = game.board();
 		
@@ -368,6 +400,10 @@ public class SokobanGUI extends JFrame{
             }
 		}
 		score.setText(String.valueOf(game.getScore()));
+		if(game.isGameCompleted()) {
+			JOptionPane.showMessageDialog(SokobanGUI.this, "Has completado el juego!!", "Juego Finalizado",
+					JOptionPane.INFORMATION_MESSAGE); // Obtenido gracias a chat gpt
+		}
 		revalidate();
 		repaint();
 	}
