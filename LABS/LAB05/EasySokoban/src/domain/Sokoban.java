@@ -9,8 +9,8 @@ import java.util.Random;
 public class Sokoban {
 	public static final int MIM_DIMENSSIONS = 9;
 	public static final int MAX_DIMENSSIONS = 40;
-	private final int height;
-	private final int width;
+	private int height;
+	private int width;
 	private char[][] board;
 	private int score;
 	private int playerRow;
@@ -76,6 +76,15 @@ public class Sokoban {
 	}
 	
 	/**
+	 * Check if the game has been completed.
+	 * All the boxes are in goals.
+	 * @ return true if every box is in a goal otherwise false.
+	 */
+	public boolean isGameCompleted() {
+		return !goalPositions.isEmpty() && score == goalPositions.size();
+	}
+	
+	/**
 	 * Build the walls, boxes and goals in random positions.
 	 */
 	public void generateObjects() {
@@ -138,6 +147,9 @@ public class Sokoban {
 		}
 	}
 	
+	/*
+	 * Create a point goal in a random place.
+	 */
 	private void generatePointGoal() {
 		Random range = new Random();
 		int placed = 0;
@@ -155,6 +167,10 @@ public class Sokoban {
 	/**
 	 * Move the player in the wished direction.
 	 * @param direction char indicating the direction feel.
+	 * n - move north
+	 * w - move west.
+	 * s - move south.
+	 * e - move east.
 	 */
 	public void movePlayer(char direction) {
 		int dr = 0, dc = 0;
@@ -201,6 +217,25 @@ public class Sokoban {
 		}
 	}
 	
+	/**
+	 * Restart the game with the same dimenssions
+	 * @throws SokobanException
+	 */
+	public void restart() {
+		buildBoardCeros();
+		goalPositions.clear();
+		score = 0;
+		playerRow = height / 2;
+		playerCol = width / 2;
+		board[playerRow][playerCol] = 'p';
+		generateWalls();
+		generateBoxes();
+		generatePointGoal();
+	}
+	
+	/*
+	 * Get the number of boxes in goals
+	 */
 	private void calculateScore() {
 		int count = 0;
 		for(int[] goal : goalPositions) {
@@ -236,9 +271,18 @@ public class Sokoban {
 		return false;
 	}
 	
+	public int getTotalWalls() {
+		return 0;
+	}
 	
-	private char[][] getBoard(){
-		return board;
+	public int getTotalElements(char type) {
+		int count = 0;
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == type) count++;
+			}
+		}
+		return count;
 	}
 	
 	public int getPlayerRow() {
@@ -274,6 +318,32 @@ public class Sokoban {
 		board[r][c] = ch;
 	}
 	
+	/**
+	 * Change the size of the Sokoban board.
+	 * @param newHeight new height wished.
+	 * @param newWidth new width wished.
+	 * @throws SokobanException
+	 */
+	public void changeSize(int newHeight, int newWidth) throws SokobanException {
+		checkDimenssions(newHeight, newWidth);
+		this.height = newHeight;
+		this.width = newWidth;
+		board = new char[height][width];
+		buildBoardCeros();
+		goalPositions.clear();
+		score = 0;
+		playerRow = height / 2;
+		playerCol = width / 2;
+		board[playerRow][playerCol] = 'p';
+		generateWalls();
+		generateBoxes();
+		generatePointGoal();
+	}
+	
+	/**
+	 * Get all board.
+	 * @return  Information board game.
+	 */
 	public char[][] board(){
 		return board;
 	}
@@ -285,7 +355,9 @@ public class Sokoban {
 	 * @throws SokobanException.
 	 */
 	private void checkDimenssions(int h, int w) throws SokobanException {
-		if(h <  Sokoban.MIM_DIMENSSIONS || w <  Sokoban.MIM_DIMENSSIONS) {
+		if(h <= 0 || w <= 0) {
+			throw new SokobanException(SokobanException.HEIGTH_OR_WIDTH_INVALID);
+		} else if(h <  Sokoban.MIM_DIMENSSIONS || w <  Sokoban.MIM_DIMENSSIONS) {
 			throw new SokobanException(SokobanException.BOARD_TOO_SMALL);
 		}else if(h >Sokoban.MAX_DIMENSSIONS || w > Sokoban.MAX_DIMENSSIONS) {
 			throw new SokobanException(SokobanException.BOARD_TOO_BIG);
