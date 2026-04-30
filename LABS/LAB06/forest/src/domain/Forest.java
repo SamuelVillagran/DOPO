@@ -1,4 +1,5 @@
 package domain;
+import java.io.File;
 import java.util.*;
 
 /*No olviden adicionar la documentacion*/
@@ -124,6 +125,42 @@ public class Forest extends MainGame {
             ((LivingThing) places[row][column]).makeDamage(pointsOfDamage);
         }
     }
+    
+    /**
+     * Save the Forest in a file.
+     * @param file The file that will be open
+     * @throws ForestException
+     */
+    public void open(File file) throws ForestException{
+    	throw new ForestException("Open", file.getName());
+    }
+    
+    /**
+     * 
+     * @param file
+     * @throws ForestException
+     */
+    public void saveAs(File file) throws ForestException{
+    	throw new ForestException("Save", file.getName());
+    }
+    
+    /**
+     * 
+     */
+    public void importFile(File file) throws ForestException{
+    	throw new ForestException("Import" + file.getName());
+    }
+    
+    /**
+     * 
+     * @param file
+     * @throws ForestException
+     */
+    public void exportAs(File file) throws ForestException{
+    	throw new ForestException("Export" + file.getName());
+    }
+    
+    
 
 	
 
