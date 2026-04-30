@@ -97,8 +97,58 @@ public class ForestGUI extends JFrame{
 			    	}
 			    }
     		}
-    			
     	});
+    	
+    	optionSaveAs.addActionListener(
+    		new ActionListener() {
+    			public void actionPerformed(ActionEvent e) {
+    				JFileChooser fileChooser = new JFileChooser();
+    				int result = fileChooser.showSaveDialog(ForestGUI.this);
+    				if(result == JFileChooser.APPROVE_OPTION) {
+    					File selectedFile = fileChooser.getSelectedFile();
+    					try {
+    						theForest.saveAs(selectedFile);
+    					} catch(ForestException fe){
+    						JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
+    					}
+    				}
+    			}
+    	});
+    	
+    	
+    	optionImport.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+        				JFileChooser fileChooser = new JFileChooser();
+        				int result = fileChooser.showSaveDialog(ForestGUI.this);
+        				if(result == JFileChooser.APPROVE_OPTION) {
+        					File selectedFile = fileChooser.getSelectedFile();
+        					try {
+        						theForest.importFile(selectedFile);
+        					} catch(ForestException fe){
+        						JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
+        					}
+        				}
+        			}
+        	});
+    	
+    	optionExportAs.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+        				JFileChooser fileChooser = new JFileChooser();
+        				int result = fileChooser.showSaveDialog(ForestGUI.this);
+        				if(result == JFileChooser.APPROVE_OPTION) {
+        					File selectedFile = fileChooser.getSelectedFile();
+        					try {
+        						theForest.exportAs(selectedFile);
+        					} catch(ForestException fe){
+        						JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
+        					}
+        				}
+        			}
+        	});
+    	
+    	
     }
     	
 
