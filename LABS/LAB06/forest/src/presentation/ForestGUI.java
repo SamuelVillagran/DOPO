@@ -16,6 +16,13 @@ public class ForestGUI extends JFrame{
     private Forest theForest;
     public static ForestGUI gui = null;
     
+    //Lab 06 - Menu
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem optionOpen, optionSaveAs, optionImport, optionExportAs, optionNew, optionExit;
+    
+    
+    
     private ForestGUI() {
         theForest=new Forest();
         SIZE=theForest.getSize();
@@ -33,8 +40,34 @@ public class ForestGUI extends JFrame{
         setSize(new Dimension(SIDE*SIZE+15,SIDE*SIZE+72)); 
         setResizable(false);
         photo.repaint();
+        
+        prepareElementsMenu();
     }
 
+    private void prepareElementsMenu() {
+    	menuBar  = new JMenuBar();
+    	menu = new JMenu("Archivo");
+    	optionNew = new JMenuItem("Nuevo");
+    	optionSaveAs = new JMenuItem("Guardar");
+    	optionOpen = new JMenuItem("Abrir");
+    	optionImport = new JMenuItem("Importar");
+    	optionExportAs = new JMenuItem("Exportar como");
+    	optionExit = new JMenuItem("Salir");
+    	
+    	menu.add(optionNew);
+    	menu.addSeparator();
+    	menu.add(optionSaveAs);
+    	menu.add(optionOpen);
+    	menu.addSeparator();
+    	menu.add(optionExportAs);
+    	menu.add(optionImport);
+    	menu.addSeparator();
+    	menu.add(optionExit);
+    	
+    	menuBar.add(menu);
+    	setJMenuBar(menuBar);
+    	
+    }
     private void prepareActions(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);       
         ticTacButton.addActionListener(
@@ -43,8 +76,31 @@ public class ForestGUI extends JFrame{
                     ticTacButtonAction();
                 }
             });
-
+        
+        prepareActionsMenu();
     }
+
+    private void prepareActionsMenu() {
+    	
+    	//Funcion Guardar
+    	optionOpen.addActionListener(
+    		new ActionListener() {
+    			public void actionPerformed(ActionEvent e) {
+			    	JFileChooser fileChooser = new JFileChooser();
+			    	int result = fileChooser.showOpenDialog(ForestGUI.this);
+			    	if(result == JFileChooser.APPROVE_OPTION) {
+			    		File selectedFile = fileChooser.getSelectedFile();
+			    		try {
+			    			theForest.open(selectedFile);
+			    		} catch(ForestException fe){
+			    			JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
+			    	}
+			    }
+    		}
+    			
+    	});
+    }
+    	
 
     private void ticTacButtonAction() {
         theForest.ticTac();
