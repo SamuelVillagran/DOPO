@@ -7,7 +7,7 @@ import java.awt.Color;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ShadowMark implements Thing {
+public class ShadowMark extends Thing {
     private int row;
     private int column;
     private Forest forest;

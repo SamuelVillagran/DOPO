@@ -7,13 +7,11 @@ import java.awt.Color;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Shadow implements Thing {
+public class Shadow extends Thing {
 
     private int row;
     private int column;
     private Forest forest;
-    private int season; //[could be implement diferents season of shadow]
-    private int tictac;
     
     /**
      * Constructor for objects of class Shadow

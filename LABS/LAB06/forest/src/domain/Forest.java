@@ -3,9 +3,9 @@ import java.io.File;
 import java.util.*;
 
 /*No olviden adicionar la documentacion*/
-public class Forest{
+public class Forest extends LivingThing {
     static private int SIZE=25;
-    private Thing[][] places;
+    private Element[][] places;
     
     public Forest() {
         places=new Thing[SIZE][SIZE];
@@ -21,7 +21,7 @@ public class Forest{
         return SIZE;
     }
 
-    public Thing getThing(int r, int c){
+    public Element getThing(int r, int c){
         return places[r][c];
     }
 
@@ -65,9 +65,9 @@ public class Forest{
     }
     
     public void ticTac(){
-        ArrayList<Thing> movingThings = new ArrayList<>(); // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
-        for(Thing[] fileThing : places) {
-            for(Thing thing : fileThing){
+        ArrayList<Element> movingThings = new ArrayList<>(); // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
+        for(Element[] fileThing : places) {
+            for(Element thing : fileThing){
                 if(thing instanceof Squirrel){
                    ((Squirrel) thing).setState(false);
                }
@@ -84,7 +84,7 @@ public class Forest{
         }
     
         // 2. Ejecutar el movimiento de cada uno (una sola vez)
-        for (Thing t : movingThings) { // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
+        for (Element t : movingThings) { // Esta parte fue ayudado por Claude Sonnet 4.6 IA 2026 
             t.ticTac();
         }
     }
@@ -161,4 +161,17 @@ public class Forest{
     }
     
     
+
+	@Override
+	public void getOld() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeSeason() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

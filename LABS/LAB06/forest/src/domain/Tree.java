@@ -4,7 +4,7 @@ import java.awt.Color;
 /**
  * The Tree class represents the standard performance of a Tree.
  */
-public abstract class Tree extends LivingThing implements Thing {
+public abstract class Tree extends LivingThing{
     protected Forest forest;
     protected int season; //[spring, summer, autumn, winter]
     protected int tictac;

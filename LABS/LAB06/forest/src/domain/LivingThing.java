@@ -2,7 +2,7 @@ package domain;
 import java.awt.Color;
 
 
-public abstract class LivingThing {
+public abstract class LivingThing extends Thing {
     
     protected int row,column;    
     protected Color color;
