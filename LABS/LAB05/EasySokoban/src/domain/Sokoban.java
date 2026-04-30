@@ -1,11 +1,13 @@
+
 package domain;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-
+/**
+ * This is Sokoban logic
+ */
 public class Sokoban {
 	public static final int MIM_DIMENSSIONS = 9;
 	public static final int MAX_DIMENSSIONS = 40;
@@ -15,6 +17,7 @@ public class Sokoban {
 	private int score;
 	private int playerRow;
 	private int playerCol;
+	private int totalBoxes;
 	private List <int[]> goalPositions;
 	
 	/**
@@ -31,14 +34,14 @@ public class Sokoban {
 		buildBoardCeros();
 		this.height = height;
 		this.width = width;
+		totalBoxes = (int) (0.1*(width*height));
 		score = 0;
 		goalPositions = new ArrayList<>();
 		
 		playerRow = height /2;
 		playerCol = width /2;
 		board[playerRow][playerCol] = 'p';
-		
-		generateObjects();
+	
 	}
 	
 	/**
@@ -54,6 +57,7 @@ public class Sokoban {
 		buildBoardCeros();
 		this.height = height;
 		this.width = width;
+		totalBoxes = (int) (0.1*(width*height));
 		score = 0;
 		goalPositions = new ArrayList<>();
 		
@@ -62,6 +66,10 @@ public class Sokoban {
 		board[playerRow][playerCol] = 'p';
 		
 		generateWalls();
+		generateAleatoryWalls();
+		generateBoxes();
+		generatePointGoal();
+		
 	}
 	
 	/*
@@ -96,17 +104,21 @@ public class Sokoban {
 	
 	
 	/*
+<<<<<<< HEAD
 	 * Generate walls limits.
+=======
+	 * Generate the walls of the board
+>>>>>>> Samuel
 	 */
 	private void generateWalls() {
-		for(int i = 0; i < height; i++) {
-			board[i][0] = '1';
-			board[i][width-1] = '1';
+		for (int i = 0; i < height; i++) {
+			board[0][i] = '1';
+			board[width-1][i] = '1';
 		}
 		
-		for(int j = 0; j< width; j++) {
-			board[0][j] = '1';
-			board[0][width-1] = '1';
+		for (int j = 0; j < width; j++) {
+			board[j][0] = '1';
+			board[j][height-1] = '1';
 		}
 	}
 	
@@ -137,7 +149,7 @@ public class Sokoban {
 	private void generateBoxes() {
 		Random range = new Random();
 		int placed = 0;
-		while(placed < 2) {
+		while(placed < totalBoxes) {
 			int row = 1 + range.nextInt(height - 2);
 			int col = 1 + range.nextInt(width - 2);
 			if(board[row][col] == '0') {
@@ -153,7 +165,7 @@ public class Sokoban {
 	private void generatePointGoal() {
 		Random range = new Random();
 		int placed = 0;
-		while(placed < 2) {
+		while(placed < totalBoxes) {
 			int row = 1 + range.nextInt(height - 2);
             int col = 1 + range.nextInt(width  - 2);
             if(board[row][col] =='0') {
@@ -250,8 +262,8 @@ public class Sokoban {
 	
 	private boolean inBounds(int r, int c) {
 		return r >=0 && r < height && c >= 0 && c < width; 
-		
 	}
+	
 	private void resetLeavePosition() {
 		board[playerRow][playerCol] = isGoal(playerRow, playerCol) ? 'g' : '0';
 	}
@@ -274,7 +286,6 @@ public class Sokoban {
 	public int getTotalWalls() {
 		return 0;
 	}
-	
 	public int getTotalElements(char type) {
 		int count = 0;
 		for(int i = 0; i < board.length; i++) {
@@ -283,6 +294,7 @@ public class Sokoban {
 			}
 		}
 		return count;
+
 	}
 	
 	public int getPlayerRow() {
@@ -363,6 +375,21 @@ public class Sokoban {
 			throw new SokobanException(SokobanException.BOARD_TOO_BIG);
 		}
 	}
-	
-	
+
+
+	public int getTotalBoxes() {
+		return totalBoxes;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public char[][] getBoard() {
+		return board;
+	}
 }
