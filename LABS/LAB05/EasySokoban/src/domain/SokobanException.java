@@ -5,8 +5,8 @@ package domain;
  */
 public class SokobanException extends Exception {
 
-	public static final String PLAYER_CANT_MOVE = "Player try moves to some invalid moves.";
-	public static final String BOARD_TOO_SMALL = "Height or width aren't correctly, try with others dimensions.";
+	public static final String PLAYER_CANT_MOVE = "Jugador se intenta mover a espacios no validos.";
+	public static final String BOARD_TOO_SMALL = "Altura o anchura no son validos, intente con otros valores.";
 	public static final String BOARD_TOO_BIG= "Tablero demasiado grande! Reduzca su tamaño.";
 	public static final String HEIGTH_OR_WIDTH_INVALID = "Parametros de altura o ancho inválidos.";
 	
