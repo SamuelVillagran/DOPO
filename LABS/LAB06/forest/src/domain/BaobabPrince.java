@@ -6,7 +6,7 @@ import java.awt.Color;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class BaobabPrince extends Tree{
+public class BaobabPrince extends Tree {
     private boolean isDangerous;
     /**
      * Constructor for objects of class BaobabPrince
@@ -18,7 +18,6 @@ public class BaobabPrince extends Tree{
         this.isDangerous = false;
     }
     
-    @Override
     public void ticTac(){
         tictac++;
         color=(tictac % 4==0? new Color(143, 184, 255):
@@ -57,7 +56,7 @@ public class BaobabPrince extends Tree{
                 int dr = r + row;
                 int dc = c + column;
                 if(forest.inForest(dr,dc)){
-                    Thing thing = forest.getThing(dr, dc);
+                	Element thing = forest.getThing(dr, dc);
                     if(thing != null && !(thing instanceof BaobabPrince) && (thing instanceof DefaultTree)){
                         Tree enemy = (Tree) thing;
                         for(int i = 0; i <= 4; i++){
@@ -75,4 +74,6 @@ public class BaobabPrince extends Tree{
     public boolean getIsDangerous(){
         return isDangerous;
     }
+
+	
 }

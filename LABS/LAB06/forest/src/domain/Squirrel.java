@@ -7,7 +7,7 @@ import java.util.Random;
  * Squirrel go to a random position on map.
  * it could reproduce and die at 10 years.
  */
-public class Squirrel extends LivingThing implements Thing {
+public class Squirrel extends LivingThing {
     private Forest forest;
     private int season; //[pup, juvenile, adult]
     private int tictac;
@@ -120,7 +120,7 @@ public class Squirrel extends LivingThing implements Thing {
                     
                 if(forest.isEmpty(emptyRow, emptyCol)){
                     if(forest.inForest(emptyRow, emptyCol) && forest.inForest(doubleRow, doubleCol)){
-                        Thing doublePlace = forest.getThing(doubleRow, doubleCol);
+                    	Element doublePlace =  forest.getThing(doubleRow, doubleCol);
                         if(doublePlace != null && doublePlace.getClass() == this.getClass()){
                             new Squirrel(forest, emptyRow, emptyCol);
                             return;

@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Villagran
  * @version 1.0
  */
-public class Bear extends LivingThing implements Thing {
+public class Bear extends LivingThing {
     private Forest forest;
     private int tictac;
     private int season; // Hunt 0, hibernation 1

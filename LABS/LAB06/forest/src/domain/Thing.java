@@ -2,29 +2,29 @@ package domain;
 import java.awt.Color;
 
 /*No olviden adicionar la documentacion*/
-public interface Thing{
+public abstract class Thing implements Element {
   public static final int SQUARE = 2;
   public static final int ROUND = 1;
-    
+  protected int tictac;
+  protected int season;
    
-  public void ticTac();
-  
-  public default int shape(){
+  @Override
+  public int shape(){
       return SQUARE;
   }
   
-  public default Color getColor(){
+  public Color getColor(){
       return Color.black;
   }
   
-  public default boolean isOnlyThing(){
+  public boolean isOnlyThing(){
       return true;
   }
   
-  public default boolean isLivingThing(){
+  public boolean isLivingThing(){
       return false;
   }    
     
-  public void changeSeason();
+  public abstract void changeSeason(); 
   
 }
