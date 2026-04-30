@@ -2,7 +2,7 @@ package domain;
 import java.util.*;
 
 /*No olviden adicionar la documentacion*/
-public class Forest extends LivingThing {
+public class Forest extends MainGame {
     static private int SIZE=25;
     private Element[][] places;
     
@@ -125,16 +125,8 @@ public class Forest extends LivingThing {
         }
     }
 
-	@Override
-	public void getOld() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	@Override
-	public void changeSeason() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

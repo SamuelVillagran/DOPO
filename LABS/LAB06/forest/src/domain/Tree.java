@@ -5,9 +5,6 @@ import java.awt.Color;
  * The Tree class represents the standard performance of a Tree.
  */
 public abstract class Tree extends LivingThing{
-    protected Forest forest;
-    protected int season; //[spring, summer, autumn, winter]
-    protected int tictac;
     
     /**Create a new Tree(<b>row,column</b>) in the forest <b>forest</b>..
      * @param forest It's the fores where belog this tree
@@ -57,18 +54,30 @@ public abstract class Tree extends LivingThing{
     public void die(){
         forest.setThing(row, column,null);
     }
-  
-    /**
-     * Make older this tree
-     */
-    public void getOld() {
-        years++;
-    }
     
     /**
      * Change season of tree
      */
     public void changeSeason() {
         season++;
+    }
+    
+    /**ticTac change the state and color of tree
+     */
+    public void ticTac(){
+        tictac++;
+        color=(tictac % 4==0? Color.PINK:
+               tictac % 4==1? Color.GREEN:
+               tictac % 4==2? Color.ORANGE:
+               Color.GRAY);
+        if (tictac % 4 == 1){
+            years+=1;
+        }
+        if (tictac % 4 == 3){
+            boolean OK=step();
+            if (! OK){
+                die();
+            }
+        }
     }
 }

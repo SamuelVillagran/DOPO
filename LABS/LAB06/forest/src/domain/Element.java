@@ -8,6 +8,9 @@ public interface Element {
 	public int shape();
 	public boolean isOnlyThing();
 	public boolean isLivingThing();
-	public Color getColor();
+	
+	public default Color getColor() {
+		return Color.BLACK;
+	}
 	
 }
