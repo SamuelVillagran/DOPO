@@ -16,22 +16,5 @@ public class DefaultTree extends Tree {
         this.color=Color.PINK;   
     }
 
-    /**ticTac change the state and color of tree
-     */
-    public void ticTac(){
-        tictac++;
-        color=(tictac % 4==0? Color.PINK:
-               tictac % 4==1? Color.GREEN:
-               tictac % 4==2? Color.ORANGE:
-               Color.GRAY);
-        if (tictac % 4 == 1){
-            years+=1;
-        }
-        if (tictac % 4 == 3){
-            boolean OK=step();
-            if (! OK){
-                die();
-            }
-        }
-    }
+    
 }

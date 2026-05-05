@@ -18,6 +18,7 @@ public class BaobabPrince extends Tree {
         this.isDangerous = false;
     }
     
+    @Override
     public void ticTac(){
         tictac++;
         color=(tictac % 4==0? new Color(143, 184, 255):

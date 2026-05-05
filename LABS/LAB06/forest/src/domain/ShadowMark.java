@@ -24,9 +24,6 @@ public class ShadowMark extends Thing {
     }
 
     @Override
-    public void changeSeason() {}
-
-    @Override
     public Color getColor() {
         return Color.black;
     }
