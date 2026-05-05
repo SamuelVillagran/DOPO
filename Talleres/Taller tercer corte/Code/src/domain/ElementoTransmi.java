@@ -4,7 +4,7 @@ public abstract class ElementoTransmi {
 
 	protected String nombre;
 	
-	public String getNombre() {
+	public String obtenerNombre() {
 		return nombre;
 	}
 	
