@@ -1,0 +1,31 @@
+/*Sistema sys = new Sistema();
+		sys.importarNuevaRuta();
+		sys.imprimirResultadosRuta(); */
+		/*
+		Sistema sys = new Sistema();
+
+	    // Rutas que pasan por Portal_Norte -> Calle_72
+	    sys.agregarRuta("Ruta-A", "Portal_Norte", "Calle_100", "Calle_92", "Calle_80", "Calle_72", "Calle_63");
+	    sys.agregarRuta("Ruta-B", "Portal_Norte", "Calle_85", "Calle_72", "Calle_45");
+	    sys.agregarRuta("Ruta-C", "Portal_Norte", "Calle_100", "Calle_72", "Av_Jimenez");
+	    sys.agregarRuta("Ruta-D", "Portal_Norte", "Calle_72", "Calle_26");
+
+	    // Rutas que NO tienen ambas estaciones (para probar la excepcion)
+	    sys.agregarRuta("Ruta-E", "Portal_Sur", "NQS", "Calle_26", "Av_Jimenez");
+	    sys.agregarRuta("Ruta-F", "Portal_80", "Calle_63", "Calle_45", "Av_Jimenez");
+	    sys.agregarRuta("Ruta-G", "Portal_Usme", "Calle_45", "Calle_26", "Av_Jimenez");
+	    sys.agregarRuta("Ruta-H", "Portal_Norte", "Calle_100", "Calle_92", "Calle_80", "Calle_72");
+
+	    System.out.println("=== Rutas cargadas ===");
+	    sys.imprimirResultadosRuta();
+
+	    System.out.println("\n=== Exportando informe ===");
+	    try {
+	        sys.exportarInformeRutasSinTransbordo("Portal_Norte", "Calle_72");
+	    } catch (SistemaExcepcion e) {
+	        System.err.println("SistemaExcepcion: " + e.getMessage());
+	    } catch (IOException e) {
+	        System.err.println("IOException: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    */
