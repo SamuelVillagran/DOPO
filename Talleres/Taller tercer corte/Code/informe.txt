@@ -1,0 +1,7 @@
+Informe de rutas sin transbodo
+______________________________
+De: Portal_Norte -> Hasta: Calle_72
+
+Ruta-A | Ruta-B | Ruta-C | 
+_______________________________
+Ruta-D | Ruta-H | 

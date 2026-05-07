@@ -28,9 +28,16 @@ public class Ruta extends ElementoTransmi {
 	 * @throws SistemaExcepcion NO_SE_ENCUENTRA_ESTACION_EN_RUTAS - Se lanza si no se encuentra las estaciones en esta ruta
 	 */
 	public boolean tieneEstaciones(String estA, String estB) throws SistemaExcepcion {
-		boolean resultado = paradas.contains(estA) && paradas.contains(estB);
+		boolean resultado = false;
+		boolean isEstA = false, isEstB = false;
+		for (Estacion e : paradas) {
+			String nombreEstacion = e.obtenerNombre();
+			if (nombreEstacion.equals(estA)) isEstA = true;
+			if (nombreEstacion.equals(estB)) isEstB = true;
+		}
+		resultado = isEstA && isEstB;
 		if (!resultado) throw new SistemaExcepcion(SistemaExcepcion.NO_SE_ENCUENTRA_ESTACION_EN_RUTAS);
-		return paradas.contains(estA) && paradas.contains(estB);
+		return resultado; 
 	}
 	
 	/**
@@ -54,7 +61,6 @@ public class Ruta extends ElementoTransmi {
 			}
 		}
 		return numParadas;
-
 	}
 
 	/**

@@ -1,16 +1,21 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class Troncal extends ElementoTransmi {
+public class Troncal extends ElementoTransmi implements Serializable {
 
+	
 	private int velocidadPromedio;
 	private HashMap<Integer, Tramo> tramos; //
 	private LinkedList<Estacion> paradas;
 
-	
+	public Troncal(String string) {
+		nombre = string;
+	}
+
 	/**
 	 * Verifica si las estaciones dadas se encuentran en las troncales
 	 * @param estacionInicio estacionInicio es una de los dos nombre de estaciones a buscar en troncales

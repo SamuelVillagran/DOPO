@@ -15,8 +15,8 @@ public class MyCollection { // Clase ayudada a hacer por Gemini IA 2026
 		this.collection = new TreeMap<>();
 	}
 
-	public void addRuta(String nombreRuta, int numParadas) {
-		if (!collection.containsKey(nombreRuta)) {
+	public void agregarRuta(int numParadas, String nombreRuta) {
+		if (!collection.containsKey(numParadas)) {
 			collection.put(numParadas, new TreeSet<>());
 		}
 		collection.get(numParadas).add(nombreRuta);

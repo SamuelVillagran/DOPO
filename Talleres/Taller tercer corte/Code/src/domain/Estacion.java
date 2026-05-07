@@ -1,6 +1,8 @@
 package domain;
 
-public class Estacion extends ElementoTransmi {
+import java.io.Serializable;
+
+public class Estacion extends ElementoTransmi implements Serializable {
 
 	private boolean nivelOcupacion;
 	private double tiempoEspera;

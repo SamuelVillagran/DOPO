@@ -1,6 +1,8 @@
 package domain;
 
-public class Tramo {
+import java.io.Serializable;
+
+public class Tramo implements Serializable {
 	
 	private Estacion estacionFinal;
 	private Estacion estacionInicial;
