@@ -131,7 +131,7 @@ public class Forest extends LivingThing {
      * @param file The file that will be open
      * @throws ForestException
      */
-    public void open(File file) throws ForestException{
+    public Forest open(File file) throws ForestException{
     	throw new ForestException("Open", file.getName());
     }
     
@@ -147,7 +147,7 @@ public class Forest extends LivingThing {
     /**
      * 
      */
-    public void importFile(File file) throws ForestException{
+    public Forest importFile(File file) throws ForestException{
     	throw new ForestException("Import" + file.getName());
     }
     
