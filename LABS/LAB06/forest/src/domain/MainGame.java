@@ -1,5 +1,7 @@
 package domain;
 
-public abstract class MainGame {
+import java.io.Serializable;
+
+public abstract class MainGame implements Serializable{
 
 }

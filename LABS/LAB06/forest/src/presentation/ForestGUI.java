@@ -2,6 +2,8 @@ package presentation;
 import domain.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -83,6 +85,7 @@ public class ForestGUI extends JFrame{
     private void prepareActionsMenu() {
     	
     	//Funcion abrir
+    	/*
     	optionOpen.addActionListener(
     		new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
@@ -91,14 +94,16 @@ public class ForestGUI extends JFrame{
 			    	if(result == JFileChooser.APPROVE_OPTION) {
 			    		File selectedFile = fileChooser.getSelectedFile();
 			    		try {
-			    			theForest.open(selectedFile);
+			    			theForest.open00(selectedFile);
 			    		} catch(ForestException fe){
 			    			JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
 			    	}
 			    }
     		}
     	});
+    	*/
     	
+    	/*
     	optionSaveAs.addActionListener(
     		new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
@@ -107,14 +112,14 @@ public class ForestGUI extends JFrame{
     				if(result == JFileChooser.APPROVE_OPTION) {
     					File selectedFile = fileChooser.getSelectedFile();
     					try {
-    						theForest.saveAs(selectedFile);
+    						theForest.saveAs00(selectedFile);
     					} catch(ForestException fe){
     						JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
     					}
     				}
     			}
     	});
-    	
+    	*/
     	
     	optionImport.addActionListener(
         		new ActionListener() {
@@ -160,10 +165,8 @@ public class ForestGUI extends JFrame{
     	optionNew.addActionListener(
         		new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
-    			    	theForest = new Forest();
-    			    	repaint();
-    			    	revalidate();
-    			    }
+        				newAction();
+        		}
         	});
     	
     	optionExit.addActionListener(
@@ -172,9 +175,73 @@ public class ForestGUI extends JFrame{
     					dispose();
     				}
     			});
+    	
+    	//Segunda version guardar:
+    	optionSaveAs.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+        				saveAsAction();
+        			}
+        	});
+    	
+    	//Sregunda version abrir:
+    	optionOpen.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+    			    	openAction();
+        		}
+        	});
     }
     	
 
+    private void newAction() {
+    	int result = JOptionPane.showConfirmDialog(ForestGUI.this,
+				"¿Esta seguro que quiere iniciar un nuevo Forest? Se perderá el progreso.", "Nuevo juego",
+				JOptionPane.YES_NO_OPTION);
+    	
+		if(result == JOptionPane.YES_OPTION) {
+			theForest = new Forest();
+			
+	    	repaint();
+	    	revalidate();
+	    	JOptionPane.showMessageDialog(ForestGUI.this, "Se ha restablecido el juego.", "Nuevo juego", JOptionPane.INFORMATION_MESSAGE);
+		}
+    }
+    
+    private void saveAsAction() {
+    	JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
+		int result = fileChooser.showSaveDialog(ForestGUI.this);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			if(!selectedFile.getName().endsWith(".dat")) {
+				selectedFile = new File(selectedFile.getAbsolutePath() + ".dat");
+			}
+			try {
+				theForest.saveAs(selectedFile);
+			} catch (IOException  io) {
+				JOptionPane.showMessageDialog(ForestGUI.this, "Error al guardar archivo", "Error",
+	    				JOptionPane.ERROR_MESSAGE);
+			}
+		}
+    }
+    private void openAction() {
+    	JFileChooser fileChooser = new JFileChooser();
+    	fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
+    	int result = fileChooser.showOpenDialog(ForestGUI.this);
+    	if(result == JFileChooser.APPROVE_OPTION) {
+    		File selectedFile = fileChooser.getSelectedFile();
+    		try {
+    			Forest loadedForest = Forest.open(selectedFile);
+    			theForest = loadedForest;
+	    		photo.repaint();
+    		} catch(IOException | ClassNotFoundException io){
+    			JOptionPane.showMessageDialog(ForestGUI.this, "Error al intentar abrir el archivo",
+    					"Eror", JOptionPane.ERROR_MESSAGE);
+    		}
+    	}
+    	
+    }
     private void ticTacButtonAction() {
         theForest.ticTac();
         photo.repaint();

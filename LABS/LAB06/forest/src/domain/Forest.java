@@ -6,10 +6,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
+import java.io.FileReader;
+
 
 /*No olviden adicionar la documentacion*/
 public class Forest extends MainGame implements Serializable {
@@ -135,6 +140,7 @@ public class Forest extends MainGame implements Serializable {
         }
     }
     
+    
     /**
      * Opens the specified file.
      * @param file The file that will be open.
@@ -142,7 +148,7 @@ public class Forest extends MainGame implements Serializable {
      * @throws ForestException if the method is called, indicates that
      * 		the "open" is in construction.
      */
-    public Forest open(File file) throws ForestException{
+    public static Forest open00(File file) throws ForestException{
     	throw new ForestException("Open", file.getName());
     }
     
@@ -152,25 +158,55 @@ public class Forest extends MainGame implements Serializable {
      * @throws ForestException if the method is called, indicate that
      * 		the "save" option is in construction.
      */
-    public void saveAs(File file) throws ForestException{
+    public void saveAs00(File file) throws ForestException{
     	throw new ForestException("Save", file.getName());
     }
+    
+    /**
+     * Opens a specified file.
+     * @param file the name or path of file to be saved.
+     * @return Forest game.
+     * @throws IOException if there are problems with the disk or files.
+     * @throws ClassNotFoundException if class is not found in the project.
+     */
+    public static Forest open(File file) throws IOException, ClassNotFoundException {
+    	try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){
+    		return (Forest) in.readObject();
+    	}
+    }
+    
+    /**
+     * Saves the specified file.
+     * @param file the name or path of file to be saved.
+     * @throws IOException 
+     * @throws FileNotFoundException 
+     * @throws ForestException if the method is called, indicate that
+     * 		the "save" option is in construction.
+     */
+    public void saveAs(File file) throws IOException {
+    	try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
+    		out.writeObject(this);
+    	}
+    }
+		
+    
     
     /**
      * Imports a file.
      * @param file the name or file to be imported.|
      * @return Forest game.
-     * @throws ForestException if the method is called, indicates that
-     * 		the "import" option is in construction.
+     * @throws ForestException CANT_CREATE_FOREST - If at the text there are some thing like Forest
+     * 							CANT_IMPORT_THAT - If at the text there are some unknown thing 
      * @throws IOException 
      */
     public Forest importFile(File file) throws ForestException, IOException{
-    	
     	if (file == null) throw new ForestException("Import", file.getName());
-
+    	
     	BufferedReader in = new BufferedReader(new FileReader(file));
-    	String line;
-
+    	String line, thingToCreate;
+    	
+    	
+    	boolean isThingAllowed;
     	while ((line = in.readLine()) != null) {
     		boolean isLineEmpty = line.isEmpty();
     		if (!isLineEmpty) {
@@ -186,10 +222,20 @@ public class Forest extends MainGame implements Serializable {
     /**
      * Create a specific thing with data
      * @param data data is read like nameClassToCreate rowThing columnThing
+     * @throws ForestException CANT_CREATE_FOREST - If at the text there are some thing like Forest
+     * 							CANT_IMPORT_THAT - If at the text there are some unknown thing 
      */
-    private void createThing(String[] data) {
+    private void createThing(String[] data) throws ForestException {
+    	
+		String thingToCreate = data[0].toLowerCase();
+		if (thingToCreate.equals("forest")) throw new ForestException(ForestException.CANT_CREATE_FOREST);
+		
+		Set<String> thingsAllowed = Set.of("tree", "squirrel", "bear", "shadow", "baobabprince");
+		boolean isThingAllowed = thingsAllowed.contains(thingToCreate.toLowerCase());
+		if (!isThingAllowed) throw new ForestException(ForestException.CANT_IMPORT_THAT);
     	int x = Integer.parseInt(data[1])-1;
 		int y = Integer.parseInt(data[2])-1;
+		
     	switch (data[0].toLowerCase()) {
     		case "tree":
     			places[x][y] = new DefaultTree(this, x, y);
@@ -249,10 +295,66 @@ public class Forest extends MainGame implements Serializable {
                     out.write(nameThing + "; Row: " + currentThing.getRow() + " Column: " + currentThing.getColumn());
                     out.newLine();
             	}
+            }
+        }
+    	out.close();
+    }
+    
+    /**
+     * Exports data to the specified file.
+     * @param file the name or path if the file to which data should be exported.
+     * @throws ForestException if the method is called, indicates that
+     * 			the "export" option is under construction.
+     * @throws IOException 
+     */
+    public void exportAs01(File file) throws ForestException, IOException{
+    	if (file == null) throw new ForestException("Export", file.getName()); 
+    	FileWriter fw = new FileWriter(file);
+    	BufferedWriter out = new BufferedWriter(fw);
+    	
+    	out.write("Board State\n");
+    	out.write("______________________________\n\n");
+    	out.newLine();
+    	String nameThing;
+    	for (int r=0;r<SIZE;r++){
+            for (int c=0;c<SIZE;c++){
+            	Thing currentThing = (Thing) places[r][c];
+            	if (currentThing != null) {
+            		nameThing = (String) (currentThing.getNameThing());
+                    out.write(nameThing + "; Row: " + currentThing.getRow() + " Column: " + currentThing.getColumn());
+                    out.newLine();
+            	}
             	
             }
         }
     	out.close();
+    }
+    
+    /**
+     * Imports a file.
+     * @param file the name or file to be imported.|
+     * @return Forest game.
+     * @throws ForestException if the method is called, indicates that
+     * 		the "import" option is in construction.
+     * @throws IOException 
+     */
+    public Forest import01(File file) throws ForestException, IOException{
+    	
+    	if (file == null) throw new ForestException("Import", file.getName());
+
+    	BufferedReader in = new BufferedReader(new FileReader(file));
+    	String line, thingToCreate;
+    	Set<String> thingsAllowed = Set.of("tree", "squirrel", "bear", "shadow", "baobabprince");
+    	boolean isThingAllowed;
+    	while ((line = in.readLine()) != null) {
+    		boolean isLineEmpty = line.isEmpty();
+    		if (!isLineEmpty) {
+    			String[] lineIterator = line.split("[, ]+"); // Linea asistida por Gemini IA 2026
+    			createThing(lineIterator);
+    		}
+    	}
+    	in.close();
+    	return this;
     }
     
     /**
