@@ -1,9 +1,16 @@
 package domain;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-/*No olviden adicionar la documentacion*/
-public class Forest extends MainGame {
+import javax.swing.JOptionPane;
+
+
+public class Forest implements Serializable {
     static private int SIZE=25;
     private Element[][] places;
     
@@ -126,6 +133,28 @@ public class Forest extends MainGame {
         }
     }
     
+    
+    /**
+     * Opens the specified file.
+     * @param file The file that will be open.
+     * @return Forest game.
+     * @throws ForestException if the method is called, indicates that
+     * 		the "open" is in construction.
+     */
+    public Forest open00(File file) throws ForestException{
+    	throw new ForestException("Open", file.getName());
+    }
+    
+    /**
+     * Saves the specified file.
+     * @param file the name or path of file to be saved.
+     * @throws ForestException if the method is called, indicate that
+     * 		the "save" option is in construction.
+     */
+    public void saveAs00(File file) throws ForestException{
+    	throw new ForestException("Save", file.getName());
+    }
+    
     /**
      * Opens the specified file.
      * @param file The file that will be open.
@@ -140,12 +169,18 @@ public class Forest extends MainGame {
     /**
      * Saves the specified file.
      * @param file the name or path of file to be saved.
+     * @throws IOException 
+     * @throws FileNotFoundException 
      * @throws ForestException if the method is called, indicate that
      * 		the "save" option is in construction.
      */
-    public void saveAs(File file) throws ForestException{
-    	throw new ForestException("Save", file.getName());
+    public void saveAs(File file) throws IOException {
+    	try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
+    		out.writeObject(this);
+    	}
     }
+		
+    
     
     /**
      * Imports a file.

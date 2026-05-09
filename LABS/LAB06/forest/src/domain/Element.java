@@ -1,8 +1,9 @@
 package domain;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public interface Element {
+public interface Element extends Serializable{
 
 	public void ticTac();
 	public int shape();

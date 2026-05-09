@@ -2,6 +2,8 @@ package presentation;
 import domain.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -91,7 +93,7 @@ public class ForestGUI extends JFrame{
 			    	if(result == JFileChooser.APPROVE_OPTION) {
 			    		File selectedFile = fileChooser.getSelectedFile();
 			    		try {
-			    			theForest.open(selectedFile);
+			    			theForest.open00(selectedFile);
 			    		} catch(ForestException fe){
 			    			JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
 			    	}
@@ -99,6 +101,7 @@ public class ForestGUI extends JFrame{
     		}
     	});
     	
+    	/*
     	optionSaveAs.addActionListener(
     		new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
@@ -107,14 +110,14 @@ public class ForestGUI extends JFrame{
     				if(result == JFileChooser.APPROVE_OPTION) {
     					File selectedFile = fileChooser.getSelectedFile();
     					try {
-    						theForest.saveAs(selectedFile);
+    						theForest.saveAs00(selectedFile);
     					} catch(ForestException fe){
     						JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
     					}
     				}
     			}
     	});
-    	
+    	*/
     	
     	optionImport.addActionListener(
         		new ActionListener() {
@@ -174,6 +177,28 @@ public class ForestGUI extends JFrame{
     					dispose();
     				}
     			});
+    	
+    	//Segunda version guardar:
+    	optionSaveAs.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+        				JFileChooser fileChooser = new JFileChooser();
+        				fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
+        				int result = fileChooser.showSaveDialog(ForestGUI.this);
+        				if(result == JFileChooser.APPROVE_OPTION) {
+        					File selectedFile = fileChooser.getSelectedFile();
+        					if(!selectedFile.getName().endsWith(".dat")) {
+        						selectedFile = new File(selectedFile.getAbsolutePath() + ".dat");
+        					}
+        					try {
+								theForest.saveAs(selectedFile);
+							} catch (IOException  io) {
+								JOptionPane.showMessageDialog(ForestGUI.this, "Error al guardar archivo", "Error",
+					    				JOptionPane.ERROR_MESSAGE);
+							}
+        				}
+        			}
+        	});
     }
     	
 
