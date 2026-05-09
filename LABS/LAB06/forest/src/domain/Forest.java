@@ -1,8 +1,10 @@
 package domain;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
@@ -141,7 +143,7 @@ public class Forest implements Serializable {
      * @throws ForestException if the method is called, indicates that
      * 		the "open" is in construction.
      */
-    public Forest open00(File file) throws ForestException{
+    public static Forest open00(File file) throws ForestException{
     	throw new ForestException("Open", file.getName());
     }
     
@@ -156,14 +158,15 @@ public class Forest implements Serializable {
     }
     
     /**
-     * Opens the specified file.
-     * @param file The file that will be open.
+     * Opens a specified file.
+     * @param file the name or path of file to be saved.
      * @return Forest game.
-     * @throws ForestException if the method is called, indicates that
-     * 		the "open" is in construction.
+     * @throws IOException if there are problems with the disk or files.
+     * @throws ClassNotFoundException if class is not found in the project.
      */
-    public Forest open(File file) throws ForestException{
-    	throw new ForestException("Open", file.getName());
+    public static Forest open(File file) throws IOException, ClassNotFoundException {
+    	ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+    	return (Forest) in.readObject();
     }
     
     /**

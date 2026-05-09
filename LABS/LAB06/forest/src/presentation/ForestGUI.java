@@ -85,6 +85,7 @@ public class ForestGUI extends JFrame{
     private void prepareActionsMenu() {
     	
     	//Funcion abrir
+    	/*
     	optionOpen.addActionListener(
     		new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
@@ -100,6 +101,7 @@ public class ForestGUI extends JFrame{
 			    }
     		}
     	});
+    	*/
     	
     	/*
     	optionSaveAs.addActionListener(
@@ -198,6 +200,28 @@ public class ForestGUI extends JFrame{
 							}
         				}
         			}
+        	});
+    	
+    	//Sregunda version abrir:
+    	optionOpen.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+    			    	JFileChooser fileChooser = new JFileChooser();
+    			    	fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
+    			    	int result = fileChooser.showOpenDialog(ForestGUI.this);
+    			    	if(result == JFileChooser.APPROVE_OPTION) {
+    			    		File selectedFile = fileChooser.getSelectedFile();
+    			    		try {
+    			    			Forest loadedForest = Forest.open(selectedFile);
+    			    			theForest = loadedForest;
+        			    		photo.repaint();
+    			    		} catch(IOException | ClassNotFoundException io){
+    			    			JOptionPane.showMessageDialog(ForestGUI.this, "Error al intentar abrir el archivo",
+    			    					"Eror", JOptionPane.ERROR_MESSAGE);
+    			    	}
+    
+    			    }
+        		}
         	});
     }
     	
