@@ -1,9 +1,16 @@
 package domain;
+
+import java.io.Serializable;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /*No olviden adicionar la documentacion*/
-public class Forest extends MainGame {
+public class Forest extends MainGame implements Serializable {
     static private int SIZE=25;
     private Element[][] places;
     
@@ -14,7 +21,7 @@ public class Forest extends MainGame {
                 places[r][c]=null;
             }
         }
-        someThings();
+        //someThings();
     }
 
     public int  getSize(){
@@ -153,9 +160,38 @@ public class Forest extends MainGame {
      * @return Forest game.
      * @throws ForestException if the method is called, indicates that
      * 		the "import" option is in construction.
+     * @throws IOException 
      */
-    public Forest importFile(File file) throws ForestException{
-    	throw new ForestException("Import", file.getName());
+    public Forest importFile(File file) throws ForestException, IOException{
+    	
+    	if (file == null) throw new ForestException("Import", file.getName());
+
+    	BufferedReader in = new BufferedReader(new FileReader(file));
+    	String line;
+
+    	while ((line = in.readLine()) != null) {
+    		boolean isLineEmpty = line.isEmpty();
+    		if (!isLineEmpty) {
+    			String[] lineIterator = line.split("[, ]+"); // Linea asistida por Gemini IA 2026
+    			createThing(lineIterator);
+    		}
+
+    	}
+    	in.close();
+    	return this;
+    }
+    
+    private void createThing(String[] data) {
+    	int x = Integer.parseInt(data[1]);
+		int y = Integer.parseInt(data[2]);
+    	switch (data[0].toLowerCase()) {
+    		case "tree":
+    			places[x][y] = new DefaultTree(this, x, y);
+    			break;
+    		case "squirrel":
+    			places[x][y] = new Squirrel(this, x, y);
+    			break;
+    	}
     }
     
     /**
@@ -169,7 +205,7 @@ public class Forest extends MainGame {
     }
     
     
-
+    
 	
 
 

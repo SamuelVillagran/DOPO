@@ -125,9 +125,13 @@ public class ForestGUI extends JFrame{
     			    		File selectedFile = fileChooser.getSelectedFile();
     			    		try {
     			    			theForest.importFile(selectedFile);
+    			    			photo.repaint();
     			    		} catch(ForestException fe){
     			    			JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
-    			    	}
+    			    		} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
     			    }
         		}
         			
