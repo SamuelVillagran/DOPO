@@ -153,10 +153,19 @@ public class ForestGUI extends JFrame{
     	optionNew.addActionListener(
         		new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
-    			    	theForest = new Forest();
+        				int result = JOptionPane.showConfirmDialog(ForestGUI.this,
+        						"¿Esta seguro que quiere iniciar un nuevo Forest? Se perderá el progreso.", "Nuevo juego",
+        						JOptionPane.YES_NO_OPTION
+        				);
+        				
+        			if(result == JOptionPane.YES_OPTION) {
+        				theForest = new Forest();
+        				
     			    	repaint();
     			    	revalidate();
-    			    }
+    			    	JOptionPane.showMessageDialog(ForestGUI.this, "Se ha restablecido el juego.", "Nuevo juego", JOptionPane.INFORMATION_MESSAGE);
+        			}
+        		}
         	});
     	
     	optionExit.addActionListener(
