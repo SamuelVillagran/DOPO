@@ -127,37 +127,45 @@ public class Forest extends MainGame {
     }
     
     /**
-     * Save the Forest in a file.
-     * @param file The file that will be open
-     * @throws ForestException
+     * Opens the specified file.
+     * @param file The file that will be open.
+     * @return Forest game.
+     * @throws ForestException if the method is called, indicates that
+     * 		the "open" is in construction.
      */
-    public void open(File file) throws ForestException{
+    public Forest open(File file) throws ForestException{
     	throw new ForestException("Open", file.getName());
     }
     
     /**
-     * 
-     * @param file
-     * @throws ForestException
+     * Saves the specified file.
+     * @param file the name or path of file to be saved.
+     * @throws ForestException if the method is called, indicate that
+     * 		the "save" option is in construction.
      */
     public void saveAs(File file) throws ForestException{
     	throw new ForestException("Save", file.getName());
     }
     
     /**
-     * 
+     * Imports a file.
+     * @param file the name or file to be imported.|
+     * @return Forest game.
+     * @throws ForestException if the method is called, indicates that
+     * 		the "import" option is in construction.
      */
-    public void importFile(File file) throws ForestException{
-    	throw new ForestException("Import" + file.getName());
+    public Forest importFile(File file) throws ForestException{
+    	throw new ForestException("Import", file.getName());
     }
     
     /**
-     * 
-     * @param file
-     * @throws ForestException
+     * Exports data to the specified file.
+     * @param file the name or path if the file to which data should be exported.
+     * @throws ForestException if the method is called, indicates that
+     * 			the "export" option is under construction.
      */
     public void exportAs(File file) throws ForestException{
-    	throw new ForestException("Export" + file.getName());
+    	throw new ForestException("Export", file.getName());
     }
     
     
