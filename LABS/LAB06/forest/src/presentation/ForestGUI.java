@@ -162,18 +162,7 @@ public class ForestGUI extends JFrame{
     	optionNew.addActionListener(
         		new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
-        				int result = JOptionPane.showConfirmDialog(ForestGUI.this,
-        						"¿Esta seguro que quiere iniciar un nuevo Forest? Se perderá el progreso.", "Nuevo juego",
-        						JOptionPane.YES_NO_OPTION
-        				);
-        				
-        			if(result == JOptionPane.YES_OPTION) {
-        				theForest = new Forest();
-        				
-    			    	repaint();
-    			    	revalidate();
-    			    	JOptionPane.showMessageDialog(ForestGUI.this, "Se ha restablecido el juego.", "Nuevo juego", JOptionPane.INFORMATION_MESSAGE);
-        			}
+        				newAction();
         		}
         	});
     	
@@ -188,21 +177,7 @@ public class ForestGUI extends JFrame{
     	optionSaveAs.addActionListener(
         		new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
-        				JFileChooser fileChooser = new JFileChooser();
-        				fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
-        				int result = fileChooser.showSaveDialog(ForestGUI.this);
-        				if(result == JFileChooser.APPROVE_OPTION) {
-        					File selectedFile = fileChooser.getSelectedFile();
-        					if(!selectedFile.getName().endsWith(".dat")) {
-        						selectedFile = new File(selectedFile.getAbsolutePath() + ".dat");
-        					}
-        					try {
-								theForest.saveAs(selectedFile);
-							} catch (IOException  io) {
-								JOptionPane.showMessageDialog(ForestGUI.this, "Error al guardar archivo", "Error",
-					    				JOptionPane.ERROR_MESSAGE);
-							}
-        				}
+        				saveAsAction();
         			}
         	});
     	
@@ -210,26 +185,60 @@ public class ForestGUI extends JFrame{
     	optionOpen.addActionListener(
         		new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
-    			    	JFileChooser fileChooser = new JFileChooser();
-    			    	fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
-    			    	int result = fileChooser.showOpenDialog(ForestGUI.this);
-    			    	if(result == JFileChooser.APPROVE_OPTION) {
-    			    		File selectedFile = fileChooser.getSelectedFile();
-    			    		try {
-    			    			Forest loadedForest = Forest.open(selectedFile);
-    			    			theForest = loadedForest;
-        			    		photo.repaint();
-    			    		} catch(IOException | ClassNotFoundException io){
-    			    			JOptionPane.showMessageDialog(ForestGUI.this, "Error al intentar abrir el archivo",
-    			    					"Eror", JOptionPane.ERROR_MESSAGE);
-    			    	}
-    
-    			    }
+    			    	openAction();
         		}
         	});
     }
     	
 
+    private void newAction() {
+    	int result = JOptionPane.showConfirmDialog(ForestGUI.this,
+				"¿Esta seguro que quiere iniciar un nuevo Forest? Se perderá el progreso.", "Nuevo juego",
+				JOptionPane.YES_NO_OPTION);
+    	
+		if(result == JOptionPane.YES_OPTION) {
+			theForest = new Forest();
+			
+	    	repaint();
+	    	revalidate();
+	    	JOptionPane.showMessageDialog(ForestGUI.this, "Se ha restablecido el juego.", "Nuevo juego", JOptionPane.INFORMATION_MESSAGE);
+		}
+    }
+    
+    private void saveAsAction() {
+    	JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
+		int result = fileChooser.showSaveDialog(ForestGUI.this);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			if(!selectedFile.getName().endsWith(".dat")) {
+				selectedFile = new File(selectedFile.getAbsolutePath() + ".dat");
+			}
+			try {
+				theForest.saveAs(selectedFile);
+			} catch (IOException  io) {
+				JOptionPane.showMessageDialog(ForestGUI.this, "Error al guardar archivo", "Error",
+	    				JOptionPane.ERROR_MESSAGE);
+			}
+		}
+    }
+    private void openAction() {
+    	JFileChooser fileChooser = new JFileChooser();
+    	fileChooser.setFileFilter(new FileNameExtensionFilter("DAT Files", "dat"));
+    	int result = fileChooser.showOpenDialog(ForestGUI.this);
+    	if(result == JFileChooser.APPROVE_OPTION) {
+    		File selectedFile = fileChooser.getSelectedFile();
+    		try {
+    			Forest loadedForest = Forest.open(selectedFile);
+    			theForest = loadedForest;
+	    		photo.repaint();
+    		} catch(IOException | ClassNotFoundException io){
+    			JOptionPane.showMessageDialog(ForestGUI.this, "Error al intentar abrir el archivo",
+    					"Eror", JOptionPane.ERROR_MESSAGE);
+    		}
+    	}
+    	
+    }
     private void ticTacButtonAction() {
         theForest.ticTac();
         photo.repaint();

@@ -9,17 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.*;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.*;
-import javax.swing.JOptionPane;
-
-
-public class Forest implements Serializable {
 
 
 /*No olviden adicionar la documentacion*/
@@ -176,8 +167,9 @@ public class Forest extends MainGame implements Serializable {
      * @throws ClassNotFoundException if class is not found in the project.
      */
     public static Forest open(File file) throws IOException, ClassNotFoundException {
-    	ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-    	return (Forest) in.readObject();
+    	try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){
+    		return (Forest) in.readObject();
+    	}
     }
     
     /**
