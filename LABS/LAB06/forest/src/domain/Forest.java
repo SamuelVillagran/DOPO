@@ -1,4 +1,7 @@
 package domain;
+
+import java.io.Serializable;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,11 +11,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 
 public class Forest implements Serializable {
+
+
+/*No olviden adicionar la documentacion*/
+public class Forest extends MainGame implements Serializable {
     static private int SIZE=25;
     private Element[][] places;
     
@@ -47,7 +58,7 @@ public class Forest implements Serializable {
         Shadow lass = new Shadow(this, 7, 12);
         BaobabPrince villagran = new BaobabPrince(this, 11, 11);
         BaobabPrince sanchez = new BaobabPrince(this, 14, 14);
-        DefaultTree bob = new DefaultTree(this, 15,15);
+        //DefaultTree bob = new DefaultTree(this, 15,15);
         Bear smally = new Bear(this, 5, 4);
         Bear bear = new Bear(this, 15, 16);
     }
@@ -191,9 +202,38 @@ public class Forest implements Serializable {
      * @return Forest game.
      * @throws ForestException if the method is called, indicates that
      * 		the "import" option is in construction.
+     * @throws IOException 
      */
-    public Forest importFile(File file) throws ForestException{
-    	throw new ForestException("Import", file.getName());
+    public Forest importFile(File file) throws ForestException, IOException{
+    	
+    	if (file == null) throw new ForestException("Import", file.getName());
+
+    	BufferedReader in = new BufferedReader(new FileReader(file));
+    	String line;
+
+    	while ((line = in.readLine()) != null) {
+    		boolean isLineEmpty = line.isEmpty();
+    		if (!isLineEmpty) {
+    			String[] lineIterator = line.split("[, ]+"); // Linea asistida por Gemini IA 2026
+    			createThing(lineIterator);
+    		}
+
+    	}
+    	in.close();
+    	return this;
+    }
+    
+    private void createThing(String[] data) {
+    	int x = Integer.parseInt(data[1])-1;
+		int y = Integer.parseInt(data[2])-1;
+    	switch (data[0].toLowerCase()) {
+    		case "tree":
+    			places[x][y] = new DefaultTree(this, x, y);
+    			break;
+    		case "squirrel":
+    			places[x][y] = new Squirrel(this, x, y);
+    			break;
+    	}
     }
     
     /**
@@ -207,7 +247,7 @@ public class Forest implements Serializable {
     }
     
     
-
+    
 	
 
 
