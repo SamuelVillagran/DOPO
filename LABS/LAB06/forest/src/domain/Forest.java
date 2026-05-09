@@ -21,7 +21,7 @@ public class Forest extends MainGame implements Serializable {
                 places[r][c]=null;
             }
         }
-        //someThings();
+        someThings();
     }
 
     public int  getSize(){
@@ -45,7 +45,7 @@ public class Forest extends MainGame implements Serializable {
         Shadow lass = new Shadow(this, 7, 12);
         BaobabPrince villagran = new BaobabPrince(this, 11, 11);
         BaobabPrince sanchez = new BaobabPrince(this, 14, 14);
-        DefaultTree bob = new DefaultTree(this, 15,15);
+        //DefaultTree bob = new DefaultTree(this, 15,15);
         Bear smally = new Bear(this, 5, 4);
         Bear bear = new Bear(this, 15, 16);
     }
@@ -182,8 +182,8 @@ public class Forest extends MainGame implements Serializable {
     }
     
     private void createThing(String[] data) {
-    	int x = Integer.parseInt(data[1]);
-		int y = Integer.parseInt(data[2]);
+    	int x = Integer.parseInt(data[1])-1;
+		int y = Integer.parseInt(data[2])-1;
     	switch (data[0].toLowerCase()) {
     		case "tree":
     			places[x][y] = new DefaultTree(this, x, y);
