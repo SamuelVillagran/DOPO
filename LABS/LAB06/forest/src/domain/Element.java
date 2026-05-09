@@ -13,4 +13,5 @@ public interface Element {
 		return Color.BLACK;
 	}
 	
+	
 }

@@ -2,8 +2,10 @@ package domain;
 
 import java.io.Serializable;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,13 +17,13 @@ public class Forest extends MainGame implements Serializable {
     private Element[][] places;
     
     public Forest() {
-        places=new Thing[SIZE][SIZE];
+        places=new Element[SIZE][SIZE];
         for (int r=0;r<SIZE;r++){
             for (int c=0;c<SIZE;c++){
                 places[r][c]=null;
             }
         }
-        someThings();
+        //someThings();
     }
 
     public int  getSize(){
@@ -181,6 +183,10 @@ public class Forest extends MainGame implements Serializable {
     	return this;
     }
     
+    /**
+     * Create a specific thing with data
+     * @param data data is read like nameClassToCreate rowThing columnThing
+     */
     private void createThing(String[] data) {
     	int x = Integer.parseInt(data[1])-1;
 		int y = Integer.parseInt(data[2])-1;
@@ -191,7 +197,32 @@ public class Forest extends MainGame implements Serializable {
     		case "squirrel":
     			places[x][y] = new Squirrel(this, x, y);
     			break;
+    		case "bear":
+    			places[x][y] = new Bear(this, x, y);
+    			break;
+    		case "shadow":
+    			places[x][y] = new Shadow(this, x, y);
+    			break;
+    		case "baobabprince":
+    			places[x][y] = new BaobabPrince(this, x, y);
+    			break;
+    			
     	}
+    }
+    
+    /**
+     * Imports a file.
+     * @param file the name or file to be imported.|
+     * @return Forest game.
+     * @throws ForestException if the method is called, indicates that
+     * 		the "import" option is in construction.
+     * @throws IOException 
+     */
+    public Forest import00(File file) throws ForestException {
+		
+    	if (file == null) throw new ForestException("Import", file.getName());
+    	return null;
+    	
     }
     
     /**
@@ -199,12 +230,41 @@ public class Forest extends MainGame implements Serializable {
      * @param file the name or path if the file to which data should be exported.
      * @throws ForestException if the method is called, indicates that
      * 			the "export" option is under construction.
+     * @throws IOException 
      */
-    public void exportAs(File file) throws ForestException{
-    	throw new ForestException("Export", file.getName());
+    public void exportAs(File file) throws ForestException, IOException{
+    	if (file == null) throw new ForestException("Export", file.getName()); 
+    	FileWriter fw = new FileWriter(file);
+    	BufferedWriter out = new BufferedWriter(fw);
+    	
+    	out.write("Board State\n");
+    	out.write("______________________________\n\n");
+    	out.newLine();
+    	String nameThing;
+    	for (int r=0;r<SIZE;r++){
+            for (int c=0;c<SIZE;c++){
+            	Thing currentThing = (Thing) places[r][c];
+            	if (currentThing != null) {
+            		nameThing = (String) (currentThing.getNameThing());
+                    out.write(nameThing + "; Row: " + currentThing.getRow() + " Column: " + currentThing.getColumn());
+                    out.newLine();
+            	}
+            	
+            }
+        }
+    	out.close();
     }
     
-    
+    /**
+     * Exports data to the specified file.
+     * @param file the name or path if the file to which data should be exported.
+     * @throws ForestException if the method is called, indicates that
+     * 			the "export" option is under construction.
+     * @throws IOException 
+     */
+    public void exportAs00(File file) throws ForestException, IOException{
+    	if (file == null) throw new ForestException("Export", file.getName()); 
+    }
     
 	
 
