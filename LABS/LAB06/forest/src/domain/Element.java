@@ -14,4 +14,5 @@ public interface Element extends Serializable{
 		return Color.BLACK;
 	}
 	
+	
 }

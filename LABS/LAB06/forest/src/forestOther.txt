@@ -1,2 +1,4 @@
 Tree 10, 20 
 Squirrel 15, 15 
+BaobabPrince 5, 5
+Bear 3, 12

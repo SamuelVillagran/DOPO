@@ -8,6 +8,8 @@ public class ForestException extends Exception{
 	public static final String FILE_NOT_FOUND = "The file was not found.";
 	public static final String NOT_SERIALIZABLE = "A forest element cannot be serialized";
 	public static final String IO_SAVE_ERROR = "Input or output error when saving the game";
+	public final static String CANT_IMPORT_THAT = "At the selected file there are some thing that can't create, don't exists at this Forest";
+	public final static String CANT_CREATE_FOREST = "Can't create a forest inside this forest, It's impossible";
 	
 	public ForestException(String message) {
 		super(message);

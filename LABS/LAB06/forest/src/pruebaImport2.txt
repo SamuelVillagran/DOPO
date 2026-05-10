@@ -1,0 +1,4 @@
+Tree 10, 20 
+Squirrel 15, 15 
+Forest 0, 0
+Squirrel 8, 8

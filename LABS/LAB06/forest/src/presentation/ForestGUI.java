@@ -153,7 +153,10 @@ public class ForestGUI extends JFrame{
     			    			theForest.exportAs(selectedFile);
     			    		} catch(ForestException fe){
     			    			JOptionPane.showMessageDialog(ForestGUI.this, fe.getMessage());
-    			    	}
+    			    		} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
     			    }
         		}
         			

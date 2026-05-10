@@ -23,4 +23,16 @@ public abstract class Thing implements Element {
   public boolean isLivingThing(){
       return false;
   }    
+  
+  public String getNameThing() {
+	  return getClass().getSimpleName();
+  }
+  
+  public int getRow() {
+	  return row;
+  }
+  
+  public int getColumn() {
+	  return column;
+  }
 }
