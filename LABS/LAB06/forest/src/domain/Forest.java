@@ -1,12 +1,14 @@
 package domain;
 
 import java.io.Serializable;
+import java.io.StreamCorruptedException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
@@ -166,7 +168,7 @@ public class Forest extends MainGame implements Serializable {
      * @throws IOException if there are problems with the disk or files.
      * @throws ClassNotFoundException if class is not found in the project.
      */
-    public static Forest open(File file) throws IOException, ClassNotFoundException {
+    public static Forest open01(File file) throws IOException, ClassNotFoundException {
     	try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){
     		return (Forest) in.readObject();
     	}
@@ -180,12 +182,47 @@ public class Forest extends MainGame implements Serializable {
      * @throws ForestException if the method is called, indicate that
      * 		the "save" option is in construction.
      */
-    public void saveAs(File file) throws IOException {
+    public void saveAs01(File file) throws IOException {
     	try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
     		out.writeObject(this);
     	}
     }
-		
+    
+    /**
+     * Opens a specified file.
+     * @param file the name or path of file to be saved.
+     * @return Forest game.
+     * @throws ForestException if there are problems with the disk or files.
+     * 			or file is corrupt.
+     */
+    public static Forest open02(File file) throws ForestException{
+    	if(!file.exists()) {
+    		throw new ForestException(ForestException.FILE_NO_FOUND);
+    	}
+    	
+    	try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){
+    		return (Forest) in.readObject();
+    	} catch(StreamCorruptedException se) {
+    		throw new ForestException(ForestException.CORRUPT_FILE);
+    	} catch (ClassNotFoundException e) {
+    		throw new ForestException(ForestException.CORRUPT_FILE);
+		} catch (IOException e) {
+			throw new ForestException(ForestException.IO_ERROR);			
+		}
+    }
+    
+    public void saveAs02(File file) throws ForestException {
+   
+    	try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+    		out.writeObject(this);
+    	} catch (NotSerializableException e) {
+    		throw new ForestException(ForestException.NOT_SERIALIZABLE + e.getMessage());
+    	} catch (FileNotFoundException e) {
+    		throw new ForestException(ForestException.FILE_NOT_FOUND + file.getName());
+    	} catch (IOException e) {
+    		throw new ForestException(ForestException.IO_SAVE_ERROR + file.getName());
+    	}
+    }
     
     
     /**
