@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import domain.Forest;
 import domain.ForestException;
 
-class TestLab06 {
+class OpenSaveTest {
 
 	@Test
 	public void shouldTrhowAnExceptionIfFileIsCorrupt() throws Exception{

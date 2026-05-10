@@ -30,7 +30,7 @@ public class Forest extends MainGame implements Serializable {
                 places[r][c]=null;
             }
         }
-        //someThings();
+        someThings();
     }
 
     public int  getSize(){
